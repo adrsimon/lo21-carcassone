@@ -1,0 +1,98 @@
+@startuml
+hide circle
+
+
+class Jeu<Singleton> {
+  joueurs : list[Joueur]
+  joueurCourant : int
+  tuilesRestantes : list[Tuiles]
+  nombreJoueurs : int
+}
+
+class Plateau<Singleton> {
+  positionsTuiles : dict[Position, Tuile]
+  listeElements : list[Element]
+}
+
+class Joueur {
+  meepleRestants : int
+  id : int
+  score : int
+}
+
+class Tuile {
+  position : Position
+  id : int
+  listeElements : list[Element]
+  aMonastere : boolean
+  aJardin : boolean
+}
+
+class Position {
+  x : int
+  y : int
+}
+
+class Element {
+  type : int
+  IDgroupement : int
+  orientation : int
+  position : position
+}
+
+class Groupement<Iterator> {
+  id : int
+  complete : boolean
+  iterator : Iterator
+  listeElements : list[Element]
+}
+
+class Iterator {
+  debut : int
+  fin : int
+}
+
+class GroupementRoute {
+  nbSegments : int
+  nbAuberges : int
+}
+
+class GroupementVille {
+  nbSegments : int
+  nbBlasons : int
+}
+
+class GroupementPre {
+  nbSegments : int
+}
+
+class GroupementAbbaye {
+  nbCases : int
+}
+
+class GroupementJardin {
+  nbCases : int
+}
+
+Jeu "1" *-- "2..6" Joueur
+Jeu "1" *- "1" Plateau
+
+Plateau "1" *- "*" Tuile
+Tuile "1" *- "1" Position
+Position "1" --* "1" Element
+
+Element "*" --* "1" GroupementPre
+Element "*" --* "1" GroupementVille
+Element "*" --* "1" GroupementJardin
+Element "*" --* "1" GroupementRoute
+Element "*" --* "1" GroupementAbbaye
+
+GroupementPre .. Groupement : herits
+GroupementVille .. Groupement : herits
+GroupementJardin .. Groupement : herits
+GroupementRoute .. Groupement : herits
+GroupementAbbaye .. Groupement : herits
+
+Groupement *- Iterator
+
+@enduml
