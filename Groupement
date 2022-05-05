@@ -18,11 +18,11 @@ public:
         liste[len(liste)-]=id;
     }
     ~Groupement(){delete[] element; delete[] liste;}
-    Groupement(const Groupement& g): dim(g.dim),liste(new double [12]),element(new double [dim]),id(g.id),types(g.types),complete(FALSE){
-        for (unsigned int i=0; i<len(g.liste); i++){
+    Groupement(const Groupement& g): dim_l(g.dim_l), dim_e(g.dim_e),liste(new double [12]),element(new double [dim]),id(g.id),types(g.types),complete(FALSE){
+        for (unsigned int i=0; i<dim_l; i++){
             liste[i]=g.liste[i];
         }
-        for (unsigned int i=0; i<dim; i++){
+        for (unsigned int i=0; i<dim_e; i++){
             element[i]=g.element[i];
         }
     }
@@ -34,15 +34,16 @@ public:
         dim_l=g.dim_l;
         delete[] old;
 
-        double* newel=new double[g.dim_e];
+        Element* newel=new double[g.dim_e];
         for(unsigned int i=0; i<g.dim_e;i++) newel[i]=g.element[i];
-        double* old=element;
+        Element* old=element;
         element=newel;
         dim_e=g.dim_e;
         delete[] old;
 
         return *this;
     }
+    
     class iterator{ //est-ce qu'on fait un accès uniquement en lecture? ou aussi en écriture? Ici, j'ai mis l'écriture par défaut
         friend class Groupement; 
         double* courant;
