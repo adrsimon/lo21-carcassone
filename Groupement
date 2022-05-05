@@ -1,6 +1,6 @@
 class Groupement{
 private:
-    unsigned int* liste[]; //comment gérer l'allocation de mémoire? Au fur et à mesure on peut faire grandir le tableau?-> besoin de deux éléments en plus : nb et nbmax
+    unsigned int* liste[]; 
     enum types;
     unsigned int points;
     Element* element[];
