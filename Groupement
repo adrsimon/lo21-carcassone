@@ -1,0 +1,30 @@
+class Groupement{
+private:
+    unsigned int* liste[]; //comment gérer l'allocation de mémoire? Au fur et à mesure on peut faire grandir le tableau?-> besoin de deux éléments en plus : nb et nbmax
+    enum types;
+    unsigned int points;
+    Element* element[];
+    unsigned int id;
+    bool complete=FALSE;
+public:
+    //getPoint() const {return points;}
+    getID() const {return id;}
+    getMeeple() const {return liste;}
+    getType() const {return types;}
+    updateMeeple(){
+        //len(liste)+=1;
+        liste[len(liste)-]=id;
+    }
+    ~Groupement(){delete[] element; delete[] liste;}
+    Groupement(const Groupement& g): liste(new double [12]),element(new double []),id(g.id),types(g.types),complete(FALSE){
+        for (unsigned int i=0; i<len(g.liste); i++){
+            liste[i]=g.liste[i];
+        }
+        for (unsigned int i=0; i<len(g.element); i++){
+            element[i]=g.element[i];
+        }
+    }
+}
+
+
+
