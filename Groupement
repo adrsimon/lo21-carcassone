@@ -68,6 +68,6 @@ public:
     iterator get_iterator(){return iterator(liste, liste+dim_l);}
 };
 
-#endif 
+#endif Rendu2_LO21_hpp
 
 
