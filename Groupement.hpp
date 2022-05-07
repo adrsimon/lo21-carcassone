@@ -1,5 +1,5 @@
-#ifndef Rendu2_LO21_hpp
-#define Rendu2_LO21_hpp
+#ifndef Groupement_hpp
+#define Groupement_hpp
 
 #include <stdio.h>
 
@@ -7,8 +7,8 @@ enum types string {'riviere', 'ville', 'abbaye','cathedrale','pre','route','jard
 
 class Groupement{
 private:
-    unsigned int* liste[]; 
-    unsigned int dim_l=12;
+    Meeple** liste[]; // Liste de pointeurs pointant sur la classe Meeple
+    unsigned int dim_l;
     enum types;
     unsigned int points;
     Element* element[];
@@ -18,11 +18,12 @@ private:
 public:
     unsigned int getPoint() const {return points;}
     unsigned int getID() const {return id;}
-    unsigned int* getMeeple() const {return liste;}
+    Meeple** getMeeple() const {return (**liste).Id;}
     string getType() const {return types;}
     void setMeeple(){
+        Meeple* pt=new Meeple; 
         dim_l+=1;
-        liste[dim_l-1]=id;
+        liste[dim_l-1]=pt->Id;
         return;
     }
 
@@ -32,7 +33,7 @@ public:
     }
 
     ~Groupement(){delete[] element; delete[] liste;}
-    Groupement(const Groupement& g): dim_l(g.dim_l), dim_e(g.dim_e),liste(new double [dim_l]),element(new double [dim_e]),id(g.id),types(g.types),complete(FALSE){
+    Groupement(const Groupement& g): dim_l(g.dim_l), dim_e(g.dim_e),liste(new Meeple** [dim_l]),element(new double [dim_e]),id(g.id),types(g.types),complete(FALSE){
         for (unsigned int i=0; i<dim_l; i++){
             liste[i]=g.liste[i];
         }
@@ -41,9 +42,9 @@ public:
         }
     }
     Groupement& operator=(const Groupement& g){
-        double* newliste=new double[g.dim_l];
+        Meeple** newliste=new Meeple*[g.dim_l];
         for(unsigned int i=0; i<g.dim_l;i++) newliste[i]=g.liste[i];
-        double* old=liste;
+        Meeple** old=liste;
         liste=newliste;
         dim_l=g.dim_l;
         delete[] old;
@@ -58,7 +59,7 @@ public:
         return *this;
     }
     
-    class iterator{ //est-ce qu'on fait un accès uniquement en lecture? ou aussi en écriture? Ici, j'ai mis l'écriture par défaut
+    class iterator{ //Accès en écriture ici
         friend class Groupement; 
         double* courant;
         double* fin;
@@ -74,6 +75,6 @@ public:
     iterator get_iterator(){return iterator(liste, liste+dim_l);}
 };
 
-#endif Rendu2_LO21_hpp
+#endif Groupement_hpp
 
 
