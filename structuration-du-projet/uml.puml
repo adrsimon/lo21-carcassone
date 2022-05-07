@@ -4,52 +4,114 @@ hide circle
 
 class Jeu<Singleton> {
   joueurs : list[Joueur]
-  joueurCourant : int
+  joueurCourant : Joueur
   tuilesRestantes : list[Tuiles]
   nombreJoueurs : int
 }
 
+class Pioche {
+  -nbTuilesMax: int
+  -nbTuilesRiviereMax: int
+  -nbTuiles: int
+  -nbTuilesMax: int
+  -tuilesRiviere: List[Tuile]
+  -tuiles: List[Tuile]
+  .. Getters ..
+  + estVide() : boolean
+  + getNbTuiles() : int
+  .. Setters ..
+}
+
 class Plateau<Singleton> {
-  positionsTuiles : dict[Position, Tuile]
-  listeElements : list[Element]
+  -xmax : int
+  -ymax : int
+  -groupements : list[Groupement]
+  -plateau: Tuile[xmax][ymax]
+  +ajouterTuile(Tuile t)
+  +PlacerTuile(Tuile t)
+  +EtendrePlateau()
+  +testCompletGroupement() : boolean
+  +testCompletAutre() : boolean
+  +donnerpPoints(Joueur p)
+  +bordsAtteints()
 }
 
 class Joueur {
-  meepleRestants : int
-  id : int
-  score : int
+  -hasBigMeeple: boolean
+  -abbe : boolean
+  -nbMeeple : int
+  -id : int
+  -score : int
+  .. Getters ..
+  +getBigMeeple() : boolean
+  +getAbbe() : boolean
+  +getNbMeeple() : int
+  +getId() : int
+  +getScore() : int
+  .. Setters ..
+  +setAbbe(bool b)
+  +setBigMeeple(bool b)
+  +setScore(int s)
+  +setMeeple(int m)
 }
 
 class Tuile {
-  position : Position
-  id : int
-  listeElements : list[Element]
-  aMonastere : boolean
-  aJardin : boolean
+  -position : Position
+  -id : int
+  -hasMonastere : boolean
+  -hasJardin : boolean
+  elements: List[Element]
+  .. Getters ..
+  + getEelement()
+  .. Setters ..
+  + updatePosition(Position p)
+  + changerOrientation()
 }
 
 class Position {
-  x : int
-  y : int
+  -x : int
+  -y : int
+  .. Getters ..
+  +getPositionX()
+  +getPositionY()
+  .. Setters ..
+  +setPosition(int x, int y)
+  .. Operators ..
+  + operator==
+  + operator<<
 }
 
 class Element {
-  type : int
-  IDgroupement : int
-  orientation : int
-  position : position
+  -type : int/enum
+  -groupement : Groupement
+  -orientation : int
+  -position : position
+  -hasMeeple: boolean
+  -orientation: char[4] [N, S, W, E]
+  -position: position
+  -blason: boolean
+  .. Getters ..
+  +getOrientation()
+  +getPosition()
+  +getBlason()
+  .. Setters ..
+  +updatePosition(Position p)
+  +updateGroupement(Groupement p)
 }
 
 class Groupement<Iterator> {
-  id : int
-  complete : boolean
+  -id : int
+  -complete : boolean
   iterator : Iterator
-  listeElements : list[Element]
-}
-
-class Iterator {
-  debut : int
-  fin : int
+  elements : list[Element]
+  joueurs: list[Joueur]
+  .. Getters ..
+  + getPoint()
+  + getID()
+  + getMeeple()
+  + getType()
+  .. Setters ..
+  + updateMeepl()
 }
 
 class GroupementRoute {
@@ -92,7 +154,5 @@ GroupementVille .. Groupement : herits
 GroupementJardin .. Groupement : herits
 GroupementRoute .. Groupement : herits
 GroupementAbbaye .. Groupement : herits
-
-Groupement *- Iterator
 
 @enduml
