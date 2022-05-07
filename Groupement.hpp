@@ -20,11 +20,17 @@ public:
     unsigned int getID() const {return id;}
     unsigned int* getMeeple() const {return liste;}
     string getType() const {return types;}
-    void updateMeeple(){
+    void setMeeple(){
         dim_l+=1;
         liste[dim_l-1]=id;
         return;
     }
+
+    void setComplete(){
+        complete=TRUE;
+        return;
+    }
+
     ~Groupement(){delete[] element; delete[] liste;}
     Groupement(const Groupement& g): dim_l(g.dim_l), dim_e(g.dim_e),liste(new double [dim_l]),element(new double [dim_e]),id(g.id),types(g.types),complete(FALSE){
         for (unsigned int i=0; i<dim_l; i++){
