@@ -1,4 +1,4 @@
-#include "Tuile_GameEngine.h"
+#include "tuile.h"
 Tuile :: Tuile (int nb, bool m, bool j, int id ) : nombreElement (nb), hasMonastere(m), hasJardin(j), ID (id) {
     position = Position (-1,-1);
     liste= new Element** [nb];

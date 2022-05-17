@@ -1,6 +1,6 @@
 //
 //  Element.hpp
-//  
+//
 //
 //  Created by Claire Louard on 01/05/2022.
 //
@@ -23,7 +23,7 @@ public:
     void setPosition(const int& x,const int& y);
     void setGroupement(Groupement* grp);
     void setOrientation(const Orientation* o);
-    
+
     //Constructeur : lors de la construction d'un élémnent celui-ci n'a pas encore de position sur le plateau
     Element(const types& t, const Groupement& grp, bool b=false) : hasMeeple(false), type(t), groupement(grp), orientation(NULL), blason(b){
         position.x=-1;

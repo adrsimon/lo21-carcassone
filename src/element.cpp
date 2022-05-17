@@ -1,11 +1,4 @@
-//
-//  Element.cpp
-//  
-//
-//  Created by Claire Louard on 01/05/2022.
-//
-
-#include "Element.hpp"
+#include "element.h"
 
 void Element::setPosition(const int& x,const int& y){
     position.x=x;

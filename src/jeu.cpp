@@ -5,7 +5,7 @@
 //  Created by Claire Louard on 01/05/2022.
 //
 
-#include "jeu.hpp"
+#include "jeu.h"
 
 void Jeu::poserMeeple(){
     // à completer, pb pour différencier dans groupement : meeple, big meeple, abbé 

@@ -21,7 +21,7 @@ public:
     Meeple** getMeeple() const {return (**liste).Id;}
     string getType() const {return types;}
     void setMeeple(){
-        Meeple* pt=new Meeple; 
+        Meeple* pt=new Meeple;
         dim_l+=1;
         liste[dim_l-1]=pt->Id;
         return;
@@ -58,9 +58,9 @@ public:
 
         return *this;
     }
-    
+
     class iterator{ //Accès en écriture ici
-        friend class Groupement; 
+        friend class Groupement;
         double* courant;
         double* fin;
         iterator(double* deb, double* f):courant(deb), fin(f){}
