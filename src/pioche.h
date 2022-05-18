@@ -1,14 +1,16 @@
 #ifndef LO21_CARCASSONE_PIOCHE_H
 #define LO21_CARCASSONE_PIOCHE_H
 
+#include "tuile.h"
+
 class Pioche {
 private:
     const int nbTuilesMax;
     const int nbTuilesRiviereMax;
     int nbTuilesRiviere;
     int nbTuiles;
-    Tuiles *tuiles_riviere;
-    Tuiles *tuiles;
+    Tuile *tuiles_riviere;
+    Tuile *tuiles;
 public:
     Pioche() = default;
     ~Pioche() = default;

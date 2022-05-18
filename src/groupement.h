@@ -1,9 +1,10 @@
-#ifndef Groupement_hpp
-#define Groupement_hpp
+#ifndef groupement_h
+#define groupement_h
 
-#include <stdio.h>
+#include <iostream>
+#include "element.h"
 
-enum types string {'riviere', 'ville', 'abbaye','cathedrale','pre','route','jardin'};
+enum types {riviere, ville, abbaye, pre, route, jardin};
 
 class Groupement{
 private:
@@ -14,18 +15,13 @@ private:
     Element* element[];
     unsigned int dim_e;
     unsigned int id;
-    bool complete=FALSE;
+    bool complete=false;
 public:
     unsigned int getPoint() const {return points;}
     unsigned int getID() const {return id;}
     Meeple** getMeeple() const {return (**liste).Id;}
     string getType() const {return types;}
-    void setMeeple(){
-        Meeple* pt=new Meeple;
-        dim_l+=1;
-        liste[dim_l-1]=pt->Id;
-        return;
-    }
+    void setMeeple();
 
     void setComplete(){
         complete=TRUE;
@@ -41,23 +37,7 @@ public:
             element[i]=g.element[i];
         }
     }
-    Groupement& operator=(const Groupement& g){
-        Meeple** newliste=new Meeple*[g.dim_l];
-        for(unsigned int i=0; i<g.dim_l;i++) newliste[i]=g.liste[i];
-        Meeple** old=liste;
-        liste=newliste;
-        dim_l=g.dim_l;
-        delete[] old;
-
-        Element* newel=new Element[g.dim_e];
-        for(unsigned int i=0; i<g.dim_e;i++) newel[i]=g.element[i];
-        Element* old=element;
-        element=newel;
-        dim_e=g.dim_e;
-        delete[] old;
-
-        return *this;
-    }
+    Groupement& operator=(const Groupement& g);
 
     class iterator{ //Accès en écriture ici
         friend class Groupement;

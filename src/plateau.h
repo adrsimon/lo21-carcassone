@@ -17,7 +17,7 @@ private:
     int xmax = 0;
     int ymax = 0;
     Pioche* pioche;
-    Tuile** plateau = nullptr;
+    Tuile*** plateau = nullptr;
     Groupement** groupements = nullptr;
 public:
     static Plateau& donneInstance();
@@ -25,8 +25,8 @@ public:
 
     void etendrePlateau();
     void placerTuile(Tuile* tuile, int x, int y);
-    void recupererVoisins(int x, int y);
-    bool voisinsCompatibles(int x, int y);
+    Tuile** recupererVoisins(int x, int y);
+    bool voisinsCompatibles(int x, int y, Tuile* tuile);
     int compterVoisins(int x, int y);
     void attribuerPoint(Joueur* joueur, int nbPoints);
     void decalerTuiles();

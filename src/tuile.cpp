@@ -1,23 +1,39 @@
 #include "tuile.h"
-Tuile :: Tuile (int nb, bool m, bool j, int id ) : nombreElement (nb), hasMonastere(m), hasJardin(j), ID (id) {
+#include "element.h"
+
+Tuile::Tuile(int &nb, bool &m, bool &j, int &id) {
+    nombreElement = nb;
+    hasMonastere = m;
+    hasJardin = j;
     position = Position (-1,-1);
-    liste= new Element** [nb];
-    for (int i=0, i<nb, i++){
-        //import du fichier des elements avec restriction sur l'id de la tuile)
-        liste [i]= Element ();
+    liste = new Element* [nb];
+}
+
+void Tuile::changeOrientation(orientation* nouvOrient)
+{
+    for (int i =0; i<nombreElement; i++){
+        liste[i]->setOrientation(nouvOrient);
+    }
+}
+void Tuile::updatePosition(const int& x, const int& y){
+    position.setPosition(x, y);
+    for (int i =0; i < nombreElement; i++){
+        liste[i]->setPosition(x, y);
     }
 }
 
-void Tuile ::changeOrientation ()
-{
-    for (int i =0, i<nb, i++){
-        liste[i].updateOrientation();
+Position* Tuile::getPosition() {
+    return &position;
+}
+
+Tuile::Tuile(Tuile *pTuile) {
+    nombreElement = pTuile->nombreElement;
+    hasMonastere = pTuile->hasMonastere;
+    hasJardin = pTuile->hasJardin;
+    position = pTuile->position;
+    liste = new Element* [nombreElement];
+    for (int i =0; i<nombreElement; i++){
+        liste[i] = pTuile->liste[i];
     }
 }
-void Tuile :: updatePosition (const int& x, const int& y){
-    position.x = x;
-    position.y=y;
-    for (int i =0, i<nombreElement, i++){
-        liste[i].updatePosition( int x, int y);
-    }
-}
+

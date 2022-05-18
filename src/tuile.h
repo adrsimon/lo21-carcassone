@@ -1,27 +1,34 @@
+#ifndef tuile_h
+#define tuile_h
 
+#include "element.h"
+#include "position.h"
 
 class Tuile {
-public:
-    Tuile (int& nb, bool& m, bool& j, int& id );
-    ~Tuile() {
-        delete position;
-        for (int i=0, i<nombreElement, i++){
-            liste [i]= ~Element ();
-        delete [nombreElement] liste;
-
-    };
-    void changeOrientation ();
-    void updatePosition (const int& x, const int& y);
-    getElement()const{
-        return liste;
-    }
 private:
-    Position* position =nullptr ;
+    Position position;
     int nombreElement;
-    const int ID;
+    int ID;
     bool hasMonastere;
     bool hasJardin;
     Element** liste;
+public:
+    Tuile(int& nb, bool& m, bool& j, int& id );
+    ~Tuile() {
+        for (int i=0; i < nombreElement; i++){
+            liste[i]->~Element();
+        }
+        delete[] liste;
+    };
+    void changeOrientation(orientation* nouvOrient);
+    void updatePosition (const int& x, const int& y);
+    Position* getPosition ();
 
-}
+    Element** getElement()const{
+        return liste;
+    }
 
+    Tuile(Tuile *pTuile);
+};
+
+#endif

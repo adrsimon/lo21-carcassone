@@ -1,16 +1,10 @@
-//
-//  jeu.hpp
-//  
-//
-//  Created by Claire Louard on 01/05/2022.
-//
-
-#ifndef jeu_hpp
-#define jeu_hpp
+#ifndef jeu_h
+#define jeu_h
 
 #include <stdio.h>
+#include "joueur.h"
+#include "plateau.h"
 
-#endif /* jeu_hpp */
 #include "iostream"
 using namespace std; 
 
@@ -31,7 +25,7 @@ private:
     Plateau* plateau;
     Tuile* pioche;
     int nb_joueur;
-}
+};
 
-
+#endif
 
