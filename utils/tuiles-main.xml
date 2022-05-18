@@ -86,7 +86,7 @@
   <element>
     <type>chemin</type>
     <orientation>E,O</orientation>
-    <blason>true</blason>
+    <blason>false</blason>
   </element>
   <element>
     <type>ville</type>
@@ -111,7 +111,7 @@
   <element>
     <type>chemin</type>
     <orientation>E,O</orientation>
-    <blason>true</blason>
+    <blason>false</blason>
   </element>
   <element>
     <type>ville</type>
@@ -136,7 +136,7 @@
   <element>
     <type>chemin</type>
     <orientation>E,O</orientation>
-    <blason>true</blason>
+    <blason>false</blason>
   </element>
   <element>
     <type>ville</type>
@@ -161,7 +161,7 @@
   <element>
     <type>chemin</type>
     <orientation>E,O</orientation>
-    <blason>true</blason>
+    <blason>false</blason>
   </element>
   <element>
     <type>ville</type>
