@@ -182,7 +182,7 @@
 
 <tuile id="12">
   <M>false</M>
-  <J>false</J>
+  <J>true</J>
   <element>
     <type>ville</type>
     <orientation>N</orientation>
@@ -317,7 +317,7 @@
 
 <tuile id="20">
   <M>false</M>
-  <J>false</J>
+  <J>true</J>
   <element>
     <type>ville</type>
     <orientation>S</orientation>
@@ -397,7 +397,7 @@
 
 <tuile id="24">
   <M>false</M>
-  <J>true</J>
+  <J>false</J>
   <element>
     <type>ville</type>
     <orientation>O</orientation>
@@ -687,7 +687,7 @@
 
 <tuile id="34">
   <M>false</M>
-  <J>false</J>
+  <J>true</J>
   <element>
     <type>ville</type>
     <orientation>N,E</orientation>
@@ -717,7 +717,7 @@
 
 <tuile id="36">
   <M>false</M>
-  <J>false</J>
+  <J>true</J>
   <element>
     <type>ville</type>
     <orientation>N,E</orientation>
@@ -917,7 +917,7 @@
 
 <tuile id="46">
   <M>false</M>
-  <J>true</J>
+  <J>false</J>
   <element>
     <type>ville</type>
     <orientation>N,O,E</orientation>
@@ -947,7 +947,7 @@
 
 <tuile id="48">
   <M>false</M>
-  <J>true</J>
+  <J>false</J>
   <element>
     <type>ville</type>
     <orientation>N,O,E</orientation>
@@ -1142,7 +1142,7 @@
 
 <tuile id="57">
   <M>false</M>
-  <J>false</J>
+  <J>true</J>
   <element>
     <type>pre</type>
     <orientation>NO,ON,OS,SO</orientation>
@@ -1162,7 +1162,7 @@
 
 <tuile id="58">
   <M>false</M>
-  <J>false</J>
+  <J>true</J>
   <element>
     <type>pre</type>
     <orientation>NO,ON,OS,SO</orientation>
@@ -1182,7 +1182,7 @@
 
 <tuile id="59">
   <M>false</M>
-  <J>false</J>
+  <J>true</J>
   <element>
     <type>pre</type>
     <orientation>OS,SO</orientation>
@@ -1202,7 +1202,7 @@
 
 <tuile id="60">
   <M>false</M>
-  <J>false</J>
+  <J>true</J>
   <element>
     <type>pre</type>
     <orientation>OS,SO</orientation>
