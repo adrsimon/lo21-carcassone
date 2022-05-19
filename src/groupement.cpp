@@ -1,11 +1,12 @@
 #include "groupement.h"
 #include "element.h"
 
+#import "meeple.h"
 
 void Groupement::setMeeple(){
-    Meeple* pt=new Meeple;
+    Meeple* meeple=new Meeple();
     dim_l+=1;
-    liste[dim_l-1]=pt->Id;
+    liste[dim_l-1] = meeple;
 }
 
 Groupement& Groupement::operator=(const Groupement& g){
