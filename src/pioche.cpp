@@ -3,20 +3,20 @@
 #include "tuile.h"
 
 const Tuile &Pioche::piocher() {
-    if (!tuiles_riviere.empty()) {
+    if (tuiles_riviere != nullptr) {
         int i;
         if (nbTuilesRiviere == nbTuilesRiviereMax) {
             i = 0;
         } else {
-            i = std::rand() % tuiles_riviere.size();
+            i = std::rand() % sizeof tuiles_riviere;
         }
-        const Tuile* tmp = tuiles_riviere[i];
+        const Tuile* tmp = &tuiles_riviere[i];
         tuiles_riviere[i] = tuiles_riviere[nbTuilesRiviere - 1];
         nbTuilesRiviere--;
         return *tmp;
     } else {
-        int i = std::rand() % tuiles.size();
-        const Tuile* tmp = tuiles[i];
+        int i = std::rand() % sizeof tuiles;
+        const Tuile* tmp = &tuiles[i];
         tuiles[i] = tuiles[nbTuiles - 1];
         nbTuiles--;
         return *tmp;

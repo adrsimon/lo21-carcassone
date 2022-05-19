@@ -4,8 +4,8 @@
 void Jeu::poserMeeple() {
     // à completer, pb pour différencier dans groupement : meeple, big meeple, abbé 
 
-    for (unsigned int i = 0; i < len(last_tuile.listElement), i++) {
-        if (last_tuile.listElement[i].groupement.ListMeeple == NULL)
+    for (unsigned int i = 0; i < len(last_tuile->getElement()); i++) {
+        if (last_tuile->getElement()[i].groupement.ListMeeple == NULL)
             std::cout << last_tuile.listElement.type << "\n";
     }
     std::cout << "1 : pour ajouter un meeple\n";
@@ -57,7 +57,7 @@ void Jeu::evaluerScore() {
     for (unsigned int i = 0; i < plateau.nbGroupement; i++) {
         //Tous les scores sont évaluer en fin de jeu
         //sinon ajouter un boolean pour indiquer les groupements ou les points sont déjà évaluer
-        if (groupement[i].Complete == TRUE) {
+        if (groupement[i].complete == true) {
             switch (plateau.groupement[i].type) {
                 case ville:
                     if (len(plateau.groupement[i].listMeeple) == 1)

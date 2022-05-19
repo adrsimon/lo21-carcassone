@@ -16,7 +16,7 @@ public:
     bool getBlason() const {return blason;}
     void setPosition(const int& x,const int& y);
     void setGroupement(Groupement* grp);
-    void setOrientation(orientation* orient);
+    void setOrientation(orientation* orient) {orientation = orient;}
 
     //Constructeur : lors de la construction d'un élémnent celui-ci n'a pas encore de position sur le plateau
     Element(const types& t, const Groupement& grp, bool b=false) : hasMeeple(false), type(t), groupement(grp), orientation(NULL), blason(b){
