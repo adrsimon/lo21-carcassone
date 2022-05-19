@@ -32,7 +32,7 @@
 
 <tuile id="3">
   <M>true</M>
-  <J>true</J>
+  <J>false</J>
   <element>
     <type>pre</type>
     <orientation>NE,NO,ES,EN,SE,SO,OS,ON</orientation>
@@ -42,7 +42,7 @@
 
 <tuile id="4">
   <M>true</M>
-  <J>true</J>
+  <J>false</J>
   <element>
     <type>pre</type>
     <orientation>NE,NO,ES,EN,SE,SO,OS,ON</orientation>
@@ -52,7 +52,7 @@
 
 <tuile id="5">
   <M>true</M>
-  <J>true</J>
+  <J>false</J>
   <element>
     <type>pre</type>
     <orientation>NE,NO,ES,EN,SE,SO,OS,ON</orientation>
@@ -62,7 +62,7 @@
 
 <tuile id="6">
   <M>true</M>
-  <J>true</J>
+  <J>false</J>
   <element>
     <type>pre</type>
     <orientation>NE,NO,ES,EN,SE,SO,OS,ON</orientation>
