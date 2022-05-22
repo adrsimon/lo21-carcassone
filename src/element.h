@@ -22,7 +22,7 @@ public:
 
     //Constructeur : lors de la construction d'un élémnent celui-ci n'a pas encore de position sur le plateau
     Element(const types& t, Groupement* grp, bool b=false) : hasMeeple(false), type(t), groupement(grp), orientation(NULL), blason(b){
-        setPosition(-1,-1);
+        position.setPosition(-1,-1);
     }
     ~Element(){delete[] orientation;}
     //Element(const Element& e);
