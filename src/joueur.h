@@ -6,16 +6,21 @@
 #define PROJET_JOUEUR_H
 
 #include <string>
+#include <vector>
+#include <list>
+#include <iterator>
+#include "meeple.h"
+using namespace std;
 
 class Joueur {
 private:
     bool hasBigMeeple;
     bool abbe;
     int score;
-    int meepleNumbers;
+    std::list<Meeple> meeple;
     int id;
 public:
-    int getNbMeeple() const { return meepleNumbers; }
+    std::list<Meeple> getMeeple() const { return meeple; }
     int getScore() const { return score; }
     int getID() const { return id; }
     bool getAbbe() const { return abbe; }
