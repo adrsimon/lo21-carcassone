@@ -14,14 +14,15 @@ public:
     orientation* getOrientation() const {return orientation;}
     Position getPosition() const {return position;}
     bool getBlason() const {return blason;}
+    Groupement* getGroupement() const {return groupement;}
+    types getType() const {return type;}
     void setPosition(const int& x,const int& y);
     void setGroupement(Groupement* grp);
     void setOrientation(orientation* orient) {orientation = orient;}
 
     //Constructeur : lors de la construction d'un élémnent celui-ci n'a pas encore de position sur le plateau
-    Element(const types& t, const Groupement& grp, bool b=false) : hasMeeple(false), type(t), groupement(grp), orientation(NULL), blason(b){
-        position.x=-1;
-        position.y=-1;
+    Element(const types& t, Groupement* grp, bool b=false) : hasMeeple(false), type(t), groupement(grp), orientation(NULL), blason(b){
+        setPosition(-1,-1);
     }
     ~Element(){delete[] orientation;}
     //Element(const Element& e);

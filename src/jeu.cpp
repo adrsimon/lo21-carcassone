@@ -1,57 +1,102 @@
 #include <iostream>
 #include "jeu.h"
 
-void Jeu::poserMeeple() {
-    // à completer, pb pour différencier dans groupement : meeple, big meeple, abbé 
+Jeu* Jeu::instance=nullptr;
 
-    for (unsigned int i = 0; i < len(last_tuile->getElement()); i++) {
-        if (last_tuile->getElement()[i].groupement.ListMeeple == NULL)
-            std::cout << last_tuile.listElement.type << "\n";
+Jeu& Jeu::getJeu(){
+    if(instance==nullptr){
+        instance = new Jeu;
     }
+    return *instance;
+}
+
+void Jeu::libererJeu(){
+    delete instance;
+    instance=nullptr;
+}
+
+
+void Jeu::poserMeeple() {
+
     std::cout << "1 : pour ajouter un meeple\n";
     std::cout << "2 : pour ajouter un abbé\n";
     std::cout << "3 : pour ajouter un Big Meeple\n";
     std::cout << "4 : pour ne pas ajouter de meeple\n";
     int a;
-    std::cin << a;
+    std::cin >> a;
+    int j;
+    auto it=current->getMeeple().begin();
+
+
     switch (a) {
         case 1:
-            if (current.getnbmeeple == 0) throw "Exception : Vous n'avez plus de meeple";
-            current.updateMeeple();
-            updateMeeple(Joueur * current);
+            for (it=current->getMeeple().begin();it!=current->getMeeple().end();it++) {
+                if(it->getType()!=Normal) continue;
+                if(it->getDisponible()==true)
+                    break;
+            }
+            if(it!=current->getMeeple().end()) it->updateMeeple();
+            for (unsigned int i = 0; i < sizeof(last_tuile->getElement()); i++) {
+                if (last_tuile->getElement()[i]->getGroupement()->liste == nullptr)
+                    std::cout <<i<<" : "<< last_tuile->getElement()[i]->getType() << "\n";
+            }
+            std::cin>>j;
+            last_tuile->getElement()[j]->getGroupement()->setMeeple(it);
             break;
 
         case 2:
-            if (current.abbe = false) throw "Exeption : Vous n'avez plus d'abbé";
-            current.updateAbbe();
-            updateMeeple(Joueur * current);
+            for (it=current->getMeeple().begin();it!=current->getMeeple().end();it++) {
+                if(it->getType()!=Abbe) continue;
+                if(it->getDisponible()==true) break;
+            }
+            if(it!=current->getMeeple().end()) it->updateMeeple();
+            
+            for (unsigned int i = 0; i < sizeof(last_tuile->getElement()); i++) {
+                if (last_tuile->getElement()[i]->getGroupement()->liste == nullptr)
+                    std::cout <<i<<" : "<< last_tuile->getElement()[i]->getType() << "\n";
+            }
+            std::cin>>j;
+            if(last_tuile->getElement()[j]->getType()!=abbaye || last_tuile->getElement()[j]->getType()!=jardin)
+                throw "Exception : vous ne pouvez poser de abbé sur cette élément";
+            last_tuile->getElement()[j]->getGroupement()->setMeeple(it);
+            
             break;
 
         case 3:
-            if (current.bigMeepl = false) throw "Exception : vous n'avez plus de Big Meeple";
-            currentupdateBigMeeple();
-            updateMeeple(Joueur * current);
+            for (it=current->getMeeple().begin();it!=current->getMeeple().end();it++) {
+                if(it->getType()!=Big) continue;
+                if(it->getDisponible()==true) break;
+            }
+            if(it!=current->getMeeple().end()) it->updateMeeple();
+            
+            for (unsigned int i = 0; i < sizeof(last_tuile->getElement()); i++) {
+                if (last_tuile->getElement()[i]->getGroupement()->liste == nullptr)
+                    std::cout <<i<<" : "<< last_tuile->getElement()[i]->getType() << "\n";
+            }
+            std::cin>>j;
+            last_tuile->getElement()[j]->getGroupement()->setMeeple(it);
+            
             break;
 
         default:
             break;
-
-            // pb différencier les types de meeple
-
+ 
     }
 }
 
-void Jeu::updateJoueur() {
-    unsigned int i = 0;
-    while (liste[i] != current) i++;
-    if (i + 1 > nb_joueur) current = liste[0];
-    else { current = liste[i + 1] }
+void Jeu::updateJoueur(IteratorJoueur it){
+    if(it.isDone())
+        it=Jeu::getIteratorJoueur();
+    else {it.next();}
+    current=it.currentItem();
 }
 
-void Jeu::updateTuile() {
-    //voir avec la pioche 
+void Jeu::updateTuile(IteratorPioche it){
+    it.next();
+    last_tuile=it.currentItem();
 }
 
+/*
 void Jeu::evaluerScore() {
     //évaluation des scores fin du jeu
     for (unsigned int i = 0; i < plateau.nbGroupement; i++) {
@@ -105,7 +150,4 @@ void Jeu::evaluerScore() {
         }
     }
 }
-
-void jeu::play() {
-
-}
+*/
