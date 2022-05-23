@@ -39,8 +39,8 @@ public:
             element[i]=g.element[i];
         }
     }
-    virtual Groupement& operator=(const Groupement& g);//A REFAIRE
-
+    virtual Groupement& operator=(const Groupement& g)=delete;
+    
     class iterator{ //Accès en écriture ici
         friend class Groupement;
         double* courant;
