@@ -1,18 +1,23 @@
-#ifndef groupement_h
-#define groupement_h
+/******************************************************************************
 
-#include <iostream>
-#include <string>
-#include "element.h"
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby, 
+C#, VB, Perl, Swift, Prolog, Javascript, Pascal, HTML, CSS, JS
+Code, Compile, Run and Debug online from anywhere in world.
 
+*******************************************************************************/
+#include <stdio.h>
+
+int main()
+{
 using namespace std;
-enum types {riviere, ville, abbaye, pre, route, jardin};
+enum class Types : char {riviere, ville, abbaye, pre, route, jardin};
 
 class Groupement{
 private:
     Meeple** liste[]; // Liste de pointeurs pointant sur la classe Meeple
     unsigned int dim_l;
-    enum types;
+    Types types;
     unsigned int points;
     Element* element[];
     unsigned int dim_e;
@@ -22,16 +27,17 @@ public:
     unsigned int getPoint() const {return points;}
     unsigned int getID() const {return id;}
     Meeple** getMeeple() const {return (**liste).Id;}
-    string getType() const {return types;}
+    Types getType() const {return types;}
     void setMeeple();
 
-    void isComplete(){
-        complete=TRUE;
-        return;
+    bool isComplete(){
+        complete=true;
+        return complete;
     }
 
     virtual ~Groupement(){delete[] element; delete[] liste;}
-    virtual Groupement(const Groupement& g): dim_l(g.dim_l), dim_e(g.dim_e),liste(new Meeple** [dim_l]),element(new double [dim_e]),id(g.id),types(g.types),complete(FALSE){
+    
+    Groupement(const Groupement& g): dim_l(g.dim_l), dim_e(g.dim_e),liste(new Meeple** [dim_l]),element(new double [dim_e]),id(g.id),types(g.types),complete(FALSE){
         for (unsigned int i=0; i<dim_l; i++){
             liste[i]=g.liste[i];
         }
@@ -39,6 +45,7 @@ public:
             element[i]=g.element[i];
         }
     }
+    
     virtual Groupement& operator=(const Groupement& g)=delete;
     
     class iterator{ //Accès en écriture ici
@@ -69,7 +76,7 @@ public:
         int getNbSegments()const {return nbSegments;}
         int getNbAuberges()const {return nbAuberges;}
         
-    }
+    };
     
     class GroupementVille: public Groupement{
     private:
@@ -80,7 +87,7 @@ public:
         ~GroupementVille()=default;
         int getNbSegments()const {return nbSegments;}
         int getNbBlasons()const {return nbBlasons;}
-    }
+    };
     
     class GroupementPre: public Groupement{
     private:
@@ -89,16 +96,16 @@ public:
         GroupementPre(const GroupementPre& g): nbSegments(g.nbSegments){}
         ~GroupementPre()=default;
         int getNbSegments()const {return nbSegments;}
-    }
+    };
     
     class GroupementAbbaye: public Groupement{
     private:
         int nbCases;
     public:
-        GroupementAbbaye(const GroupementAbbaye& g): nbSegments(g.nbSegments){}
+        GroupementAbbaye(const GroupementAbbaye& g): nbCases(g.nbCases){}
         ~GroupementAbbaye()=default;
         int getNbCases()const {return nbCases;}
-    }
+    };
     
     class GroupementJardin: public Groupement{
     private:
@@ -107,8 +114,6 @@ public:
         GroupementJardin(const GroupementJardin& g): nbCases(g.nbCases){}
         ~GroupementJardin()=default;
         int getNbCases()const {return nbCases;}
-    }
-    
-#endif Groupement_hpp
+    };
 
-
+}
