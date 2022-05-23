@@ -15,10 +15,29 @@ public:
     Jeu(const Jeu& j)=delete;
     Jeu& operator=(const Jeu& j)=delete;
     
+    const Tuile* getLastTuile() const {return last_tuile;}
+    
+    const Joueur* getCurrent() const {return current; }
+    
+    Plateau* getPlateau() const {return plateau;}
+    
+    int getNbJoueur() const {return nb_joueur; }
+    
+    void setJoueur(const Joueur& j){
+        nb_joueur++;
+        Joueur* newtab=new Joueur[nb_joueur];
+        for (size_t i=0;i<nb_joueur;i++)
+        newtab[i]=liste[i];
+        auto old=liste;
+        liste=newtab;
+        delete old;
+        liste[nb_joueur]=j;
+    }
+
     class IteratorPioche{
-        const Tuile* debut;
-        const Tuile* fin;
-        IteratorPioche(const Tuile* d, const Tuile* f) : debut(d), fin(f){}
+        Tuile* debut;
+        Tuile* fin;
+        IteratorPioche(Tuile* d, Tuile* f) : debut(d), fin(f){}
         friend class Jeu;
     public:
         bool isDone() const {return debut==fin;}
@@ -26,7 +45,7 @@ public:
             if(debut==fin) throw "Exception : fin de la pioche";
             debut++;
         }
-        const Tuile* currentItem() const {
+        Tuile* currentItem() const {
             if(debut==fin) throw "Exception : fin de la pioche";
             return debut;
         }
@@ -36,9 +55,9 @@ public:
         return IteratorPioche(last_tuile, last_tuile+nb);
     }
     class IteratorJoueur{
-        const Joueur* debut;
-        const Joueur* fin;
-        IteratorJoueur(const Joueur* d, const Joueur* f) : debut(d),fin(f){}
+        Joueur* debut;
+        Joueur* fin;
+        IteratorJoueur(Joueur* d, Joueur* f) : debut(d),fin(f){}
         friend class Jeu;
     public:
         bool isDone() const {return debut==fin;}
@@ -46,7 +65,7 @@ public:
             if(debut==fin) throw "Exception : fin du tour";
             debut++;
         }
-        const Joueur* currentItem(){
+        Joueur* currentItem(){
             return debut;}
     };
     IteratorJoueur getIteratorJoueur(){return IteratorJoueur(liste,liste+nb_joueur);}
@@ -59,9 +78,9 @@ private:
     static Jeu* instance;
     Jeu();
     ~Jeu();
-    const Tuile* last_tuile;
+    Tuile* last_tuile;
     Joueur* liste;
-    const Joueur* current;
+    Joueur* current;
     Plateau* plateau;
     Pioche* tuiles;
     int nb_joueur;
