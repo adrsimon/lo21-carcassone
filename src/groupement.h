@@ -2,6 +2,8 @@
 #define _GROUPEMENT_H
 #include <iostream>
 #include <string>
+#include "meeple.h"
+#include "element.h"
 
 
 using namespace std;
