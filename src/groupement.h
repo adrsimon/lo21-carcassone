@@ -1,15 +1,9 @@
-/******************************************************************************
+#if !defined(_GROUPEMENT_H)
+#define _GROUPEMENT_H
+#include <iostream>
+#include <string>
 
-Welcome to GDB Online.
-GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby, 
-C#, VB, Perl, Swift, Prolog, Javascript, Pascal, HTML, CSS, JS
-Code, Compile, Run and Debug online from anywhere in world.
 
-*******************************************************************************/
-#include <stdio.h>
-
-int main()
-{
 using namespace std;
 enum class Types : char {riviere, ville, abbaye, pre, route, jardin};
 
@@ -116,4 +110,6 @@ public:
         int getNbCases()const {return nbCases;}
     };
 
-}
+#endif
+
+
