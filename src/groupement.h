@@ -24,9 +24,9 @@ public:
     Types getType() const {return types;}
     void setMeeple();
 
-    bool isComplete(){
+    void isComplete(){
         complete=true;
-        return complete;
+        return;
     }
 
     virtual ~Groupement(){delete[] element; delete[] liste;}
