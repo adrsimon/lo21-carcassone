@@ -185,7 +185,7 @@
       <blason>false</blason>
     </element>
     <element>
-      <type>route</type>
+      <type>chemin</type>
       <orientation>S</orientation>
       <blason>false</blason>
     </element>
@@ -215,7 +215,7 @@
       <blason>false</blason>
     </element>
     <element>
-      <type>route</type>
+      <type>chemin</type>
       <orientation>O,N</orientation>
       <blason>false</blason>
     </element>
@@ -270,7 +270,7 @@
       <blason>false</blason>
     </element>
     <element>
-      <type>route</type>
+      <type>chemin</type>
       <orientation>O,E</orientation>
       <blason>false</blason>
     </element>
