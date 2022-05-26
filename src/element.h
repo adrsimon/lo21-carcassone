@@ -6,12 +6,12 @@
 #include "position.h"
 
 
-enum orientation{N,S,O,E};
+enum class Orientation{N,S,O,E};
 
 //trouver une solution pour l'orientation -> créer nouvelle fonction pour l'orientation
 class Element{
 public:
-    orientation* getOrientation() const {return orientation;}
+    Orientation* getOrientation() const {return orientation;}
     Position getPosition() const {return position;}
     bool getBlason() const {return blason;}
     Groupement* getGroupement() const {return groupement;}
@@ -31,7 +31,7 @@ private:
     bool hasMeeple;
     types type; //même type énuméré que dans classe groupement
     Groupement* groupement;
-    orientation* orientation;
+    Orientation orientation;
     Position position;
     bool blason;
 };
