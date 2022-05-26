@@ -11,7 +11,7 @@ enum class Types {riviere, ville, abbaye, pre, route, jardin};
 
 class Groupement{
 private:
-    Meeple** liste[]; // Liste de pointeurs pointant sur la classe Meeple
+    Meeple* liste[]; // Liste de pointeurs pointant sur la classe Meeple
     unsigned int dim_l;
     Types types;
     unsigned int points;
@@ -22,7 +22,7 @@ private:
 public:
     unsigned int getPoint() const {return points;}
     unsigned int getID() const {return id;}
-    Meeple** getMeeple() const {return (**liste).Id;}
+    Meeple* getMeeple() const {return *liste;}
     Types getType() const {return types;}
     void setMeeple();
 
