@@ -5,35 +5,28 @@
 #include "groupement.h"
 #include "position.h"
 
+const std::list<std::string> orientation {"N", "E", "S", "O"};
+const std::list<std::string> orientationPre { "ON", "NO", "NE", "EN", "ES", "SE", "SO", "OS"};
 
-enum class Orientation{N,S,O,E};
-
-//trouver une solution pour l'orientation -> créer nouvelle fonction pour l'orientation
-class Element{
-public:
-    Orientation* getOrientation() const {return orientation;}
-    Position getPosition() const {return position;}
-    bool getBlason() const {return blason;}
-    Groupement* getGroupement() const {return groupement;}
-    types getType() const {return type;}
-    void setPosition(const int& x,const int& y);
-    void setGroupement(Groupement* grp);
-    void setOrientation(orientation* orient) {orientation = orient;}
-
-    //Constructeur : lors de la construction d'un élémnent celui-ci n'a pas encore de position sur le plateau
-    Element(const types& t, Groupement* grp, bool b=false) : hasMeeple(false), type(t), groupement(grp), orientation(NULL), blason(b){
-        position.setPosition(-1,-1);
-    }
-    ~Element(){delete[] orientation;}
-    //Element(const Element& e);
-    //Element& operator=(const Element& e);
+class Element {
 private:
     bool hasMeeple;
-    types type; //même type énuméré que dans classe groupement
+    const std::string type;
     Groupement* groupement;
-    Orientation orientation;
-    Position position;
-    bool blason;
+    std::string orientation;
+    const bool blason;
+public:
+    std::string getOrientation() const {return orientation;}
+    bool getBlason() const {return blason;}
+    Groupement* getGroupement() const {return groupement;}
+    std::string getType() const {return type;}
+    void setPosition(const int& x,const int& y);
+    void setGroupement(Groupement* grp);
+    void setOrientation(const std::string orient) {orientation = orient;}
+
+    Element(std::string type, std::string orientation, bool blason=false) :
+        hasMeeple(false), type(type), groupement(NULL), orientation(orientation), blason(blason) { }
+    ~Element()=default;
 };
 
 #endif
