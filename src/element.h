@@ -5,8 +5,8 @@
 #include "groupement.h"
 #include "position.h"
 
-const std::list<std::string> orientation {"N", "E", "S", "O"};
-const std::list<std::string> orientationPre { "ON", "NO", "NE", "EN", "ES", "SE", "SO", "OS"};
+const std::list<std::string> orientation = {"N", "E", "S", "O"};
+const std::list<std::string> orientationPre = { "ON", "NO", "NE", "EN", "ES", "SE", "SO", "OS"};
 
 class Element {
 private:
