@@ -7,7 +7,7 @@
 
 
 using namespace std;
-enum class Types : char {riviere, ville, abbaye, pre, route, jardin};
+enum class Types {riviere, ville, abbaye, pre, route, jardin};
 
 class Groupement{
 private:
@@ -17,7 +17,7 @@ private:
     unsigned int points;
     Element* element[];
     unsigned int dim_e;
-    unsigned int id;
+    unsigned int id; // id du groupement en question
     bool complete=false;
 public:
     unsigned int getPoint() const {return points;}
