@@ -32,7 +32,7 @@ Plateau::~Plateau() {
 void Plateau::etendrePlateau() {
     Tuile** nouveauPlateau = new Tuile*[xmax + 2];
     for (int i = 0; i < xmax + 2; i++) {
-        nouveauPlateau[i] = new Tuile[ymax + 2];
+        nouveauPlateau[i] = *plateau[i];
     }
     for (int i = 0; i < xmax; i++) {
         for (int j = 0; j < ymax; j++) {
@@ -54,7 +54,7 @@ void Plateau::placerTuile(Tuile *tuile, int x, int y) {
 }
 
 Tuile** Plateau::recupererVoisins(int x, int y) {
-    Tuile* voisins = new Tuile[8];
+    Tuile* voisins;
     int i = 0;
     for (int j = -1; j < 2; j++) {
         for (int k = -1; k < 2; k++) {
