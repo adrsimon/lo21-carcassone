@@ -13,18 +13,18 @@ class Groupement{
 private:
     list<Meeple*> meeples; // Liste de meeples
     Type type;
-    size_t int points;
+    size_t points;
     list<Element*> element;
     bool complete=false;
 public:
-    size_t int getPoints() const {return points;}
-    list<Meeple*> getMeeple() const {return meeple;}
-    Types getType() const {return types;}
+    size_t getPoints() const {return points;}
+    list<Meeple*> getMeeples() const {return meeples;}
+    Type getType() const {return type;}
     bool isComplete(){return complete;}
     list<Element*> getElement() const {return element;}
 
     inline void addMeeples(const Meeple* m){
-        meeple.push_back(m);
+        meeples.push_back(m);
     }
 
     inline void addElement(const Element e){
@@ -37,29 +37,38 @@ public:
 
     virtual ~Groupement(){delete[] element; delete[] liste;}
     
-    Groupement(const Groupement& g): types(g.types='pre'),complete(g.complete){}
+    Groupement(const Groupement& g): type(g.type='pre'),complete(g.complete){}
     
     virtual Groupement& operator=(const Groupement& g)=delete;
+    virtual Groupement& operator+(const Groupement& g);
 
-   /* 
-    class iterator{ //Accès en écriture ici
-        friend class Groupement;
-        double* courant;
-        double* fin;
-        iterator(double* deb, double* f):courant(deb), fin(f){}
-    public:
-        void next(){
-            if(courant==fin) throw "erreur:débordement d'iterator";
-            ++courant;
-        }
-        bool is_done(){return courant==fin;}
-        double& current_item(){return *courant;}
-    };
-    iterator get_iterator(){return iterator(liste, liste+sizeof(list);}
-};
-    */
+
+    /*
+     class iterator{ //Accès en écriture ici
+         friend class Groupement;
+         double* courant;
+         double* fin;
+         iterator(double* deb, double* f):courant(deb), fin(f){}
+     public:
+         void next(){
+             if(courant==fin) throw "erreur:débordement d'iterator";
+             ++courant;
+         }
+         bool is_done(){return courant==fin;}
+         double& current_item(){return *courant;}
+     };
+     iterator get_iterator(){return iterator(liste, liste+sizeof(list);}
+ };
+     */
     
-    
+    //RAJOUTER UNE METHODE POUR FUSIONNER DEUX GROUPES
+    //MIEUX DE SURCHARGER L'OPERATOR+
+
+
+
+}
+
+
     class GroupementRoute: public Groupement{
     private:
         int nbSegments;
