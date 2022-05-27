@@ -3,16 +3,24 @@
 
 #include <stdio.h>
 
+#include "joueur.h"
+
+
 enum meeple_type{Normal, Abbe, Big};
 
 class Meeple{
-    meeple_type type;
+    const meeple_type type;
     bool disponible;
+    const Joueur* joueur;
 public:
-    meeple_type getType() const {return type;}
+    const meeple_type getType() const {return type;}
     bool getDisponible() const {return disponible;}
+    const Joueur* getJoueur() const {return joueur;}
     Meeple() = default;
-    Meeple(const meeple_type& type, const bool& d): type(type),disponible(d){}
+    Meeple(const meeple_type& type, const bool& d): type(type),disponible(d),joueur(nullptr){}
+    Meeple(const Meeple& m)=delete;
+    Meeple& operator=(const Meeple& m)=delete;
+    ~Meeple()=default;
     void updateMeeple(){
         if(getDisponible()==true) {
             disponible=false;
