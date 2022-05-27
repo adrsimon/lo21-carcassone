@@ -37,14 +37,7 @@ public:
 
     virtual ~Groupement(){delete[] element; delete[] liste;}
     
-    Groupement(const Groupement& g): liste(new Meeple** [dim_l]),element(new double [dim_e]),id(g.id),types(g.types),complete(FALSE){
-        for (unsigned int i=0; i<list; i++){
-            liste[i]=g.liste[i];
-        }
-        for (unsigned int i=0; i<dim_e; i++){
-            element[i]=g.element[i];
-        }
-    }
+    Groupement(const Groupement& g): types(g.types='pre'),complete(g.complete){}
     
     virtual Groupement& operator=(const Groupement& g)=delete;
 
