@@ -25,7 +25,7 @@ public:
     // Setters
     void setScore(int s) { score = s; }
 
-    // Constructor and Desctructor
+    // Constructors and Desctructors
     Joueur(std::string nom) : nom(nom), score(0) {
         // Meeple creation here
     }
