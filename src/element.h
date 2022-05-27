@@ -5,27 +5,27 @@
 #include "groupement.h"
 #include "position.h"
 
-const std::list<std::string> orientation = {"N", "E", "S", "O"};
-const std::list<std::string> orientationPre = { "ON", "NO", "NE", "EN", "ES", "SE", "SO", "OS"};
-
 class Element {
 private:
     bool hasMeeple;
     const std::string type;
     Groupement* groupement;
-    std::string orientation;
+    std::list<std::string> orientations;
     const bool blason;
+
 public:
-    std::string getOrientation() const {return orientation;}
+    // Getters
+    std::list<std::string> getOrientations() const {return orientations;}
     bool getBlason() const {return blason;}
     Groupement* getGroupement() const {return groupement;}
     std::string getType() const {return type;}
-    void setPosition(const int& x,const int& y);
+    // Setters
     void setGroupement(Groupement* grp);
-    void setOrientation(const std::string orient) {orientation = orient;}
+    // Others
+    void rotateOrientation();
 
-    Element(std::string type, std::string orientation, bool blason=false) :
-        hasMeeple(false), type(type), groupement(NULL), orientation(orientation), blason(blason) { }
+    Element(std::string type, std::list<std::string> orients, bool blason=false) :
+            hasMeeple(false), type(type), orientations(orients), blason(blason) { }
     ~Element()=default;
 };
 
