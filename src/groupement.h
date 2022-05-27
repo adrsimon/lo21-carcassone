@@ -11,20 +11,25 @@ enum class Types {riviere, ville, abbaye, pre, route, jardin};
 
 class Groupement{
 private:
-    Meeple* liste[]; // Liste de pointeurs pointant sur la classe Meeple
-    unsigned int dim_l;
+    list<Meeple*> meeple; // Liste de meeples
     Types types;
     unsigned int points;
-    Element* element[];
-    unsigned int dim_e;
-    unsigned int id; // id du groupement en question
+    list<Element*> element;
     bool complete=false;
 public:
     unsigned int getPoint() const {return points;}
-    unsigned int getID() const {return id;}
-    Meeple* getMeeple() const {return *liste;}
+    list<Meeple*> getMeeple() const {return meeple;}
     Types getType() const {return types;}
-    void setMeeple();
+    bool getComplete(){return complete;}
+    list<Element*> getElement() const {return element;}
+
+    inline void setMeeple(const Meeple* m){
+        meeple.pushback(m);
+    }
+
+    inline void setElement(const Element e){
+        element.pushback(e);
+    }
 
     void isComplete(){
         complete=true;
@@ -34,7 +39,7 @@ public:
     virtual ~Groupement(){delete[] element; delete[] liste;}
     
     Groupement(const Groupement& g): dim_l(g.dim_l), dim_e(g.dim_e),liste(new Meeple** [dim_l]),element(new double [dim_e]),id(g.id),types(g.types),complete(FALSE){
-        for (unsigned int i=0; i<dim_l; i++){
+        for (unsigned int i=0; i<list; i++){
             liste[i]=g.liste[i];
         }
         for (unsigned int i=0; i<dim_e; i++){
@@ -71,18 +76,26 @@ public:
         ~GroupementRoute()=default;
         int getNbSegments()const {return nbSegments;}
         int getNbAuberges()const {return nbAuberges;}
-        
+
+        void setNbSegments(int nb) {
+            nbSegments = nb;
+        }
+
+        void setNbAuberges(int nb) {
+            nbAuberges = nb;
+        }
     };
     
     class GroupementVille: public Groupement{
     private:
         int nbSegments;
-        int nbBlasons;
     public:
-        GroupementVille(const GroupementVille& g): nbSegments(g.nbSegments), nbBlasons(g.nbBlasons){}
+        GroupementVille(const GroupementVille& g): nbSegments(g.nbSegments){}
         ~GroupementVille()=default;
         int getNbSegments()const {return nbSegments;}
-        int getNbBlasons()const {return nbBlasons;}
+        void setNbSegments(int nb) {
+            nbSegments = nb;
+        }
     };
     
     class GroupementPre: public Groupement{
@@ -92,6 +105,9 @@ public:
         GroupementPre(const GroupementPre& g): nbSegments(g.nbSegments){}
         ~GroupementPre()=default;
         int getNbSegments()const {return nbSegments;}
+        void setNbSegments(int nb) {
+            nbSegments = nb;
+        }
     };
     
     class GroupementAbbaye: public Groupement{
@@ -101,6 +117,9 @@ public:
         GroupementAbbaye(const GroupementAbbaye& g): nbCases(g.nbCases){}
         ~GroupementAbbaye()=default;
         int getNbCases()const {return nbCases;}
+        void setNbCases(int nb) {
+            nbCases = nb;
+        }
     };
     
     class GroupementJardin: public Groupement{
@@ -110,6 +129,9 @@ public:
         GroupementJardin(const GroupementJardin& g): nbCases(g.nbCases){}
         ~GroupementJardin()=default;
         int getNbCases()const {return nbCases;}
+        void setNbCases(int nb) {
+            nbCases = nb;
+        }
     };
 
 #endif
