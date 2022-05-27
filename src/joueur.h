@@ -9,8 +9,9 @@
 #include <vector>
 #include <list>
 #include <iterator>
-#include "meeple.h"
 using namespace std;
+
+class Meeple;
 
 class Joueur {
 private:

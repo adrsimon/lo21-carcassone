@@ -3,10 +3,9 @@
 
 #include <stdio.h>
 
-#include "joueur.h"
+#include "enum.h"
 
-
-enum meeple_type{Normal, Abbe, Big};
+class Joueur;
 
 class Meeple{
     const meeple_type type;
