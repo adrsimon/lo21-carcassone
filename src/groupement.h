@@ -7,38 +7,37 @@
 #include <list>
 
 using namespace std;
-enum class Types {riviere, ville, abbaye, pre, route, jardin};
+enum class Type {riviere, ville, abbaye, pre, route, jardin};
 
 class Groupement{
 private:
-    list<Meeple*> meeple; // Liste de meeples
-    Types types;
-    unsigned int points;
+    list<Meeple*> meeples; // Liste de meeples
+    Type type;
+    size_t int points;
     list<Element*> element;
     bool complete=false;
 public:
-    unsigned int getPoint() const {return points;}
+    size_t int getPoints() const {return points;}
     list<Meeple*> getMeeple() const {return meeple;}
     Types getType() const {return types;}
-    bool getComplete(){return complete;}
+    bool isComplete(){return complete;}
     list<Element*> getElement() const {return element;}
 
-    inline void setMeeple(const Meeple* m){
-        meeple.pushback(m);
+    inline void addMeeples(const Meeple* m){
+        meeple.push_back(m);
     }
 
-    inline void setElement(const Element e){
-        element.pushback(e);
+    inline void addElement(const Element e){
+        element.push_back(e);
     }
 
-    void isComplete(){
+    void setComplete(){
         complete=true;
-        return;
     }
 
     virtual ~Groupement(){delete[] element; delete[] liste;}
     
-    Groupement(const Groupement& g): dim_l(g.dim_l), dim_e(g.dim_e),liste(new Meeple** [dim_l]),element(new double [dim_e]),id(g.id),types(g.types),complete(FALSE){
+    Groupement(const Groupement& g): liste(new Meeple** [dim_l]),element(new double [dim_e]),id(g.id),types(g.types),complete(FALSE){
         for (unsigned int i=0; i<list; i++){
             liste[i]=g.liste[i];
         }
@@ -48,7 +47,8 @@ public:
     }
     
     virtual Groupement& operator=(const Groupement& g)=delete;
-    
+
+   /* 
     class iterator{ //Accès en écriture ici
         friend class Groupement;
         double* courant;
@@ -62,9 +62,9 @@ public:
         bool is_done(){return courant==fin;}
         double& current_item(){return *courant;}
     };
-    iterator get_iterator(){return iterator(liste, liste+dim_l);}
+    iterator get_iterator(){return iterator(liste, liste+sizeof(list);}
 };
-
+    */
     
     
     class GroupementRoute: public Groupement{
