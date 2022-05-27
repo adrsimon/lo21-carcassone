@@ -4,7 +4,7 @@
 #include <string>
 #include "meeple.h"
 #include "element.h"
-
+#include <list>
 
 using namespace std;
 enum class Types {riviere, ville, abbaye, pre, route, jardin};

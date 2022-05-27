@@ -27,7 +27,7 @@ public:
     bool getBigMeepple() const { return hasBigMeeple; }
     void setAbbe(bool a) { abbe = a; }
     void setBigMeeple(bool m) { hasBigMeeple = m; }
-    void setScore(int a) {}
+    void setScore(int a) { score += a; }
 };
 
 class JoueurException {
