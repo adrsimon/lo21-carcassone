@@ -9,7 +9,7 @@ Tuile::Tuile(const bool &m,const bool &j, const int &id, const std::list<Element
 void Tuile::setOrientation()
 {
     for (Element i : elements){
-        i.setOrientation();
+        i.rotateOrientation();
     }
 }
 
