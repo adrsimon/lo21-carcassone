@@ -2,10 +2,6 @@
 #include "element.h"
 #include <list>
 
-Tuile::Tuile(const bool &m,const bool &j, const int &id, const std::list<Element> e): hasMonastere(m), hasJardin(j), elements(e), ID(id) {
-    position = Position (-1,-1);
-}
-
 void Tuile::setOrientation()
 {
     for (Element i : elements){

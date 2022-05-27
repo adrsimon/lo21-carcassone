@@ -12,13 +12,14 @@ private:
     const bool hasJardin;
     const std::list <Element> elements;
 public:
-    Tuile(const bool &m,const bool &j, const int &id, const std::list<Element> e);
+    Tuile(const bool &m,const bool &j, const int &id, const std::list<Element> e): hasMonastere(m), hasJardin(j), elements(e), ID(id), position(Position()) {}
     ~Tuile() = default;
     Tuile(const Tuile& j)=delete;
     Tuile& operator=(const Tuile& j)=delete;
     void setOrientation();
     //void updatePosition (const int& x, const int& y);
     Position& getPosition (){return position;}
+
     void setPosition (const int &x, const int &y){
         position.setPosition(x,y);
     }
