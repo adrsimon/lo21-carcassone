@@ -9,7 +9,7 @@ class Element {
 private:
     bool hasMeeple;
     const std::string type;
-    //Groupement* groupement;
+    Groupement* groupement;
     std::list<std::string> orientations;
     const bool blason;
 
@@ -17,7 +17,7 @@ public:
     // Getters
     std::list<std::string> getOrientations() const {return orientations;}
     bool getBlason() const {return blason;}
-    //Groupement* getGroupement() const {return groupement;}
+    Groupement* getGroupement() const {return groupement;}
     std::string getType() const {return type;}
     // Setters
     //void setGroupement(Groupement* grp);
