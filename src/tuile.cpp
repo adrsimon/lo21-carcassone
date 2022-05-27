@@ -1,33 +1,20 @@
 #include "tuile.h"
 #include "element.h"
+#include <list>
 
-Tuile::Tuile(int &nb, bool &m, bool &j, int &id) {
-    nombreElement = nb;
-    hasMonastere = m;
-    hasJardin = j;
+Tuile::Tuile(const bool &m,const bool &j, const int &id, const std::list<Element> e): hasMonastere(m), hasJardin(j), elements(e), ID(id) {
     position = Position (-1,-1);
-    liste = new Element* [nb];
 }
 
-void Tuile::changeOrientation(orientation* nouvOrient)
+void Tuile::setOrientation()
 {
-    for (int i =0; i<nombreElement; i++){
-        liste[i]->setOrientation(nouvOrient);
-    }
-}
-void Tuile::updatePosition(const int& x, const int& y){
-    position.setPosition(x, y);
-    for (int i =0; i < nombreElement; i++){
-        liste[i]->setPosition(x, y);
+    for (Element i : elements){
+        i.setOrientation();
     }
 }
 
-Position* Tuile::getPosition() {
-    return &position;
-}
-
+/*
 Tuile::Tuile(Tuile *pTuile) {
-    nombreElement = pTuile->nombreElement;
     hasMonastere = pTuile->hasMonastere;
     hasJardin = pTuile->hasJardin;
     position = pTuile->position;
@@ -36,4 +23,4 @@ Tuile::Tuile(Tuile *pTuile) {
         liste[i] = pTuile->liste[i];
     }
 }
-
+*/
