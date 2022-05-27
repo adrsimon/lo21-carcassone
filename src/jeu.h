@@ -2,6 +2,9 @@
 #define jeu_h
 
 #include <stdio.h>
+#include <list>
+#include <algorithm>
+#include <iterator> 
 #include "joueur.h"
 #include "plateau.h"
 
@@ -15,75 +18,32 @@ public:
     Jeu(const Jeu& j)=delete;
     Jeu& operator=(const Jeu& j)=delete;
     
-    const Tuile* getLastTuile() const {return last_tuile;}
+    Pioche* getPioche() const {return  pioche;}
+    
+    Tuile* getLastTuile() const {return last_tuile;}
     
     const Joueur* getCurrent() const {return current; }
     
-    Plateau* getPlateau() const {return plateau;}
+    const Plateau* getPlateau() const {return plateau;}
+        
+    list<Joueur*> getJoueur() const {return joueur;}
     
-    int getNbJoueur() const {return nb_joueur; }
-    
-    void setJoueur(const Joueur& j){
-        nb_joueur++;
-        Joueur* newtab=new Joueur[nb_joueur];
-        for (size_t i=0;i<nb_joueur;i++)
-        newtab[i]=liste[i];
-        auto old=liste;
-        liste=newtab;
-        delete old;
-        liste[nb_joueur]=j;
+    void setJoueur(Joueur* j){
+        joueur.push_back(j);
     }
 
-    class IteratorPioche{
-        Tuile* debut;
-        Tuile* fin;
-        IteratorPioche(Tuile* d, Tuile* f) : debut(d), fin(f){}
-        friend class Jeu;
-    public:
-        bool isDone() const {return debut==fin;}
-        void next(){
-            if(debut==fin) throw "Exception : fin de la pioche";
-            debut++;
-        }
-        Tuile* currentItem() const {
-            if(debut==fin) throw "Exception : fin de la pioche";
-            return debut;
-        }
-    };
-    IteratorPioche getIteratorPioche(){
-        int nb=tuiles->getNbTuiles();
-        return IteratorPioche(last_tuile, last_tuile+nb);
-    }
-    class IteratorJoueur{
-        Joueur* debut;
-        Joueur* fin;
-        IteratorJoueur(Joueur* d, Joueur* f) : debut(d),fin(f){}
-        friend class Jeu;
-    public:
-        bool isDone() const {return debut==fin;}
-        void next(){
-            if(debut==fin) throw "Exception : fin du tour";
-            debut++;
-        }
-        Joueur* currentItem(){
-            return debut;}
-    };
-    IteratorJoueur getIteratorJoueur(){return IteratorJoueur(liste,liste+nb_joueur);}
-    
     void poserMeeple();
-    void updateJoueur(IteratorJoueur it);
-    void updateTuile(IteratorPioche it);
-    //void evaluerScore();
+    void updateJoueur();
+    void updateTuile();
 private:
     static Jeu* instance;
     Jeu();
     ~Jeu();
     Tuile* last_tuile;
-    Joueur* liste;
+    list<Joueur*> joueur;
     Joueur* current;
-    Plateau* plateau;
-    Pioche* tuiles;
-    int nb_joueur;
+    const Plateau* plateau;
+    Pioche* pioche;
 };
 
 #endif
