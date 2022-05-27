@@ -7,13 +7,39 @@
 
 #include "../utils/libraries/tinyxml2.h"
 
-const Tuile &Pioche::piocher() {
-    
+
+Pioche* Pioche::instance = nullptr;
+
+Pioche &Pioche::getInstance() {
+    if (nullptr == instance) {
+        instance = new Pioche();
+    }
+    return *instance;
 }
+
+void Pioche::libereInstance() {
+    if (instance != nullptr) {
+        delete instance;
+        instance = nullptr;
+    }
+}
+
+Pioche::~Pioche() {
+    for (auto &t : *tuiles) {
+        delete &t;
+    }
+    delete tuiles;
+}
+
+
+// const Tuile &Pioche::piocher() {
+
+// }
 
 using namespace tinyxml2;
 
 void Pioche::genererTuiles() {
+    std::cout << "ok 1";
     // loading XML file
     XMLDocument main_tiles;
     main_tiles.LoadFile("../utils/tuiles-main.xml");
@@ -21,18 +47,18 @@ void Pioche::genererTuiles() {
     XMLElement *tuile = root->FirstChildElement("tuile");
 
     while (tuile != nullptr) {
-        bool monastere = (tuile->FirstChildElement("M")->GetText() == "true");
-        bool jardin = (tuile->FirstChildElement("J")->GetText() == "true");
-        size_t id = atoi(tuile->Attribute("id"));
-        list<Element> elements;
+        bool monastere = (strcmp(tuile->FirstChildElement("M")->GetText(), "true")) == 0;
+        bool jardin = (strcmp(tuile->FirstChildElement("J")->GetText(), "true")) == 0;
+        int tuile_id = atoi(tuile->Attribute("id"));
+        std::list<Element> elements;
 
         int nbElements = 0;
         XMLElement *element = tuile->FirstChildElement("element");
         while (element != nullptr) {
-            string type = element->FirstChildElement("type")->GetText();
-            bool blason = (element->FirstChildElement("blason")->GetText() == "true");
+            std::string type = element->FirstChildElement("type")->GetText();
+            bool blason = (strcmp(element->FirstChildElement("blason")->GetText(), "true")) == 0;
 
-            string orientations = element->FirstChildElement("orientation")->GetText();
+            std::string orientations = element->FirstChildElement("orientation")->GetText();
 
             size_t nb_orientations;
             size_t orientation_size;
@@ -44,9 +70,9 @@ void Pioche::genererTuiles() {
                 nb_orientations = (orientations.length() + 1) / 2;
             }
 
-            list<string> final_orientations;
+            std::list<std::string> final_orientations;
             for (size_t i = 0; i < nb_orientations; i++) {
-                string orientation = orientations.substr(i * (orientation_size + 1), orientation_size);
+                std::string orientation = orientations.substr(i * (orientation_size + 1), orientation_size);
                 final_orientations.push_back(orientation);
             }
 
@@ -57,8 +83,10 @@ void Pioche::genererTuiles() {
             element = element->NextSiblingElement("element");
         }
 
-        tuiles->push_back(Tuile(monastere, jardin, id, elements));
+        // creating the tuile
+        auto t = new Tuile(monastere, jardin, tuile_id, elements);
+        std::cout << "ok final";
+        tuiles->push_back(*t);
         tuile = tuile->NextSiblingElement("tuile");
     }
 }
-
