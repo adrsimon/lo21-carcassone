@@ -14,27 +14,21 @@ using namespace std;
 
 class Joueur {
 private:
-    bool hasBigMeeple;
-    bool abbe;
     int score;
-    std::list<Meeple> meeple;
-    int id;
+    std::list<Meeple> meeples;
+    const std::string nom;
 public:
-    std::list<Meeple> getMeeple() const { return meeple; }
+    // Getters
+    std::list<Meeple> getMeeples() const { return meeples; }
     int getScore() const { return score; }
-    int getID() const { return id; }
-    bool getAbbe() const { return abbe; }
-    bool getBigMeepple() const { return hasBigMeeple; }
-    void setAbbe(bool a) { abbe = a; }
-    void setBigMeeple(bool m) { hasBigMeeple = m; }
-    void setScore(int a) { score += a; }
-};
+    std::string getNom() const { return nom; }
+    // Setters
+    void setScore(int s) { score = s; }
 
-class JoueurException {
-private:
-    std::string info;
-public:
-    JoueurException(std::string s) : info(s) {}
+    // Constructor and Desctructor
+    Joueur(std::string nom) : nom(nom), score(0) {
+        // Meeple creation here
+    }
 };
 
 #endif //PROJET_JOUEUR_H
