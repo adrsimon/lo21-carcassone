@@ -22,11 +22,11 @@ int main() {
     std::cout << "La tuile possède : " << plateau.getTuile(0, 0).getElement().size() << " élements." << std::endl;
     std::cout << "L'élement 1 est orienté dans : "<< plateau.getTuile(0, 0).getElement().begin()->getOrientations().size() << " directions." << std::endl;
 
-    t = pioche.piocher();
+    // t = pioche.piocher();
 
-    std::cout << "TEST DE COMPATIBILITE" << std::endl;
-    std::cout << "Tuile numéro : " << t.getID() << std::endl;
-    std::cout << plateau.voisinsCompatibles(0, 0, &t) << std::endl;
+    // std::cout << "TEST DE COMPATIBILITE" << std::endl;
+    // std::cout << "Tuile numéro : " << t.getID() << std::endl;
+    // std::cout << plateau.voisinsCompatibles(0, 0, &t) << std::endl;
 
     return 0;
 }
