@@ -2,6 +2,7 @@
 #define _GROUPEMENT_H
 #include <iostream>
 #include <string>
+#include <list>
 #include "meeple.h"
 #include "element.h"
 #include <list>
@@ -16,6 +17,7 @@ private:
     size_t points;
     list<Element*> element;
     bool complete=false;
+
 public:
     Groupement() = default;
     Groupement(const Groupement& g) = default;
@@ -62,10 +64,6 @@ public:
  };
      */
     
-    //RAJOUTER UNE METHODE POUR FUSIONNER DEUX GROUPES
-    //MIEUX DE SURCHARGER L'OPERATOR+
-
-
 
 };
 
@@ -137,5 +135,13 @@ public:
 };
 
 #endif
+/*
+ src/jeu.cpp src/jeu.h
+        src/joueur.cpp src/joueur.h
+         src/pioche.cpp src/pioche.h
+        src/plateau.cpp src/plateau.h
+        src/position.cpp src/position.h
+        src/tuile.cpp src/tuile.h
 
+ */
 

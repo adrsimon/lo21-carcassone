@@ -1,6 +1,7 @@
 #include "groupement.h"
-#include "element.h"
-#import "meeple.h"
+#include <iostream>
+#include <string>
+#include <list>
 
 Groupement& Groupement::operator+(const Groupement& g){
     for(Meeple* m : g.meeples){
