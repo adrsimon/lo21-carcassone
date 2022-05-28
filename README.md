@@ -20,3 +20,4 @@ Les extensions en cours de développement sont :
 - src/ : fichiers sources
 - utils/ : fichiers utilitaires (images, xml, etc.)
 - structuration-du-projet/ : UML et autres documents explicatifs
+- / : dossier parent comprenant le main, les codes pour l'IHM, et les autres dossiers
