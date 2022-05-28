@@ -9,6 +9,13 @@ void Tuile::setOrientation()
     }
 }
 
+Tuile &Tuile::operator=(const Tuile &j) {
+    hasJardin = j.hasJardin;
+    hasMonastere = j.hasMonastere;
+    position = j.position;
+    elements = j.elements;
+}
+
 /*
 Tuile::Tuile(Tuile *pTuile) {
     hasMonastere = pTuile->hasMonastere;

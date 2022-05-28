@@ -8,10 +8,10 @@
 class Element {
 private:
     bool hasMeeple;
-    const std::string type;
+    std::string type;
     Groupement* groupement;
     std::list<std::string> orientations;
-    const bool blason;
+    bool blason;
 
 public:
     // Getters
