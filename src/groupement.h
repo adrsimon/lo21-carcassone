@@ -2,9 +2,9 @@
 #define _GROUPEMENT_H
 #include <iostream>
 #include <string>
+#include <list>
 #include "meeple.h"
 #include "element.h"
-#include <list>
 
 using namespace std;
 enum class Type {riviere, ville, abbaye, pre, route, jardin};
@@ -16,6 +16,7 @@ private:
     size_t points;
     list<Element*> element;
     bool complete=false;
+
 public:
     size_t getPoints() const {return points;}
     list<Meeple*> getMeeples() const {return meeples;}
@@ -38,9 +39,17 @@ public:
     virtual ~Groupement(){delete[] element; delete[] liste;}
     
     Groupement(const Groupement& g): type(g.type='pre'),complete(g.complete){}
-    
+
     virtual Groupement& operator=(const Groupement& g)=delete;
-    virtual Groupement& operator+(const Groupement& g);
+    virtual Groupement& operator+(const Groupement& g){
+        for (unsigned int i = 0; i < (g.meeples).size(); i++) { (this->meeples).push_back(g.meeples[i]); }
+        for(unsigned int i=0; i<(g.element).size();i++) {(this->element).push_back(g.element[i]);}
+        this->type=g.type;
+        this->complete=g.complete;
+        this->points+=g.points;
+        g.~Groupement();
+        return (*this);
+    }
 
 
     /*
@@ -61,10 +70,6 @@ public:
  };
      */
     
-    //RAJOUTER UNE METHODE POUR FUSIONNER DEUX GROUPES
-    //MIEUX DE SURCHARGER L'OPERATOR+
-
-
 
 }
 
@@ -137,5 +142,13 @@ public:
     };
 
 #endif
+/*
+ src/jeu.cpp src/jeu.h
+        src/joueur.cpp src/joueur.h
+         src/pioche.cpp src/pioche.h
+        src/plateau.cpp src/plateau.h
+        src/position.cpp src/position.h
+        src/tuile.cpp src/tuile.h
 
+ */
 
