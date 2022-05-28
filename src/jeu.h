@@ -7,6 +7,7 @@
 #include <iterator> 
 #include "joueur.h"
 #include "plateau.h"
+#include "enum.h"
 
 #include "iostream"
 using namespace std; 
@@ -26,24 +27,25 @@ public:
     
     const Plateau* getPlateau() const {return plateau;}
         
-    list<Joueur*> getJoueur() const {return joueur;}
+    list<Joueur*> getJoueurs() const {return joueurs;}
     
-    void setJoueur(Joueur* j){
-        joueur.push_back(j);
+    static void setJoueur(Joueur* j){
+        joueurs.push_back(j);
     }
 
-    void poserMeeple();
-    void updateJoueur();
-    void updateTuile();
+    static void poserMeeple(const std::string type, Element* e);
+    static void recupererMeeple(Meeple& m);
+    static void updateJoueur();
+    static void updateTuile();
 private:
     static Jeu* instance;
     Jeu();
     ~Jeu();
-    Tuile* last_tuile;
-    list<Joueur*> joueur;
-    Joueur* current;
+    static Tuile* last_tuile;
+    static list<Joueur*> joueurs;
+    static Joueur* current;
     const Plateau* plateau;
-    Pioche* pioche;
+    static Pioche* pioche;
 };
 
 #endif

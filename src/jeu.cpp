@@ -16,78 +16,62 @@ void Jeu::libererJeu(){
 }
 
 
-void Jeu::poserMeeple() {
+void Jeu::poserMeeple(const std::string type, Element* e) {
 
-    std::cout << "1 : pour ajouter un meeple\n";
-    std::cout << "2 : pour ajouter un abbé\n";
-    std::cout << "3 : pour ajouter un Big Meeple\n";
-    std::cout << "4 : pour ne pas ajouter de meeple\n";
-    int a;
-    std::cin >> a;
-    int j;
-    auto it=current->getMeeple().begin();
-
-
-    switch (a) {
-        case 1:
-            for (it=current->getMeeple().begin();it!=current->getMeeple().end();it++) {
-                if(it->getType()!=Normal) continue;
-                if(it->getDisponible()==true)
-                    break;
-            }
-            if(it!=current->getMeeple().end()) it->updateMeeple();
-            for (auto i = last_tuile->getElement().begin(); i < last_tuile->getElement().end(); i++) {
-                if (last_tuile->getElement()[i]->getGroupement()->getMeeple() == nullptr)
-                    std::cout <<i<<" : "<< last_tuile->getElement()[i]->getType() << "\n";
-            }
-            std::cin>>j;
-            last_tuile->getElement()[j]->getGroupement()->setMeeple(it);
-            break;
-
-        case 2:
-            for (it=current->getMeeple().begin();it!=current->getMeeple().end();it++) {
-                if(it->getType()!=Abbe) continue;
+    auto it=current->getMeeples().begin();
+    if(type=="Normal"){
+        for (it=current->getMeeples().begin();it!=current->getMeeples().end();it++) {
+            if(it->getType()=="Normal") continue;
+            if(it->getDisponible()==true)
+                break;
+        }
+        if(it==current->getMeeples().end())
+            throw "Exception Pas de meeple disponible";
+        it->updateMeeple();
+        //e->setMeeple();
+        //e->getGroupement()->addMeeples(*it);
+    }
+    else { if (type=="Abbe"){
+            for (it=current->getMeeples().begin();it!=current->getMeeples().end();it++) {
+                if(it->getType()!="Abbe") continue;
                 if(it->getDisponible()==true) break;
             }
-            if(it!=current->getMeeple().end()) it->updateMeeple();
-
-            for (auto i = last_tuile->getElement().begin(); i < last_tuile->getElement().end(); i++) {
-                if (last_tuile->getElement()[i]->getGroupement()->getMeeple() == nullptr)
-                    std::cout <<i<<" : "<< last_tuile->getElement()[i]->getType() << "\n";
+            if(it==current->getMeeples().end())
+                throw "Exception Pas de meeple disponible";
+            if(e->getType()=="abbaye" && e->getType()=="jardin"){
+                it->updateMeeple();
+                //e->setMeeple();
+                //e->getGroupement()->addMeeples(*it);
             }
-            std::cin>>j;
-            if(last_tuile->getElement()[j]->getType()!=abbaye || last_tuile->getElement()[j]->getType()!=jardin)
-                throw "Exception : vous ne pouvez poser de abbé sur cette élément";
-            last_tuile->getElement()[j]->getGroupement()->setMeeple(it);
-
-            break;
-
-        case 3:
-            for (it=current->getMeeple().begin();it!=current->getMeeple().end();it++) {
-                if(it->getType()!=Big) continue;
-                if(it->getDisponible()==true) break;
+            else  {throw "Exception : vous ne pouvez poser de abbé sur cette élément";}
+        }
+        else { if(type=="Big"){
+                for (it=current->getMeeples().begin();it!=current->getMeeples().end();it++) {
+                    if(it->getType()!="Big") continue;
+                    if(it->getDisponible()==true) break;
+                }
+                if(it!=current->getMeeples().end())
+                    throw "Exception pas de meeple disponible";
+                it->updateMeeple();
+                //e->setMeeple();
+                //e->getGroupement()->addMeeples(*it);
             }
-            if(it!=current->getMeeple().end()) it->updateMeeple();
-
-            for (auto i = last_tuile->getElement().begin(); i < last_tuile->getElement().end(); i++) {
-                if (last_tuile->getElement()[i]->getGroupement()->getMeeple == nullptr)
-                    std::cout <<i<<" : "<< last_tuile->getElement()[i]->getType() << "\n";
+            else {
+                throw "Exception : le type n'existe pas";
             }
-            std::cin>>j;
-            last_tuile->getElement()[j]->getGroupement()->setMeeple(it);
-
-            break;
-
-        default:
-            break;
-
+        }
     }
 }
 
+void Jeu::recupererMeeple(Meeple& m){
+    m.updateMeeple(); 
+}
+
+
 void Jeu::updateJoueur(){
-    auto it = find(joueur.begin(),joueur.end(),current);
-    if(next(it,1)==joueur.end()){
-        it=joueur.begin();
+    auto it = find(joueurs.begin(),joueurs.end(),current);
+    if(next(it,1)==joueurs.end()){
+        it=joueurs.begin();
         current=*it;
     }
     else { it=next(it,1);
@@ -96,5 +80,5 @@ void Jeu::updateJoueur(){
 }
 
 void Jeu::updateTuile(){
-    last_tuile=pioche->piocher(); 
+    //last_tuile=pioche->piocher();
 }
