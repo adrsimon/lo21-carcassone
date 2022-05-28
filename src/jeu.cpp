@@ -1,5 +1,8 @@
 #include <iostream>
+#include <string>
+#include <list>
 #include "jeu.h"
+#include "meeple.h"
 
 Jeu* Jeu::instance=nullptr;
 
@@ -15,49 +18,45 @@ void Jeu::libererJeu(){
     instance=nullptr;
 }
 
+Jeu::Jeu() = default;
+Jeu::~Jeu() = default;
 
-void Jeu::poserMeeple(const std::string type, Element* e) {
+// FONCTIONS DE JEU
+
+void Jeu::poserMeeple(Meeple* m, Element* e) {
+    std::string type = m->getType();
 
     auto it=current->getMeeples().begin();
-    if(type=="Normal"){
+    if (type=="Normal") {
         for (it=current->getMeeples().begin();it!=current->getMeeples().end();it++) {
             if(it->getType()=="Normal") continue;
             if(it->getDisponible()==true)
                 break;
         }
-        if(it==current->getMeeples().end())
-            throw "Exception Pas de meeple disponible";
+        if(it==current->getMeeples().end()) std::cout << "Pas de meeple disponible" << std::endl;
         it->updateMeeple();
-        //e->setMeeple();
-        //e->getGroupement()->addMeeples(*it);
-    }
-    else { if (type=="Abbe"){
+    } else {
+        if (type=="Abbe") {
             for (it=current->getMeeples().begin();it!=current->getMeeples().end();it++) {
                 if(it->getType()!="Abbe") continue;
                 if(it->getDisponible()==true) break;
             }
-            if(it==current->getMeeples().end())
-                throw "Exception Pas de meeple disponible";
+            if(it==current->getMeeples().end()) std::cout << "Pas de meeple disponible" << std::endl;
             if(e->getType()=="abbaye" && e->getType()=="jardin"){
                 it->updateMeeple();
-                //e->setMeeple();
-                //e->getGroupement()->addMeeples(*it);
+            } else {
+                std::cout << "Impossible de poser un Abbé ici" << std::endl;
             }
-            else  {throw "Exception : vous ne pouvez poser de abbé sur cette élément";}
-        }
-        else { if(type=="Big"){
+        } else {
+            if(type=="Big") {
                 for (it=current->getMeeples().begin();it!=current->getMeeples().end();it++) {
                     if(it->getType()!="Big") continue;
                     if(it->getDisponible()==true) break;
                 }
-                if(it!=current->getMeeples().end())
-                    throw "Exception pas de meeple disponible";
+                if(it!=current->getMeeples().end()) std::cout << "Pas de meeple disponible" << std::endl;
                 it->updateMeeple();
-                //e->setMeeple();
-                //e->getGroupement()->addMeeples(*it);
-            }
-            else {
-                throw "Exception : le type n'existe pas";
+            } else {
+                std::cout << "Le type n'existe pas." << std::endl;
             }
         }
     }
@@ -69,16 +68,22 @@ void Jeu::recupererMeeple(Meeple& m){
 
 
 void Jeu::updateJoueur(){
-    auto it = find(joueurs.begin(),joueurs.end(),current);
-    if(next(it,1)==joueurs.end()){
-        it=joueurs.begin();
-        current=*it;
-    }
-    else { it=next(it,1);
-        current=*it;
+    auto it=joueurs.begin();
+    for (it=joueurs.begin();it!=joueurs.end();it++) {
+        if((*it)==this->getCurrent()) {
+            it++;
+            if(it==joueurs.end()) {
+                current = joueurs.front();
+            } else {
+                current = *it;
+            }
+            break;
+        }
     }
 }
 
 void Jeu::updateTuile(){
     //last_tuile=pioche->piocher();
 }
+
+
