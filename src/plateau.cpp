@@ -1,9 +1,10 @@
 #include "plateau.h"
-#include "joueur.h"
 
 // SINGLETON
 
 Plateau* Plateau::instance = nullptr;
+
+Plateau::Plateau() = default;
 
 Plateau& Plateau::getInstance() {
     if (instance == nullptr) {
@@ -72,10 +73,10 @@ Tuile** Plateau::recupererVoisins(int x, int y) {
 }
 
 Element* getElementAsTable(Tuile* tuile) {
-    Element* elems;
+    Element *elems;
     int i = 0;
-    for (auto it = tuile->getElement().begin(); it != tuile->getElement().end(); it++) {
-        elems[i] = *it;
+    for (auto & it : tuile->getElement()) {
+        elems[i] = it;
         i++;
     }
     return elems;

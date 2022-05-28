@@ -16,7 +16,6 @@ private:
 
     int xmax = 0;
     int ymax = 0;
-    Pioche pioche = Pioche::getInstance();
     Tuile*** plateau = nullptr;
     Groupement** groupements = nullptr;
 public:
