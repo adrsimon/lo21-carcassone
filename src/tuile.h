@@ -8,14 +8,14 @@ class Tuile {
 private:
     Position position;
     const int ID;
-    const bool hasMonastere;
-    const bool hasJardin;
-    const std::list <Element> elements;
+    bool hasMonastere;
+    bool hasJardin;
+    std::list <Element> elements;
 public:
-    Tuile(const bool &m,const bool &j, const int &id, const std::list<Element> e): hasMonastere(m), hasJardin(j), elements(e), ID(id), position(Position()) {}
+    Tuile(const bool &m,const bool &j, const int &id, std::list<Element> &e): hasMonastere(m), hasJardin(j), elements(e), ID(id), position(Position()) {}
     ~Tuile() = default;
-    Tuile(const Tuile& j)=delete;
-    Tuile& operator=(const Tuile& j)=delete;
+    Tuile(const Tuile& j)=default;
+    Tuile& operator=(const Tuile& j);
     void setOrientation();
     //void updatePosition (const int& x, const int& y);
     Position& getPosition (){return position;}

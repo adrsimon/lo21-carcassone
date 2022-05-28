@@ -1,13 +1,11 @@
 #include "element.h"
-
-const std::list<std::string> orientationPrincipale = {"N", "E", "S", "O"};
-const std::list<std::string> orientationPre = { "ON", "NO", "NE", "EN", "ES", "SE", "SO", "OS"};
+#include "enum.h"
 
 
 void Element::rotateOrientation() {
     // Creating raw of new orientations
     std::list<std::string> raw;
-    if(type == "Pré") {
+    if(type == "pre") {
         for(auto it = orientations.begin(); it != orientations.end();  ++it) {
             auto finded = std::find(orientationPre.begin(), orientationPre.end(), *it);
             if(finded == std::prev(orientationPre.end()))

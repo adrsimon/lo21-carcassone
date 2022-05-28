@@ -16,11 +16,10 @@ private:
 
     int xmax = 0;
     int ymax = 0;
-    Pioche* pioche;
     Tuile*** plateau = nullptr;
     Groupement** groupements = nullptr;
 public:
-    static Plateau& donneInstance();
+    static Plateau& getInstance();
     static void libereInstance();
 
     void etendrePlateau();

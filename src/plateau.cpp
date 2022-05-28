@@ -1,9 +1,12 @@
 #include "plateau.h"
-#include "joueur.h"
+
+// SINGLETON
 
 Plateau* Plateau::instance = nullptr;
 
-Plateau& Plateau::donneInstance() {
+Plateau::Plateau() = default;
+
+Plateau& Plateau::getInstance() {
     if (instance == nullptr) {
         instance = new Plateau();
     }
@@ -29,6 +32,8 @@ Plateau::~Plateau() {
     delete[] plateau;
 }
 
+// FONCTIONS SPECIFIQUES
+
 void Plateau::etendrePlateau() {
     Tuile** nouveauPlateau = new Tuile*[xmax + 2];
     for (int i = 0; i < xmax + 2; i++) {
@@ -36,7 +41,7 @@ void Plateau::etendrePlateau() {
     }
     for (int i = 0; i < xmax; i++) {
         for (int j = 0; j < ymax; j++) {
-            nouveauPlateau[i][j] = plateau[i-1][j-1];
+            nouveauPlateau[i][j] = Tuile(*plateau[i-1][j-1]);
         }
     }
     for (int i = 0; i < xmax + 1; i++) {
@@ -54,7 +59,7 @@ void Plateau::placerTuile(Tuile *tuile, int x, int y) {
 }
 
 Tuile** Plateau::recupererVoisins(int x, int y) {
-    Tuile* voisins;
+    Tuile** voisins;
     int i = 0;
     for (int j = -1; j < 2; j++) {
         for (int k = -1; k < 2; k++) {
@@ -64,20 +69,30 @@ Tuile** Plateau::recupererVoisins(int x, int y) {
             }
         }
     }
-    return &voisins;
+    return voisins;
+}
+
+Element* getElementAsTable(Tuile* tuile) {
+    Element *elems;
+    int i = 0;
+    for (auto & it : tuile->getElement()) {
+        elems[i] = it;
+        i++;
+    }
+    return elems;
 }
 
 bool Plateau::voisinsCompatibles(int x, int y, Tuile *tuile) {
-    if ((tuile->getElement()[0] == plateau[x][y+1]->getElement()[2] || plateau[x][y+1] == nullptr)
-        && (tuile->getElement()[1] == plateau[x+1][y]->getElement()[3] || plateau[x+1][y] == nullptr)
-        && (tuile->getElement()[2] == plateau[x][y-1]->getElement()[0] || plateau[x][y-1] == nullptr)
-        && (tuile->getElement()[3] == plateau[x-1][y]->getElement()[1] || plateau[x-1][y] == nullptr)) {
+    Element* elems_tuile = getElementAsTable(tuile);
+    if ((elems_tuile[0].getType() == getElementAsTable(plateau[x][y+1])[2].getType() || plateau[x][y+1] == nullptr)
+        && (elems_tuile[1].getType() == getElementAsTable(plateau[x+1][y])[3].getType() || plateau[x+1][y] == nullptr)
+        && (elems_tuile[2].getType() == getElementAsTable(plateau[x][y-1])[0].getType() || plateau[x][y-1] == nullptr)
+        && (elems_tuile[3].getType() == getElementAsTable(plateau[x-1][y])[1].getType() || plateau[x-1][y] == nullptr)) {
         return true;
     }
     return false;
 }
 
-// tester le nombre de cases non vides autour de la case x, y
 int Plateau::compterVoisins(int x, int y) {
     int count = 0;
     Tuile** voisins = recupererVoisins(x, y);
@@ -97,7 +112,7 @@ void Plateau::decalerTuiles() {
     for (int i = xmax; i > 0; i--) {
         for (int j = ymax; j > 0; j--) {
             if (&plateau[i][j] != nullptr) {
-                plateau[i][j]->getPosition()->setPosition(plateau[i][j]->getPosition()->getPositionX() + 1, plateau[i][j]->getPosition()->getPositionY() + 1);
+                plateau[i][j]->getPosition().setPosition(plateau[i][j]->getPosition().getPositionX() + 1, plateau[i][j]->getPosition().getPositionY() + 1);
             }
         }
     }
