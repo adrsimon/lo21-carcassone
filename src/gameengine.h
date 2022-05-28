@@ -5,18 +5,18 @@
 #ifndef PROJETCARCASSONELO21_GAMEENGINE_H
 #define PROJETCARCASSONELO21_GAMEENGINE_H
 
-#include "jeu.h"
-#include "plateau.h"
+// #include "jeu.h"
+// #include "plateau.h"
 
-class GameEngine {
-private:
-    Jeu jeu;
-    Plateau plateau;
-    bool chateau;
-    bool cathedrale;
-    bool jsp;
-public:
-    GameEngine(int nb_joueurs, bool ext1, bool ext2, bool ext3) :  ()
-};
+// class GameEngine {
+// private:
+    // Jeu jeu;
+    // Plateau plateau;
+    // bool chateau;
+    // bool cathedrale;
+    // bool jsp;
+// public:
+    // GameEngine(int nb_joueurs, bool ext1, bool ext2, bool ext3) :  ();
+// };
 
 #endif //PROJETCARCASSONELO21_GAMEENGINE_H
