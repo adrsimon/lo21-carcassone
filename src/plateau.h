@@ -27,6 +27,7 @@ public:
     Tuile** recupererVoisins(int x, int y);
     bool voisinsCompatibles(int x, int y, Tuile* tuile);
     int compterVoisins(int x, int y);
+    Tuile getTuile(int x, int y) const { return *plateau[x][y]; }
     void attribuerPoint(Joueur* joueur, int nbPoints);
     void decalerTuiles();
 };

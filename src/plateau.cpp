@@ -35,26 +35,57 @@ Plateau::~Plateau() {
 // FONCTIONS SPECIFIQUES
 
 void Plateau::etendrePlateau() {
-    Tuile** nouveauPlateau = new Tuile*[xmax + 2];
+    // the goal of this function is to extend the plateau by 2 in both directions
+    // the new plateau points to the same tiles as the old one
+    // the void tiles are initialized as a nullptr
+    // the old tiles are deleted
+    // the new tiles are added to the list of tiles
+
+    // first, we create the new array
+    Tuile*** newPlateau = new Tuile**[xmax + 2];
     for (int i = 0; i < xmax + 2; i++) {
-        nouveauPlateau[i] = *plateau[i];
+        newPlateau[i] = new Tuile*[ymax + 2];
     }
+
+    // then, we copy the old array into the new one
     for (int i = 0; i < xmax; i++) {
         for (int j = 0; j < ymax; j++) {
-            nouveauPlateau[i][j] = Tuile(*plateau[i-1][j-1]);
+            newPlateau[i + 1][j + 1] = plateau[i][j];
         }
     }
-    for (int i = 0; i < xmax + 1; i++) {
+
+    // then, we initialize the new void tiles
+    for (int i = 0; i < xmax + 2; i++) {
+        for (int j = 0; j < ymax + 2; j++) {
+            if (i == 0 || i == xmax + 1 || j == 0 || j == ymax + 1) {
+                newPlateau[i][j] = nullptr;
+            }
+        }
+    }
+
+    // then, we delete the old array
+    for (int i = 0; i < xmax; i++) {
+        for (int j = 0; j < ymax; j++) {
+            plateau[i][j]->~Tuile();
+        }
+    }
+
+    for (int i = 0; i < xmax; i++) {
         delete[] plateau[i];
     }
+
     delete[] plateau;
-    plateau = &nouveauPlateau;
-    xmax++;
-    ymax++;
-    decalerTuiles();
+
+    // then, we update the plateau
+    plateau = newPlateau;
+    xmax += 2;
+    ymax += 2;
 }
 
 void Plateau::placerTuile(Tuile *tuile, int x, int y) {
+    if (x == xmax || y == ymax || x == -xmax || y == -ymax) {
+        etendrePlateau();
+    }
     plateau[x][y] = tuile;
 }
 

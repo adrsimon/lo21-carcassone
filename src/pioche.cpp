@@ -1,4 +1,4 @@
-#include <cstdlib>
+#include <random>
 #include <string>
 #include <list>
 #include "pioche.h"
@@ -24,22 +24,22 @@ void Pioche::libereInstance() {
     }
 }
 
-Pioche::~Pioche() {
-    for (auto &t : *tuiles) {
-        delete &t;
+Pioche::~Pioche() = default;
+
+
+Tuile Pioche::piocher() {
+    if (!tuiles.empty()) {
+        srand(time(NULL));
+        int random = rand() % tuiles.size();
+        Tuile selected = tuiles[random];
+        tuiles.erase(tuiles.begin() + random);
+        return selected;
     }
-    delete tuiles;
 }
-
-
-// const Tuile &Pioche::piocher() {
-
-// }
 
 using namespace tinyxml2;
 
 void Pioche::genererTuiles() {
-    std::cout << "ok 1";
     // loading XML file
     XMLDocument main_tiles;
     main_tiles.LoadFile("../utils/tuiles-main.xml");
@@ -84,9 +84,8 @@ void Pioche::genererTuiles() {
         }
 
         // creating the tuile
-        auto t = new Tuile(monastere, jardin, tuile_id, elements);
-        std::cout << "ok final";
-        tuiles->push_back(*t);
+        Tuile  *t = new Tuile(monastere, jardin, tuile_id, elements);
+        tuiles.push_back(*t);
         tuile = tuile->NextSiblingElement("tuile");
     }
 }

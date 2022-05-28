@@ -1,6 +1,7 @@
 #ifndef LO21_CARCASSONE_PIOCHE_H
 #define LO21_CARCASSONE_PIOCHE_H
 
+#include <vector>
 #include "tuile.h"
 
 class Pioche {
@@ -8,23 +9,23 @@ public:
     static Pioche& getInstance();
     static void libereInstance();
 
-    std::list<Tuile> *getTuiles() const {
+    std::vector<Tuile> getTuiles() const {
         return tuiles;
     }
 
-    // const Tuile& piocher();
+    Tuile piocher();
     void genererTuiles();
 private:
     static Pioche* instance;
-    Pioche() : nbTuilesMax(0), nbTuilesRiviereMax(0), tuiles(nullptr), tuiles_riviere(nullptr) {};
+    Pioche() : nbTuilesMax(0), nbTuilesRiviereMax(0), tuiles(std::vector<Tuile>()), tuiles_riviere(std::vector<Tuile>()) {};
     Pioche(Pioche const&);
     void operator=(Pioche const&);
     virtual ~Pioche();
 
     const int nbTuilesMax;
     const int nbTuilesRiviereMax;
-    std::list<Tuile> *tuiles_riviere;
-    std::list<Tuile> *tuiles;
+    std::vector<Tuile> tuiles_riviere;
+    std::vector<Tuile> tuiles;
 };
 
 #endif //LO21_CARCASSONE_PIOCHE_H

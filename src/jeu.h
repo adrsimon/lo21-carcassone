@@ -11,12 +11,12 @@ using namespace std;
 
 class Jeu{
 public:
-    Jeu& getJeu();
+    static Jeu& getJeu();
     void libererJeu();
     Jeu(const Jeu& j)=delete;
     Jeu& operator=(const Jeu& j)=delete;
     
-    Pioche* getPioche() const {return  pioche;}
+    Pioche* getPioche() const {return pioche;}
     Tuile* getLastTuile() const {return last_tuile;}
     const Joueur* getCurrent() const {return current; }
     const Plateau* getPlateau() const {return plateau;}

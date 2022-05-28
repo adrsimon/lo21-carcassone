@@ -13,7 +13,9 @@ Tuile &Tuile::operator=(const Tuile &j) {
     hasJardin = j.hasJardin;
     hasMonastere = j.hasMonastere;
     position = j.position;
+    // copy the element list of j into the element list of *this
     elements = j.elements;
+    return *this;
 }
 
 /*
