@@ -22,12 +22,14 @@ public:
     const Plateau* getPlateau() const {return plateau;}
     list<Joueur*> getJoueurs() const {return joueurs;}
     
-    void setJoueurs(Joueur* j){
-        joueurs.push_back(j);
+    void addJoueur(std::string nom){
+        joueurs.push_back(new Joueur(nom));
     }
-    void setAbbaye(const bool b) { abbaye = b; }
-    void setRiviere(const bool r) { riviere = r; }
-    void setAubergeCathedrale(const bool ac) { aubergecathedrale = ac; }
+    void setExtensions(const bool b, const bool r, const bool ac) {
+        abbaye = b;
+        riviere = r;
+        aubergecathedrale = ac;
+    }
 
     void poserMeeple(Joueur* j, Element* e, TypeMeeple t);
     void recupererMeeple(Meeple* m);

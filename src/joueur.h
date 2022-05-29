@@ -21,6 +21,7 @@ private:
 public:
     // Getters
     std::list<Meeple*> getMeeples() const { return meeples; }
+    int const getNumberOf
     Meeple* getAvailableMeepleByType(TypeMeeple t);
     int getScore() const { return score; }
     std::string getNom() const { return nom; }

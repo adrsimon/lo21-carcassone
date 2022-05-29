@@ -26,7 +26,7 @@ void Pioche::libereInstance() {
 
 Pioche::~Pioche() = default;
 
-
+/*
 Tuile Pioche::piocher() {
     if (!tuiles.empty()) {
         srand(time(NULL));
@@ -35,7 +35,7 @@ Tuile Pioche::piocher() {
         tuiles.erase(tuiles.begin() + random);
         return selected;
     }
-}
+}*/
 
 using namespace tinyxml2;
 
@@ -77,8 +77,8 @@ void Pioche::genererTuiles() {
             }
 
             // creating the element
-            Element *e = new Element(type, final_orientations, blason);
-            elements.push_back(*e);
+            //Element *e = new Element(type, final_orientations, blason);
+            //elements.push_back(*e);
             nbElements++;
             element = element->NextSiblingElement("element");
         }
