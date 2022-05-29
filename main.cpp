@@ -3,7 +3,7 @@
 #include "src/jeu.h"
 
 int main() {
-
+    /*
     Plateau& plateau = Plateau::getInstance();
     Pioche& pioche = Pioche::getInstance();
 
@@ -27,6 +27,7 @@ int main() {
     // std::cout << "TEST DE COMPATIBILITE" << std::endl;
     // std::cout << "Tuile numéro : " << t.getID() << std::endl;
     // std::cout << plateau.voisinsCompatibles(0, 0, &t) << std::endl;
+     */
 
     return 0;
 }

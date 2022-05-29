@@ -10,4 +10,8 @@ const std::list<std::string> orientationPre = { "ON", "NO", "NE", "EN", "ES", "S
 const std::list<std::string> Type = {"riviere", "ville", "abbaye", "pre", "route", "jardin"};
 const std::list<std::string> meeple_type = {"Normal", "Abbe", "Big"};
 
+enum class TypeElement {riviere, ville, abbaye, pre, route, jardin, last};
+
+enum class TypeMeeple { normal, big, abbe, paysan, last};
+
 #endif /* enum_h */

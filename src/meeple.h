@@ -5,27 +5,30 @@
 
 #include "enum.h"
 
-class Joueur;
-
 class Meeple{
     std::string type;
-    bool disponible;
-    const Joueur* joueur;
+    bool isAvailable;
 public:
     const std::string getType() const {return type;}
-    bool getDisponible() const {return disponible;}
-    const Joueur* getJoueur() const {return joueur;}
+    bool isPlaced() const {return !isAvailable;}
     Meeple() = default;
-    Meeple(const std::string& type, const bool& d): type(type),disponible(d),joueur(nullptr){}
     Meeple(const Meeple& m)=default;
     Meeple& operator=(const Meeple& m)=delete;
     ~Meeple()=default;
-    void updateMeeple(){
-        if(getDisponible()==true) {
-            disponible=false;
-        }
-        else {disponible = true;}
-    }
+    virtual TypeMeeple const getType() { return TypeMeeple::normal; }
+    void setAvailable(const bool b){ isAvailable = b; }
+};
+
+class BigMeeple: public Meeple {
+public:
+    BigMeeple() : Meeple() {}
+    TypeMeeple const getType() override { return TypeMeeple::big; }
+};
+
+class AbbeMeeple: public Meeple {
+public:
+    AbbeMeeple() : Meeple() {}
+    TypeMeeple const getType() override { return TypeMeeple::abbe; }
 };
 
 #endif
