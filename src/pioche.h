@@ -13,7 +13,7 @@ public:
         return tuiles;
     }
 
-    Tuile piocher();
+    Tuile* piocher();
     void genererTuiles();
 private:
     static Pioche* instance;

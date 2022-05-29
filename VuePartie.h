@@ -11,6 +11,7 @@
 #include "VueSettings.h"
 #include "VueValider.h"
 #include "VuePlateau.h"
+//#include "src/jeu.h"
 
 class QLabel;
 class QLineEdit;
@@ -26,6 +27,8 @@ class VuePartie : public QWidget {
     Q_OBJECT
 private:
     bool isPlaying = false;
+
+    //Jeu& jeu = Jeu::getJeu();
 
     QProgressBar* nbCartesPioche;
 

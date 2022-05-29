@@ -15,6 +15,7 @@
 
 #include "VuePartie.h"
 #include "VueSettings.h"
+#include "src/jeu.h"
 
 VuePartie::VuePartie(QWidget *parent): QWidget(parent) {
 
@@ -110,7 +111,7 @@ void VuePartie::cliqueJouer() {
     isPlaying=true;
     std::list<std::string> raw = vueSettings->getNomJoueurs();
     for(auto it = raw.begin(); it != raw.end(); it++)
-        std::cout << *it << std::endl;
+        std::cout << "Joueur:" << *it << std::endl;
 }
 
 void VuePartie::cliquePiocher() {

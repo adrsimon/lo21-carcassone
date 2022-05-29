@@ -6,6 +6,7 @@
 
 VueTuile::VueTuile(int x, int y, QWidget *parent, size_t id) : x(x), y(y), id(id),QPushButton(parent) {
     setFixedSize(50,50);
+    setStyleSheet("background-color: white;");
     connect(this,&QPushButton::clicked,this,&VueTuile::test);
 }
 
@@ -21,6 +22,6 @@ void VueTuile::test() {
     QImage* img = new QImage();
     img->load("/Users/leo/Documents/UTC/LO21/testing things/utils/1.jpeg");
     setIcon(QPixmap::fromImage(*img));
-    setIconSize(QPixmap::fromImage(*img).rect().size());
+    setIconSize(QSize(50,50));
     update();
 }

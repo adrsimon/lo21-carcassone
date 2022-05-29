@@ -56,6 +56,11 @@ void Jeu::updateJoueur(){
     }
 }
 
+void Jeu::tourTuile(int x, int y) {
+    if(pioche->piocher() == nullptr)
+        throw "Jeu fini";
+    std::cout<<"test";
+}
 void Jeu::updateTuile(){
     //last_tuile=pioche->piocher();
 }

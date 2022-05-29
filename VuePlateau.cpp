@@ -5,13 +5,14 @@
 #include "VuePlateau.h"
 
 VuePlateau::VuePlateau(QWidget *parent) : QGridLayout(parent){
-    for (int i = 0; i < 10; i++) {
-        for(int j=0; j <10; j++) {
+    for (int i = 0; i < 12; i++) {
+        for(int j=0; j <12; j++) {
             tuiles[i][j] = new VueTuile(i,j);
             addWidget(tuiles[i][j], i, j);
         }
     }
-    QGridLayout::setSpacing(5);
+    //QGridLayout::setHorizontalSpacing(5);
+    //QGridLayout::setVerticalSpacing(5);
 }
 
 void VuePlateau::test() {
