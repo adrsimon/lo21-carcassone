@@ -6,12 +6,10 @@
 #include "enum.h"
 
 class Meeple{
-    std::string type;
     bool isAvailable;
 public:
-    const std::string getType() const {return type;}
     bool isPlaced() const {return !isAvailable;}
-    Meeple() = default;
+    Meeple() : isAvailable(true) {}
     Meeple(const Meeple& m)=default;
     Meeple& operator=(const Meeple& m)=delete;
     ~Meeple()=default;

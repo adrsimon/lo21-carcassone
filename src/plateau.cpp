@@ -148,3 +148,22 @@ void Plateau::decalerTuiles() {
         }
     }
 }
+
+Groupement* Plateau::getGroupementWithElement(Element* e) {
+    auto it = groupements.begin();
+    while(it != groupements.end()) {
+        if(std::find((*it)->getElements().begin(), (*it)->getElements().end(), e) != (*it)->getElements().end())
+            return *it;
+        it++;
+    }
+}
+
+Groupement* Plateau::getGroupementWithMeeple(Meeple* m) {
+    auto it = groupements.begin();
+    while(it != groupements.end()) {
+        if(std::find((*it)->getMeeples().begin(), (*it)->getMeeples().end(), m) != (*it)->getMeeples().end())
+            return *it;
+        it++;
+    }
+
+}

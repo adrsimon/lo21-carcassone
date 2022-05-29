@@ -12,7 +12,7 @@ private:
 
 protected:
     std::list<std::string> orientations;
-    Element(std::list<std::string> orients) :
+    Element(std::list<std::string> orients = {}) :
             hasMeeple(false), orientations(orients){ }
 
 public:
@@ -70,14 +70,14 @@ public:
 //
 class ElementJardin : public Element {
 public:
-    ElementJardin(std::list<std::string> orients) : Element(orients) {}
+    ElementJardin() : Element() {}
     TypeElement getType() override { return TypeElement::jardin; }
     const int getElementPoints() override { return 9; }
 };
 
 // 9 Points quand complété
 class ElementAbbaye : public Element {
-    ElementAbbaye(std::list<std::string> orients) : Element(orients) {}
+    ElementAbbaye() : Element() {}
     TypeElement getType() override { return TypeElement::abbaye; }
     const int getElementPoints() override { return 9; }
 };

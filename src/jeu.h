@@ -26,19 +26,23 @@ public:
         joueurs.push_back(j);
     }
 
-    void poserMeeple(Meeple *m, Element* e);
-    void recupererMeeple(Meeple& m);
+    void poserMeeple(Joueur* j, Element* e, TypeMeeple t);
+    void recupererMeeple(Meeple* m);
     void updateJoueur();
     void updateTuile();
+    void jouer();
 private:
     static Jeu* instance;
     Jeu();
     ~Jeu();
-    static Tuile* last_tuile;
+    Tuile* last_tuile;
     list<Joueur*> joueurs;
     Joueur* current;
-    const Plateau* plateau;
-    static Pioche* pioche;
+    Plateau* plateau;
+    Pioche* pioche;
+    bool abbaye=false;
+    bool riviere=false;
+    bool aubergecathedrale = false;
 };
 
 #endif

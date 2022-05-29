@@ -16,11 +16,12 @@ using namespace std;
 class Joueur {
 private:
     int score;
-    std::list<Meeple> meeples;
+    std::list<Meeple*> meeples;
     const std::string nom;
 public:
     // Getters
-    std::list<Meeple> getMeeples() const { return meeples; }
+    std::list<Meeple*> getMeeples() const { return meeples; }
+    Meeple* getAvailableMeepleByType(TypeMeeple t);
     int getScore() const { return score; }
     std::string getNom() const { return nom; }
     // Setters
@@ -28,7 +29,11 @@ public:
 
     // Constructors and Desctructors
     Joueur(std::string nom) : nom(nom), score(0) {
-        // Meeple creation here
+        for(int i=0; i<5; i++) {
+            meeples.push_back(new Meeple());
+        }
+        meeples.push_back(new BigMeeple());
+        meeples.push_back(new AbbeMeeple());
     }
 };
 

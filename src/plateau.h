@@ -17,12 +17,14 @@ private:
     int xmax = 0;
     int ymax = 0;
     Tuile*** plateau = nullptr;
-    Groupement** groupements = nullptr;
+    std::list<Groupement*> groupements = {};
 public:
     static Plateau& getInstance();
     static void libereInstance();
 
     void etendrePlateau();
+    Groupement* getGroupementWithElement(Element* e);
+    Groupement* getGroupementWithMeeple(Meeple* m);
     void placerTuile(Tuile* tuile, int x, int y);
     Tuile** recupererVoisins(int x, int y);
     bool voisinsCompatibles(int x, int y, Tuile* tuile);

@@ -23,47 +23,21 @@ Jeu::~Jeu() = default;
 
 // FONCTIONS DE JEU
 
-void Jeu::poserMeeple(Meeple* m, Element* e) {
-    std::string type = m->getType();
-
-    auto it=current->getMeeples().begin();
-    if (type=="Normal") {
-        for (it=current->getMeeples().begin();it!=current->getMeeples().end();it++) {
-            if(it->getType()=="Normal") continue;
-            if(it->getDisponible()==true)
-                break;
-        }
-        if(it==current->getMeeples().end()) std::cout << "Pas de meeple disponible" << std::endl;
-        it->updateMeeple();
-    } else {
-        if (type=="Abbe") {
-            for (it=current->getMeeples().begin();it!=current->getMeeples().end();it++) {
-                if(it->getType()!="Abbe") continue;
-                if(it->getDisponible()==true) break;
-            }
-            if(it==current->getMeeples().end()) std::cout << "Pas de meeple disponible" << std::endl;
-            if(e->getType()=="abbaye" && e->getType()=="jardin"){
-                it->updateMeeple();
-            } else {
-                std::cout << "Impossible de poser un Abbé ici" << std::endl;
-            }
-        } else {
-            if(type=="Big") {
-                for (it=current->getMeeples().begin();it!=current->getMeeples().end();it++) {
-                    if(it->getType()!="Big") continue;
-                    if(it->getDisponible()==true) break;
-                }
-                if(it!=current->getMeeples().end()) std::cout << "Pas de meeple disponible" << std::endl;
-                it->updateMeeple();
-            } else {
-                std::cout << "Le type n'existe pas." << std::endl;
-            }
-        }
-    }
+void Jeu::poserMeeple(Joueur* j, Element* e, TypeMeeple t) {
+    Meeple* m = j->getAvailableMeepleByType(t);
+    if(m == nullptr)
+        throw "meeple";
+    Groupement* g = plateau->getGroupementWithElement(e);
+    if(g == nullptr)
+        throw "element";
+    g->addMeeple(m);
 }
 
-void Jeu::recupererMeeple(Meeple& m){
-    m.updateMeeple(); 
+void Jeu::recupererMeeple(Meeple* m){
+    Groupement* g = plateau->getGroupementWithMeeple(m);
+    if(g == nullptr)
+        throw "groupement";
+    g->removeMeeple(m);
 }
 
 
