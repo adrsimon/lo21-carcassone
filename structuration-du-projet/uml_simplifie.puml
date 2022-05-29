@@ -1,0 +1,40 @@
+class GroupementVille {
+
+}
+
+class GroupementPre {
+
+}
+
+class GroupementAbbaye {
+}
+
+class GroupementJardin {
+
+}
+
+Jeu "1" *-- "2..6" Joueur
+Jeu "1" *- "1" Plateau
+Jeu "1" *- "1" Pioche
+
+GameEngine "1" *-- "1" Jeu
+
+Joueur "1" *-- "8..10" Meeple
+
+Plateau "1" *- "*" Tuile
+Tuile "1" *- "1" Position
+Position "1" --* "1" Element
+
+Element "*" --* "1" GroupementPre
+Element "*" --* "1" GroupementVille
+Element "*" --* "1" GroupementJardin
+Element "*" --* "1" GroupementRoute
+Element "*" --* "1" GroupementAbbaye
+
+GroupementPre  --|> Groupement : herits
+GroupementVille  --|>Groupement : herits
+GroupementJardin  --|>Groupement : herits
+GroupementRoute  --|>Groupement : herits
+GroupementAbbaye  --|>Groupement : herits
+
+@enduml
