@@ -2,15 +2,15 @@
 // Created by Leo Peron on 27/05/2022.
 //
 
-#ifndef TESTING_THINGS_VUEPARTIE_H
-#define TESTING_THINGS_VUEPARTIE_H
+#ifndef VUEPARTIE_H
+#define VUEPARTIE_H
 
 #include <QWidget>
 #include <vector>
 #include <set>
 #include "VueSettings.h"
 #include "VueValider.h"
-#include "utils/VuePlateau.h"
+#include "VuePlateau.h"
 
 class QLabel;
 class QLineEdit;

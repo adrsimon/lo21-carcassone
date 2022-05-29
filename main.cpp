@@ -1,8 +1,10 @@
 #include <iostream>
+#include <QApplication>
 
-#include "src/jeu.h"
+//#include "src/jeu.h"
+#include "VuePartie.h"
 
-int main() {
+int main(int argc, char** argv) {
     /*
     Plateau& plateau = Plateau::getInstance();
     Pioche& pioche = Pioche::getInstance();
@@ -28,6 +30,11 @@ int main() {
     // std::cout << "Tuile numéro : " << t.getID() << std::endl;
     // std::cout << plateau.voisinsCompatibles(0, 0, &t) << std::endl;
      */
+
+    QApplication app(argc, argv);
+    VuePartie vuepartie;
+    vuepartie.show();
+    return app.exec();
 
     return 0;
 }

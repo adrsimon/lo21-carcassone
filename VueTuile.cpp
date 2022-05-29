@@ -12,7 +12,7 @@ VueTuile::VueTuile(int x, int y, QWidget *parent, size_t id) : x(x), y(y), id(id
 void VueTuile::setTuile(const size_t newId) {
     id = newId;
     QImage* img = new QImage();
-    img->load("/Users/leo/Documents/UTC/LO21/testing things/utils/1.jpeg");
+    img->load(":/utils/illu-main/1.jpeg");
     setIcon(QPixmap::fromImage(*img));
     update();
 }
