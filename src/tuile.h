@@ -8,11 +8,9 @@ class Tuile {
 private:
     Position position;
     const int ID;
-    bool hasMonastere;
-    bool hasJardin;
     std::list <Element> elements;
 public:
-    Tuile(const bool &m,const bool &j, const int &id, std::list<Element> &e): hasMonastere(m), hasJardin(j), elements(e), ID(id), position(Position()) {}
+    Tuile(const int &id, std::list<Element> &e): elements(e), ID(id), position(Position()) {}
     ~Tuile() = default;
     Tuile(const Tuile& j)=default;
     Tuile& operator=(const Tuile& j);
@@ -27,13 +25,8 @@ public:
     std::list<Element> getElement()const{
         return elements;
     }
-    const bool getM()const{
-        return hasMonastere;
-    }
-    const bool getJ()const{
-        return hasJardin;
-    }
-    const int getID()const{
+
+    int getID()const{
         return ID;
     }
 
