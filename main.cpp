@@ -28,6 +28,7 @@ int main(int argc, char** argv) {
     std::cout << t->getID() << std::endl;
     pl.placerTuile(t, 5,6);
     std::vector<Tuile*> raw = pl.getVoisins(5,5);
+    std::cout << "Voisins" << std::endl;
     for (auto it = raw.begin(); it != raw.end(); it++) {
         std::cout << (*it)->getID() << std::endl;
     }

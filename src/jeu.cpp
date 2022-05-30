@@ -47,9 +47,9 @@ void Jeu::updateJoueur(){
         if((*it)==this->getCurrent()) {
             it++;
             if(it==joueurs.end()) {
-                current = joueurs.front();
+                currentJoueur = joueurs.front();
             } else {
-                current = *it;
+                currentJoueur = *it;
             }
             break;
         }

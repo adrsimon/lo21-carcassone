@@ -30,9 +30,9 @@ Tuile* Pioche::piocher() {
     if (!tuiles.empty()) {
         srand(time(NULL));
         int random = rand() % tuiles.size();
-        Tuile selected = tuiles[random];
+        Tuile* selected = tuiles[random];
         tuiles.erase(tuiles.begin() + random);
-        return &selected;
+        return selected;
     }
 }
 
@@ -125,7 +125,7 @@ void Pioche::genererTuiles() {
         }
         // creating the tuile
         Tuile  *t = new Tuile(tuile_id, elements);
-        tuiles.push_back(*t);
+        tuiles.push_back(t);
         tuile = tuile->NextSiblingElement("tuile");
     }
 }

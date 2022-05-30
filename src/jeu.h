@@ -17,8 +17,8 @@ public:
     Jeu& operator=(const Jeu& j)=delete;
     
     //Pioche* getPioche() const {return pioche;}
-    Tuile* getLastTuile() const {return last_tuile;}
-    const Joueur* getCurrent() const {return current; }
+    Tuile* getLastTuile() const {return currentTuile;}
+    const Joueur* getCurrent() const {return currentJoueur; }
     const Plateau* getPlateau() const {return plateau;}
     list<Joueur*> getJoueurs() const {return joueurs;}
     
@@ -40,9 +40,9 @@ private:
     static Jeu* instance;
     Jeu();
     ~Jeu();
-    Tuile* last_tuile;
+    Tuile* currentTuile;
     list<Joueur*> joueurs;
-    Joueur* current;
+    Joueur* currentJoueur;
     Plateau* plateau;
     Pioche* pioche;
     bool abbaye=false;
