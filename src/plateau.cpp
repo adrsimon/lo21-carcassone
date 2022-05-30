@@ -83,7 +83,7 @@ void Plateau::etendrePlateau() {
 }
 
 void Plateau::placerTuile(Tuile *tuile, int x, int y) {
-    if (x == xmax || y == ymax || x == -xmax || y == -ymax) {
+    if (x >= xmax || y >= ymax || x <= -xmax || y <= -ymax) {
         etendrePlateau();
     }
     plateau[x][y] = tuile;
@@ -113,15 +113,8 @@ Element* getElementAsTable(Tuile* tuile) {
     return elems;
 }
 
-bool Plateau::voisinsCompatibles(int x, int y, Tuile *tuile) {
-    Element* elems_tuile = getElementAsTable(tuile);
-    if ((elems_tuile[0].getType() == getElementAsTable(plateau[x][y+1])[2].getType() || plateau[x][y+1] == nullptr)
-        && (elems_tuile[1].getType() == getElementAsTable(plateau[x+1][y])[3].getType() || plateau[x+1][y] == nullptr)
-        && (elems_tuile[2].getType() == getElementAsTable(plateau[x][y-1])[0].getType() || plateau[x][y-1] == nullptr)
-        && (elems_tuile[3].getType() == getElementAsTable(plateau[x-1][y])[1].getType() || plateau[x-1][y] == nullptr)) {
-        return true;
-    }
-    return false;
+bool Plateau::voisinsCompatibles(Position p, Tuile* t) {
+    for(auto it = t->getElement(); )
 }
 
 int Plateau::compterVoisins(int x, int y) {

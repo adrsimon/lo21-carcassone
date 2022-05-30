@@ -1,6 +1,8 @@
 #ifndef LO21_CARCASSONE_PLATEAU_H
 #define LO21_CARCASSONE_PLATEAU_H
 
+#include <map>
+
 #include "tuile.h"
 #include "groupement.h"
 #include "pioche.h"
@@ -8,30 +10,39 @@
 
 class Plateau {
 private:
+
+    // Singleton properties
     static Plateau* instance;
     Plateau();
     Plateau(Plateau const&);
     void operator=(Plateau const&);
     virtual ~Plateau();
 
-    int xmax = 0;
-    int ymax = 0;
-    Tuile*** plateau = nullptr;
+    // Board and Groupements properties
+    int orientationTuile=0;
+    int idCurrentTuile;
+    std::map<Position, Tuile*> plateau;
     std::list<Groupement*> groupements = {};
 public:
+    // Singleton methods
     static Plateau& getInstance();
     static void libereInstance();
 
-    void etendrePlateau();
+    // Getters & Setters
+    int const getOrientationTuile() { return orientationTuile; }
+    int const getIdCurrentTuile() { return idCurrentTuile; }
+    void setOrientationTuile(int o) { orientationTuile = 0; }
+    void setIdCurrentTuile(int i) { idCurrentTuile = 0; }
+    Tuile* getTuile(Position p) const { return plateau.at(p); }
+
+    // Finders
     Groupement* getGroupementWithElement(Element* e);
     Groupement* getGroupementWithMeeple(Meeple* m);
-    void placerTuile(Tuile* tuile, int x, int y);
-    Tuile** recupererVoisins(int x, int y);
-    bool voisinsCompatibles(int x, int y, Tuile* tuile);
-    int compterVoisins(int x, int y);
-    Tuile getTuile(int x, int y) const { return *plateau[x][y]; }
-    void attribuerPoint(Joueur* joueur, int nbPoints);
-    void decalerTuiles();
+
+    void placerTuile(Tuile* t, Position p) { plateau.insert(std::pair<Position, Tuile*>(p,t)); }
+    //Tuile** recupererVoisins(int x, int y);
+    bool voisinsCompatibles(Position p, Tuile* t);
+    int compterVoisins(Position p);
 };
 
 
