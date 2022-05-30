@@ -1,40 +1,81 @@
-class GroupementVille {
+@startuml
+hide circle
+
+
+class Jeu<Singleton> {
 
 }
 
-class GroupementPre {
+class Pioche {
 
 }
 
-class GroupementAbbaye {
-}
-
-class GroupementJardin {
+class Plateau {
 
 }
+
+class Joueur {
+
+}
+
+class Tuile {
+
+}
+
+class Position {
+
+}
+
+class Element {
+
+}
+class ElementPre{
+
+}
+class ElementVille {
+
+}
+class ElementRoute {
+
+}
+class ElementRiviere {
+
+}
+class ElementAbbaye {
+
+}
+class ElementJardin {
+
+}
+
+class Meeple {
+
+}
+
+
+class Groupement {
+
+}
+ElementRiviere--|> Element : herits
+ElementRoute  --|> Element : herits
+ElementVille  --|>Element : herits
+ElementPre  --|>Element : herits
+ElementAbbaye  --|>Element : herits
+ElementJardin  --|>Element : herits
 
 Jeu "1" *-- "2..6" Joueur
 Jeu "1" *- "1" Plateau
 Jeu "1" *- "1" Pioche
 
-GameEngine "1" *-- "1" Jeu
 
 Joueur "1" *-- "8..10" Meeple
 
 Plateau "1" *- "*" Tuile
 Tuile "1" *- "1" Position
-Position "1" --* "1" Element
+Tuile "1" *- "*" Element
+Plateau "1" *- "*"Groupement
+Element "*" --* "1" Groupement
 
-Element "*" --* "1" GroupementPre
-Element "*" --* "1" GroupementVille
-Element "*" --* "1" GroupementJardin
-Element "*" --* "1" GroupementRoute
-Element "*" --* "1" GroupementAbbaye
 
-GroupementPre  --|> Groupement : herits
-GroupementVille  --|>Groupement : herits
-GroupementJardin  --|>Groupement : herits
-GroupementRoute  --|>Groupement : herits
-GroupementAbbaye  --|>Groupement : herits
 
 @enduml
