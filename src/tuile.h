@@ -8,9 +8,9 @@ class Tuile {
 private:
     Position position;
     const int ID;
-    std::list <Element> elements;
+    std::list <Element*> elements;
 public:
-    Tuile(const int &id, std::list<Element> &e): elements(e), ID(id), position(Position()) {}
+    Tuile(const int &id, std::list<Element*> e): elements(e), ID(id), position(Position()) {}
     ~Tuile() = default;
     Tuile(const Tuile& j)=default;
     Tuile& operator=(const Tuile& j);
@@ -22,7 +22,7 @@ public:
         position.setPosition(x,y);
     }
 
-    std::list<Element> getElement()const{
+    std::list<Element*> getElement()const{
         return elements;
     }
 

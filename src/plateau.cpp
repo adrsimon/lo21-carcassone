@@ -107,7 +107,7 @@ Element* getElementAsTable(Tuile* tuile) {
     Element *elems;
     int i = 0;
     for (auto & it : tuile->getElement()) {
-        elems[i] = it;
+        elems[i] = *it;
         i++;
     }
     return elems;

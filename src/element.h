@@ -77,6 +77,7 @@ public:
 
 // 9 Points quand complété
 class ElementAbbaye : public Element {
+public:
     ElementAbbaye() : Element() {}
     TypeElement getType() override { return TypeElement::abbaye; }
     const int getElementPoints() override { return 9; }
