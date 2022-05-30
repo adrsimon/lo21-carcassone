@@ -16,13 +16,14 @@ private:
     Plateau();
     Plateau(Plateau const&);
     void operator=(Plateau const&);
-    virtual ~Plateau();
+    virtual ~Plateau() {};
 
     // Board and Groupements properties
     int orientationTuile=0;
     int idCurrentTuile;
-    std::map<Position, Tuile*> plateau;
+    std::map<pair<int,int>, Tuile*> plateau;
     std::list<Groupement*> groupements = {};
+
 public:
     // Singleton methods
     static Plateau& getInstance();
@@ -33,16 +34,17 @@ public:
     int const getIdCurrentTuile() { return idCurrentTuile; }
     void setOrientationTuile(int o) { orientationTuile = 0; }
     void setIdCurrentTuile(int i) { idCurrentTuile = 0; }
-    Tuile* getTuile(Position p) const { return plateau.at(p); }
+    Tuile* getTuile(int x, int y) const { return plateau.at(pair<int,int>(x,y)); }
+    std::vector<Tuile*> getVoisins(int x, int y);
 
     // Finders
     Groupement* getGroupementWithElement(Element* e);
     Groupement* getGroupementWithMeeple(Meeple* m);
 
-    void placerTuile(Tuile* t, Position p) { plateau.insert(std::pair<Position, Tuile*>(p,t)); }
+    void placerTuile(Tuile* t, int x, int y) { plateau.insert(pair<pair<int,int>, Tuile*>(pair<int,int>(x,y),t)); }
     //Tuile** recupererVoisins(int x, int y);
-    bool voisinsCompatibles(Position p, Tuile* t);
-    int compterVoisins(Position p);
+    bool voisinsCompatibles(int x, int y, Tuile* t);
+    int compterVoisins(int x, int y) { return getVoisins(x,y).size(); }
 };
 
 

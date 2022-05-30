@@ -1,10 +1,37 @@
 #include <iostream>
 #include <QApplication>
 
-//#include "src/jeu.h"
+#include "src/jeu.h"
 #include "VuePartie.h"
 
 int main(int argc, char** argv) {
+    std::cout<< "Hello world" << std::endl;
+
+    Pioche& p = Pioche::getInstance();
+    p.genererTuiles();
+
+    Plateau& pl = Plateau::getInstance();
+    Tuile* t;
+    t = p.piocher();
+    std::cout << t->getID() << std::endl;
+    pl.placerTuile(t, 5,5);
+    t = p.piocher();
+    std::cout << t->getID() << std::endl;
+    pl.placerTuile(t, 4,5);
+    t = p.piocher();
+    std::cout << t->getID() << std::endl;
+    pl.placerTuile(t, 6,5);
+    t = p.piocher();
+    std::cout << t->getID() << std::endl;
+    pl.placerTuile(t, 5,4);
+    t = p.piocher();
+    std::cout << t->getID() << std::endl;
+    pl.placerTuile(t, 5,6);
+    std::vector<Tuile*> raw = pl.getVoisins(5,5);
+    for (auto it = raw.begin(); it != raw.end(); it++) {
+        std::cout << (*it)->getID() << std::endl;
+    }
+    //Jeu& j = Jeu::getJeu();
     /*
     Plateau& plateau = Plateau::getInstance();
     Pioche& pioche = Pioche::getInstance();
@@ -30,11 +57,12 @@ int main(int argc, char** argv) {
     // std::cout << "Tuile numéro : " << t.getID() << std::endl;
     // std::cout << plateau.voisinsCompatibles(0, 0, &t) << std::endl;
      */
-
+    /*
     QApplication app(argc, argv);
     VuePartie vuepartie;
     vuepartie.show();
     return app.exec();
+    */
 
     return 0;
 }

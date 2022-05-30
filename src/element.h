@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <list>
-#include "position.h"
 #include "enum.h"
 
 class Element {
