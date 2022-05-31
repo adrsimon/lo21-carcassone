@@ -10,13 +10,13 @@ private:
     bool hasMeeple;
 
 protected:
-    std::list<std::string> orientations;
-    Element(std::list<std::string> orients = {}) :
+    std::list<TypeCardinaux::points> orientations;
+    Element(std::list<TypeCardinaux::points> orients = {}) :
             hasMeeple(false), orientations(orients){ }
 
 public:
     // Getters
-    std::list<std::string> getOrientations() const {return orientations;}
+    std::list<TypeCardinaux::points> getOrientations() const {return orientations;}
     bool const isMeeple() { return hasMeeple; }
     virtual const int getElementPoints() { return -1; };
     virtual bool const hasModifier() { return false; }
@@ -34,7 +34,7 @@ private:
     bool blason;
     bool cathedrale;
 public:
-    ElementVille(std::list<std::string> orients, bool b, bool c=false) : Element(orients), blason(b), cathedrale(c) {}
+    ElementVille(std::list<TypeCardinaux::points> orients, bool b, bool c=false) : Element(orients), blason(b), cathedrale(c) {}
     const int getElementPoints() override { return 2 + (blason ? 2: 0); }
     TypeElement getType() override { return TypeElement::ville; }
     bool const hasModifier() override { return cathedrale; }
@@ -42,7 +42,7 @@ public:
 
 class ElementPre : public Element {
 public:
-    ElementPre(std::list<std::string> orients) : Element(orients) {}
+    ElementPre(std::list<TypeCardinaux::points> orients) : Element(orients) {}
     void rotateOrientation() override;
     const int getElementPoints() override { return 4; }
     TypeElement getType() override { return TypeElement::pre; }
@@ -53,7 +53,7 @@ class ElementRoute : public Element {
 private:
     bool auberge;
 public:
-    ElementRoute(std::list<std::string> orients, bool a=false) : Element(orients), auberge(a) {}
+    ElementRoute(std::list<TypeCardinaux::points> orients, bool a=false) : Element(orients), auberge(a) {}
     const int getElementPoints() override { return 1; }
     TypeElement getType() override { return TypeElement::route; }
     bool const hasModifier() override { return auberge; }
@@ -61,7 +61,7 @@ public:
 
 class ElementRiviere : public Element {
 public:
-    ElementRiviere(std::list<std::string> orients) : Element(orients) {}
+    ElementRiviere(std::list<TypeCardinaux::points> orients) : Element(orients) {}
     TypeElement getType() override { return TypeElement::riviere; }
     const int getElementPoints() override { return 5; }
 };
