@@ -69,7 +69,7 @@ Tuile* Pioche::piocher() {
 
 using namespace tinyxml2;
 
-TypeCardinaux::points parseOrientation(std::string orientation) {
+TypeCardinaux::points parseOrientation(const std::string& orientation) {
     if (orientation == "N") {
         return TypeCardinaux::points::nord;
     } else if (orientation == "NE") {
