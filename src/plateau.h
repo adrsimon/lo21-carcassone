@@ -42,7 +42,7 @@ public:
     Groupement* getGroupementWithElement(Element* e);
     Groupement* getGroupementWithMeeple(Meeple* m);
 
-    void placerTuile(Tuile* t, int x, int y) { plateau.insert(pair<pair<int,int>, Tuile*>(pair<int,int>(x,y),t)); }
+    void placerTuile(Tuile* t, int x, int y);
     //Tuile** recupererVoisins(int x, int y);
     bool isTuileCompatible(int x, int y, Tuile* t);
     int compterVoisins(int x, int y) { return getVoisins(x,y).size(); }

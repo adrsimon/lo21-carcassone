@@ -32,7 +32,7 @@ public:
     bool isTypeOf(Element* e) { return e->getType() == typeGroupement; }
 
     // Setters
-    void setComplete() {complete = true;}
+    void setComplete(bool b) {complete = b;}
 
     // add and remove Elements and Meeples
     void addMeeple(Meeple* m) { meeples.push_back(m); }

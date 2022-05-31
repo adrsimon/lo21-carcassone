@@ -82,3 +82,25 @@ Groupement* Plateau::getGroupementWithMeeple(Meeple* m) {
     }
 
 }
+
+void Plateau::placerTuile(Tuile* t, int x, int y) {
+    plateau.insert(pair<pair<int,int>, Tuile*>(pair<int,int>(x,y),t));
+    std::vector<Tuile*> voisins = getVoisins(x, y);
+    std::list<Element*> elems = t->getElements();
+    for(auto it = elems.begin(); it != elems.end(); it++) {
+        bool fusion = true;
+        std::vector<TypeCardinaux::points> dirs; //(*it)->getOrientations();
+        if(dirs.size() > 1) {
+            for(auto it2 = dirs.begin(); it2 != dirs.end(); it2++) {
+                getVoisinByOrientation(x,y (*it2));
+            }
+        } else {
+            Tuile* t = getVoisinByOrientation(x, y, *dirs.begin());
+            if(t == nullptr) {
+                //groupements.push_back(new Groupement(t.))
+            } else {
+
+            }
+        }
+    }
+}
