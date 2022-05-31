@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tuiles>
-  <tuile id="1">
+  <tuile id="201">
     <element>
       <type>pre</type>
       <orientation>NO,NE,EN,ES,SE,SO,OS,ON</orientation>
@@ -10,7 +10,7 @@
       <orientation>S</orientation>
     </element>
   </tuile>
-  <tuile id="2">
+  <tuile id="202">
     <element>
       <type>chemin</type>
       <orientation>S</orientation>
@@ -32,7 +32,7 @@
       <orientation>E,O</orientation>
     </element>
   </tuile>
-  <tuile id="3">
+  <tuile id="203">
     <element>
       <type>ville</type>
       <orientation>S</orientation>
@@ -54,7 +54,7 @@
       <orientation>E,O</orientation>
     </element>
   </tuile>
-  <tuile id="4">
+  <tuile id="204">
     <element>
       <type>pre</type>
       <orientation>NO,ON,OS,SO</orientation>
@@ -68,7 +68,7 @@
       <orientation>N,S</orientation>
     </element>
   </tuile>
-  <tuile id="5">
+  <tuile id="205">
     <element>
       <type>ville</type>
       <orientation>N,E</orientation>
@@ -86,7 +86,7 @@
       <orientation>E,S</orientation>
     </element>
   </tuile>
-  <tuile id="6">
+  <tuile id="206">
     <element>
       <type>pre</type>
       <orientation>NO,ON,OS,SO</orientation>
@@ -100,7 +100,7 @@
       <orientation>N,S</orientation>
     </element>
   </tuile>
-  <tuile id="7">
+  <tuile id="207">
     <element>
       <type>pre</type>
       <orientation>NO,ON</orientation>
@@ -114,7 +114,7 @@
       <orientation>O,N</orientation >
     </element>
   </tuile>
-  <tuile id="8">
+  <tuile id="208">
     <element>
       <type>abbaye</type>
     </element>
@@ -139,7 +139,7 @@
       <orientation>S</orientation>
     </element>
   </tuile>
-  <tuile id="9">
+  <tuile id="209">
     <element>
       <type>pre</type>
       <orientation>NO,ON</orientation>
@@ -161,7 +161,7 @@
       <orientation>O,N</orientation>
     </element>
   </tuile>
-  <tuile id="10">
+  <tuile id="210">
     <element>
       <type>jardin</type>
     </element>
@@ -178,7 +178,7 @@
       <orientation>E,S</orientation>
     </element>
   </tuile>
-  <tuile id="11">
+  <tuile id="211">
     <element>
       <type>pre</type>
       <orientation>NO,ON</orientation>
@@ -204,7 +204,7 @@
       <orientation>O,E</orientation>
     </element>
   </tuile>
-  <tuile id="12">
+  <tuile id="212">
     <element>
       <type>pre</type>
       <orientation>NO,NE,EN,ES,SE,SO,OS,ON</orientation>

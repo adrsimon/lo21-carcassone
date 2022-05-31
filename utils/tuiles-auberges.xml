@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tuiles>
-  <tuile id="1">
+  <tuile id="101">
     <element>
       <type>pre</type>
       <orientation>SO,OS</orientation>
@@ -15,7 +15,7 @@
       <auberge>true</auberge>
     </element>
   </tuile>
-  <tuile id="2">
+  <tuile id="102">
     <element>
       <type>jardin</type>
     </element>
@@ -33,7 +33,7 @@
       <auberge>true</auberge>
     </element>
   </tuile>
-  <tuile id="3">
+  <tuile id="103">
     <element>
       <type>pre</type>
       <orientation>SO,OS</orientation>
@@ -61,7 +61,7 @@
       <orientation>S</orientation>
     </element>
   </tuile>
-  <tuile id="4">
+  <tuile id="104">
     <element>
       <type>abbaye</type>
     </element>
@@ -82,7 +82,7 @@
       <orientation>O</orientation>
     </element>
   </tuile>
-  <tuile id="5">
+  <tuile id="105">
     <element>
       <type>pre</type>
       <orientation>ON,NO</orientation>
@@ -104,7 +104,7 @@
       <orientation>E,S</orientation>
     </element>
   </tuile>
-  <tuile id="6">
+  <tuile id="106">
     <element>
       <type>pre</type>
       <orientation>SO,SE,ES</orientation>
@@ -122,7 +122,7 @@
       <orientation>O,N</orientation>
     </element>
   </tuile>
-  <tuile id="7">
+  <tuile id="107">
     <element>
       <type>pre</type>
       <orientation>NO,NE</orientation>
@@ -136,7 +136,7 @@
       <orientation>O</orientation>
     </element>
   </tuile>
-  <tuile id="8">
+  <tuile id="108">
     <element>
       <type>jardin</type>
     </element>
@@ -161,7 +161,7 @@
       <orientation>N</orientation>
     </element>
   </tuile>
-  <tuile id="9">
+  <tuile id="109">
     <element>
       <type>pre</type>
       <orientation>ON</orientation>
@@ -195,7 +195,7 @@
       <orientation>O</orientation>
     </element>
   </tuile>
-  <tuile id="10">
+  <tuile id="110">
     <element>
       <type>pre</type>
       <orientation>ON,OS,SO</orientation>
@@ -213,21 +213,21 @@
       <orientation>S</orientation>
     </element>
   </tuile>
-  <tuile id="11">
+  <tuile id="111">
     <element>
       <type>ville</type>
       <orientation>N,O,E,S</orientation>
       <cathedrale>true</cathedrale>
     </element>
   </tuile>
-  <tuile id="12">
+  <tuile id="112">
     <element>
       <type>ville</type>
       <orientation>N,O,E,S</orientation>
       <cathedrale>true</cathedrale>
     </element>
   </tuile>
-  <tuile id="13">
+  <tuile id="113">
     <element>
       <type>ville</type>
       <orientation>N,O</orientation>
@@ -247,7 +247,7 @@
       <auberge>true</auberge>
     </element>
   </tuile>
-  <tuile id="14">
+  <tuile id="114">
     <element>
       <type>ville</type>
       <orientation>N</orientation>
@@ -267,7 +267,7 @@
       <auberge>true</auberge>
     </element>
   </tuile>
-  <tuile id="15">
+  <tuile id="115">
     <element>
       <type>ville</type>
       <orientation>N,O</orientation>
@@ -287,7 +287,7 @@
       <auberge>true</auberge>
     </element>
   </tuile>
-  <tuile id="16">
+  <tuile id="116">
     <element>
       <type>ville</type>
       <orientation>N</orientation>
@@ -305,7 +305,7 @@
       <orientation>SE,SO</orientation>
     </element>
   </tuile>
-  <tuile id="17">
+  <tuile id="117">
     <element>
       <type>ville</type>
       <orientation>N,O</orientation>
@@ -320,7 +320,7 @@
       <orientation>EN,ES</orientation>
     </element>
   </tuile>
-  <tuile id="18">
+  <tuile id="118">
     <element>
       <type>ville</type>
       <orientation>O,E</orientation>
