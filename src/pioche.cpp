@@ -70,23 +70,30 @@ Tuile* Pioche::piocher() {
 using namespace tinyxml2;
 
 TypeCardinaux::points parseOrientation(const std::string& orientation) {
-    if (orientation == "N") {
-        return TypeCardinaux::points::nord;
-    } else if (orientation == "NE") {
-        return TypeCardinaux::points::nord_est;
-    } else if (orientation == "E") {
-        return TypeCardinaux::points::est;
-    } else if (orientation == "SE") {
-        return TypeCardinaux::points::sud_est;
-    } else if (orientation == "S") {
-        return TypeCardinaux::points::sud;
-    } else if (orientation == "SO") {
-        return TypeCardinaux::points::sud_ouest;
-    } else if (orientation == "O") {
-        return TypeCardinaux::points::ouest;
-    } else if (orientation == "NO") {
-        return TypeCardinaux::points::nord_ouest;
-    }
+    if (orientation == "N")
+        return TypeCardinaux::nord;
+    if (orientation == "E")
+        return TypeCardinaux::est;
+    if (orientation == "S")
+        return TypeCardinaux::sud;
+    if (orientation == "O")
+        return TypeCardinaux::ouest;
+    if (orientation == "NE")
+        return TypeCardinaux::nord_est;
+    if (orientation == "EN")
+        return TypeCardinaux::est_nord;
+    if (orientation == "SE")
+        return TypeCardinaux::sud_est;
+    if (orientation == "ES")
+        return TypeCardinaux::est_sud;
+    if (orientation == "SO")
+        return TypeCardinaux::sud_ouest;
+    if (orientation == "OS")
+        return TypeCardinaux::ouest_sud;
+    if (orientation == "NO")
+        return TypeCardinaux::nord_ouest;
+    if (orientation == "ON")
+        return TypeCardinaux::ouest_nord;
 }
 
 Element* parseElem(XMLNode* element) {
