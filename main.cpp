@@ -5,6 +5,7 @@
 #include "VuePartie.h"
 
 int main(int argc, char** argv) {
+
     std::cout<< "Hello world" << std::endl;
 
     Pioche& p = Pioche::getInstance();
@@ -13,57 +14,31 @@ int main(int argc, char** argv) {
     Plateau& pl = Plateau::getInstance();
     Tuile* t;
     t = p.piocher();
-    std::cout << t->getID() << std::endl;
+    Groupement* g1 = new Groupement(TypeElement::pre);
+    g1->addElement(new ElementPre({TypeCardinaux::nord}));
+    g1->addElement(new ElementPre({TypeCardinaux::est}));
+
+    Groupement* g2 = new Groupement(TypeElement::pre);
+    g2->addElement(new ElementPre({TypeCardinaux::ouest}));
+    g2->addElement(new ElementPre({TypeCardinaux::nord}));
+
+    std::cout << "etrange";
+    //Groupement* g3 = new Groupement(TypeElement::ville);
+    *g1 + *g2;
+    std::cout << "Tuile 1:" << t->getID() << std::endl;
     pl.placerTuile(t, 5,5);
     t = p.piocher();
-    std::cout << t->getID() << std::endl;
-    pl.placerTuile(t, 4,5);
-    t = p.piocher();
-    std::cout << t->getID() << std::endl;
-    pl.placerTuile(t, 6,5);
-    t = p.piocher();
-    std::cout << t->getID() << std::endl;
-    pl.placerTuile(t, 5,4);
-    t = p.piocher();
-    std::cout << t->getID() << std::endl;
-    pl.placerTuile(t, 5,6);
-    std::vector<Tuile*> raw = pl.getVoisins(5,5);
-    std::cout << "Voisins" << std::endl;
-    for (auto it = raw.begin(); it != raw.end(); it++) {
-        std::cout << (*it)->getID() << std::endl;
-    }
-    //Jeu& j = Jeu::getJeu();
-    /*
-    Plateau& plateau = Plateau::getInstance();
-    Pioche& pioche = Pioche::getInstance();
+    std::cout << "Tuile 2:" << t->getID() << std::endl;
+    std::cout << "Test: " << pl.isTuileCompatible(4,5, t);
+    if(pl.isTuileCompatible(4,5, t))
+        pl.placerTuile(t,4,5);
+    std::cout << "FINI";
 
-    pioche.genererTuiles();
-    Tuile t = pioche.piocher();
-
-    std::cout << "TUILE AVANT PLACEMENT" << std::endl;
-    std::cout << "Tuile numéro : " << t.getID() << std::endl;
-    std::cout << "La tuile possède : " << t.getElement().size() << " élements." << std::endl;
-    std::cout << "L'élement 1 est orienté dans : "<< t.getElement().begin()->getOrientations().size() << " directions." << std::endl;
-
-    plateau.placerTuile(&t, 0, 0);
-
-    std::cout << "TUILE APRES PLACEMENT" << std::endl;
-    std::cout << "Tuile numéro : " << plateau.getTuile(0, 0).getID() << std::endl;
-    std::cout << "La tuile possède : " << plateau.getTuile(0, 0).getElement().size() << " élements." << std::endl;
-    std::cout << "L'élement 1 est orienté dans : "<< plateau.getTuile(0, 0).getElement().begin()->getOrientations().size() << " directions." << std::endl;
-
-    // t = pioche.piocher();
-
-    // std::cout << "TEST DE COMPATIBILITE" << std::endl;
-    // std::cout << "Tuile numéro : " << t.getID() << std::endl;
-    // std::cout << plateau.voisinsCompatibles(0, 0, &t) << std::endl;
-     */
     /*
     QApplication app(argc, argv);
     VuePartie vuepartie;
     vuepartie.show();
     return app.exec();
     */
-
     return 0;
 }

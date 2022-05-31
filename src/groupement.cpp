@@ -1,12 +1,7 @@
-#include "enum.h"
 #include "meeple.h"
 #include "element.h"
 #include "groupement.h"
-#include <iostream>
-#include <string>
 #include <list>
-#include <array>
-#include <vector>
 
 int Groupement::getAllElementsPoints() {
     int sum=0;
@@ -20,20 +15,24 @@ int Groupement::getAllElementsPoints() {
 }
 
 Groupement& Groupement::operator+(const Groupement& g){
-    for(Meeple* m : g.meeples){
-        meeples.push_back(m);
-    }
-    for(Element* e : g.elements){
-        elements.push_back(e);
-    }
-    g.~Groupement();
-    return (*this);
+    std::list<Element*> elems = g.getElements();
+    for(auto it = elems.begin(); it != elems.end(); it++)
+        elements.push_back(*it);
+    std::list<Meeple*> meeples = g.getMeeples();
+    for(auto it = meeples.begin(); it != meeples.end(); it++)
+        meeples.push_back(*it);
+    return *this;
 }
 
 Groupement &Groupement::operator=(const Groupement &g){
-    meeples = g.meeples;
-    elements = g.elements;
+    elements.clear();
+    std::list<Element*> elems = g.getElements();
+    for(auto it = elems.begin(); it != elems.end(); it++)
+        elements.push_back(*it);
+    meeples.clear();
+    std::list<Meeple*> meeples = g.getMeeples();
+    for(auto it = meeples.begin(); it != meeples.end(); it++)
+        meeples.push_back(*it);
     complete=g.complete;
-    g.~Groupement();
-    return (*this);
+    return *this;
 }

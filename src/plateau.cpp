@@ -73,22 +73,21 @@ bool Plateau::isTuileCompatible(int x, int y, Tuile* t) {
 }
 
 Groupement* Plateau::getGroupementWithElement(Element* e) {
-    auto it = groupements.begin();
-    while(it != groupements.end()) {
-        if(std::find((*it)->getElements().begin(), (*it)->getElements().end(), e) != (*it)->getElements().end())
+    for(auto it = groupements.begin(); it != groupements.end(); it++) {
+        std::list<Element*> elements = (*it)->getElements();
+        if(std::find(elements.begin(), elements.end(), e) != elements.end())
             return *it;
-        it++;
     }
+    return nullptr;
 }
 
 Groupement* Plateau::getGroupementWithMeeple(Meeple* m) {
-    auto it = groupements.begin();
-    while(it != groupements.end()) {
-        if(std::find((*it)->getMeeples().begin(), (*it)->getMeeples().end(), m) != (*it)->getMeeples().end())
+    for(auto it = groupements.begin(); it != groupements.end(); it++) {
+        std::list<Meeple*> meeples = (*it)->getMeeples();
+        if(std::find(meeples.begin(), meeples.end(), m) != meeples.end())
             return *it;
-        it++;
     }
-
+    return nullptr;
 }
 
 void Plateau::placerTuile(Tuile* t, int x, int y) {
@@ -105,13 +104,30 @@ void Plateau::placerTuile(Tuile* t, int x, int y) {
                 voisin = getVoisinByOrientation(x, y, *it2);
                 if(voisin != nullptr) {
                     Groupement *toAdd = getGroupementWithElement(voisin->getElementByOrientation(TypeCardinaux::getOrientationInverse(*it2)));
-                    *g = *g + *toAdd;
-                    groupements.remove(toAdd);
-                    delete toAdd;
+                    if(toAdd != nullptr) {
+                        *g + *toAdd;
+                        groupements.remove(toAdd);
+                        delete toAdd;
+                    }
                 }
             }
         }
         groupements.push_back(g);
         g->addElement(*it);
     }
+}
+
+bool Plateau::isMeeplePlacable(Tuile* t) {
+    std::list<Element*> elems = t->getElements();
+    for(auto it = elems.begin(); it != elems.end(); it++)
+        if(getGroupementWithElement(*it)->getMeeples().empty())
+            return true;
+        return false;
+}
+
+void Plateau::placerMeeple(Tuile* t, Meeple* m, TypeElement type) {
+    std::list<Element*> elems = t->getElements();
+    for(auto it = elems.begin(); it != elems.end(); it++)
+        if(getGroupementWithElement(*it)->getType() == type)
+            getGroupementWithElement(*it)->addMeeple(m);
 }

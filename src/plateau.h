@@ -43,9 +43,13 @@ public:
     Groupement* getGroupementWithMeeple(Meeple* m);
     std::list<Groupement*> getGroupements() { return groupements; }
 
-    void placerTuile(Tuile* t, int x, int y);
-    //Tuile** recupererVoisins(int x, int y);
     bool isTuileCompatible(int x, int y, Tuile* t);
+    void placerTuile(Tuile* t, int x, int y);
+
+    bool isMeeplePlacable(Tuile* t);
+    void placerMeeple(Tuile* t, Meeple* m, TypeElement type);
+    //Tuile** recupererVoisins(int x, int y);
+
     int compterVoisins(int x, int y) { return getVoisins(x,y).size(); }
 };
 
