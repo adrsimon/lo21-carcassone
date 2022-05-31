@@ -16,15 +16,16 @@ public:
     Jeu(const Jeu& j)=delete;
     Jeu& operator=(const Jeu& j)=delete;
     
-    //Pioche* getPioche() const {return pioche;}
+    Pioche *const getPioche() const {return pioche;}
     Tuile* getLastTuile() const {return currentTuile;}
     const Joueur* getCurrent() const {return currentJoueur; }
-    const Plateau* getPlateau() const {return plateau;}
+    Plateau *const getPlateau() const {return plateau;}
     list<Joueur*> getJoueurs() const {return joueurs;}
     
     void addJoueur(std::string nom){
         joueurs.push_back(new Joueur(nom));
     }
+
     void setExtensions(const bool b, const bool r, const bool ac) {
         abbaye = b;
         riviere = r;

@@ -18,7 +18,11 @@ void Jeu::libererJeu(){
     instance=nullptr;
 }
 
-Jeu::Jeu() = default;
+Jeu::Jeu() {
+    plateau = &Plateau::getInstance();
+    pioche = &Pioche::getInstance();
+};
+
 Jeu::~Jeu() = default;
 
 // FONCTIONS DE JEU
