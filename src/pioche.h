@@ -12,9 +12,12 @@ public:
     std::vector<Tuile*> getTuiles() const {
         return tuiles;
     }
+    std::vector<Tuile*> getTuilesRiviere() const {
+        return tuiles_riviere;
+    }
 
     Tuile* piocher();
-    void genererTuiles();
+    void genererTuiles(std::list<std::string> extensions);
 private:
     static Pioche* instance;
     Pioche() : nbTuilesMax(0), nbTuilesRiviereMax(0), tuiles(std::vector<Tuile*>()), tuiles_riviere(std::vector<Tuile*>()) {};
@@ -22,8 +25,8 @@ private:
     void operator=(Pioche const&);
     virtual ~Pioche();
 
-    const int nbTuilesMax;
-    const int nbTuilesRiviereMax;
+    int nbTuilesMax = 0;
+    int nbTuilesRiviereMax = 0;
     std::vector<Tuile*> tuiles_riviere;
     std::vector<Tuile*> tuiles;
 };

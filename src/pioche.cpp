@@ -27,6 +27,36 @@ void Pioche::libereInstance() {
 Pioche::~Pioche() = default;
 
 Tuile* Pioche::piocher() {
+    srand(time(NULL));
+    int random;
+    Tuile *t;
+
+    if (!tuiles_riviere.empty()) { // si on a la riviere on pioche dedans
+        int last_tile = tuiles_riviere.back()->getID(); // on veut piocher le lac en dernier
+        if (tuiles_riviere.size() == nbTuilesRiviereMax) { // si la pioche de riviere est pleine on prend la source
+            t = tuiles_riviere.front();
+            tuiles_riviere.erase(tuiles_riviere.begin());
+        } else { // si elle est pas pleine on prend au hasard
+            random = rand() % tuiles_riviere.size();
+            t = tuiles_riviere[random];
+            while (t->getID() == last_tile && tuiles_riviere.size() != 1) { // verifier qu'on a pas pioché le lac
+                random = rand() % tuiles_riviere.size();
+                t = tuiles_riviere[random];
+            }
+            tuiles_riviere.erase(tuiles_riviere.begin() + random);
+        }
+    } else { // sinon on pioche dans les tuiles normales
+        if (nbTuilesRiviereMax == 0 && tuiles.size() == nbTuilesMax) { // si y'a pas la rivière faut piocher la tuile de départ
+            t = tuiles[3];
+            tuiles.erase(tuiles.begin()+3);
+        } else { // sinon on prend une tuile au hasard
+            random = rand() % tuiles.size();
+            t = tuiles[random];
+            tuiles.erase(tuiles.begin()+random);
+        }
+    }
+    return t;
+    /*
     if (!tuiles.empty()) {
         srand(time(NULL));
         int random = rand() % tuiles.size();
@@ -34,6 +64,7 @@ Tuile* Pioche::piocher() {
         tuiles.erase(tuiles.begin() + random);
         return selected;
     }
+     */
 }
 
 using namespace tinyxml2;
@@ -105,27 +136,46 @@ Element* parseElem(XMLNode* element) {
     }
 }
 
-void Pioche::genererTuiles() {
+void Pioche::genererTuiles(std::list<std::string> extensions) {
     // loading XML file
-    XMLDocument main_tiles;
-    main_tiles.LoadFile("../utils/tuiles-main.xml");
-    XMLElement *root = main_tiles.FirstChildElement("tuiles");
-    XMLElement *tuile = root->FirstChildElement("tuile");
-
-    while (tuile != nullptr) {
-        int tuile_id = atoi(tuile->Attribute("id"));
-
-        std::list<Element*> elements;
-        XMLElement *element = tuile->FirstChildElement("element");
-        while (element != nullptr) {
-            Element *e = parseElem(element);
-            // creating the element
-            elements.push_back(e);
-            element = element->NextSiblingElement("element");
+    std::string path;
+    for (auto it = extensions.begin(); it != extensions.end(); it++) {
+        XMLDocument tiles;
+        std::vector<Tuile*> destination;
+        if ((*it) == "main") {
+            tiles.LoadFile("../utils/tuiles-main.xml");
+        } else if ((*it) == "riviere") {
+            tiles.LoadFile("../utils/tuiles-riviere.xml");
+        } else if ((*it) == "auberge") {
+            tiles.LoadFile("../utils/tuiles-auberges.xml");
+        } else {
+            std::cout << "Pas de tuiles à générer pour l'extension : " << (*it) << std::endl;
+            return;
         }
-        // creating the tuile
-        Tuile  *t = new Tuile(tuile_id, elements);
-        tuiles.push_back(t);
-        tuile = tuile->NextSiblingElement("tuile");
+        XMLElement *root = tiles.FirstChildElement("tuiles");
+        XMLElement *tuile = root->FirstChildElement("tuile");
+
+        while (tuile != nullptr) {
+            int tuile_id = atoi(tuile->Attribute("id"));
+
+            std::list<Element *> elements;
+            XMLElement *element = tuile->FirstChildElement("element");
+            while (element != nullptr) {
+                Element *e = parseElem(element);
+                // creating the element
+                elements.push_back(e);
+                element = element->NextSiblingElement("element");
+            }
+            // creating the tuile
+            Tuile *t = new Tuile(tuile_id, elements);
+            if ((*it) == "riviere") {
+                tuiles_riviere.push_back(t);
+                nbTuilesRiviereMax++;
+            } else {
+                tuiles.push_back(t);
+                nbTuilesMax++;
+            }
+            tuile = tuile->NextSiblingElement("tuile");
+        }
     }
 }
