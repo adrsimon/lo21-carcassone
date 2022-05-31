@@ -1,5 +1,6 @@
 #ifndef tuile_h
 #define tuile_h
+#include <string>
 #include <list>
 #include "element.h"
 
@@ -13,6 +14,10 @@ public:
     Tuile(const Tuile& j)=default;
     Tuile& operator=(const Tuile& j);
     void setOrientation();
+    std::string getIllustation() const {
+        std::string path = "../utils/tiles_illustrations/" + std::to_string(ID) + ".jpeg";
+        return path;
+    }
 
     std::list<Element*> getElements() const {
         return elements;
