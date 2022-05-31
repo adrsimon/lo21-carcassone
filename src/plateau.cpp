@@ -41,6 +41,14 @@ Tuile* Plateau::getVoisinByOrientation(int x, int y, TypeCardinaux::points t) {
         case TypeCardinaux::est: return getTuile(x+1, y);
         case TypeCardinaux::ouest: return getTuile(x-1, y);
         case TypeCardinaux::nord: return getTuile(x, y+1);
+        case TypeCardinaux::sud_est: return getTuile(x, y-1);
+        case TypeCardinaux::sud_ouest: return getTuile(x, y-1);
+        case TypeCardinaux::est_nord: return getTuile(x+1, y);
+        case TypeCardinaux::est_sud: return getTuile(x+1, y);
+        case TypeCardinaux::ouest_nord: return getTuile(x-1, y);
+        case TypeCardinaux::ouest_sud: return getTuile(x-1, y);
+        case TypeCardinaux::nord_ouest: return getTuile(x, y+1);
+        case TypeCardinaux::nord_est: return getTuile(x, y+1);
     }
 }
 
@@ -87,20 +95,23 @@ void Plateau::placerTuile(Tuile* t, int x, int y) {
     plateau.insert(pair<pair<int,int>, Tuile*>(pair<int,int>(x,y),t));
     std::vector<Tuile*> voisins = getVoisins(x, y);
     std::list<Element*> elems = t->getElements();
+    Groupement* g;
     for(auto it = elems.begin(); it != elems.end(); it++) {
-        bool fusion = true;
-        std::vector<TypeCardinaux::points> dirs; //(*it)->getOrientations();
-        if(dirs.size() > 1) {
-            for(auto it2 = dirs.begin(); it2 != dirs.end(); it2++) {
-                getVoisinByOrientation(x,y (*it2));
-            }
-        } else {
-            Tuile* t = getVoisinByOrientation(x, y, *dirs.begin());
-            if(t == nullptr) {
-                //groupements.push_back(new Groupement(t.))
-            } else {
-
+        std::list<TypeCardinaux::points> dirs = (*it)->getOrientations();
+        g = new Groupement((*it)->getType());
+        if (dirs.size() > 1) {
+            Tuile* voisin;
+            for (auto it2 = dirs.begin(); it2 != dirs.end(); it2++) {
+                voisin = getVoisinByOrientation(x, y, *it2);
+                if(voisin != nullptr) {
+                    Groupement *toAdd = getGroupementWithElement(voisin->getElementByOrientation(TypeCardinaux::getOrientationInverse(*it2)));
+                    *g = *g + *toAdd;
+                    groupements.remove(toAdd);
+                    delete toAdd;
+                }
             }
         }
+        groupements.push_back(g);
+        g->addElement(*it);
     }
 }

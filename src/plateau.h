@@ -41,6 +41,7 @@ public:
     // Finders
     Groupement* getGroupementWithElement(Element* e);
     Groupement* getGroupementWithMeeple(Meeple* m);
+    std::list<Groupement*> getGroupements() { return groupements; }
 
     void placerTuile(Tuile* t, int x, int y);
     //Tuile** recupererVoisins(int x, int y);
