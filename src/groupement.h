@@ -35,14 +35,17 @@ public:
     void setComplete() {complete = true;}
 
     // add and remove Elements and Meeples
-    void addMeeple(Meeple *const m) { meeples.push_back(m); }
-    void addElement(Element *const e) { elements.push_back(e); }
-    void removeMeeple(Meeple *const m) { meeples.remove(m); }
-    void removeElement(Element *const e) { elements.remove(e); }
+    void addMeeple(Meeple* m) { meeples.push_back(m); }
+    void addElement(Element* e) { elements.push_back(e); }
+    void removeMeeple(Meeple* m) { meeples.remove(m); }
+    void removeElement(Element* e) { elements.remove(e); }
 
     // Operators overloading
     Groupement &operator=(const Groupement &g);
     Groupement &operator+(const Groupement &g);
 };
 
+/*
+ * i
+ */
 #endif

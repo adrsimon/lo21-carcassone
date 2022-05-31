@@ -15,3 +15,13 @@ Tuile &Tuile::operator=(const Tuile &j) {
     return *this;
 }
 
+Element* Tuile::getElementByOrientation(TypeCardinaux::points t) {
+    for (auto it = elements.begin(); it != elements.end(); it++) {
+        auto orients = (*it)->getOrientations();
+        auto raw = std::find(orients.begin(), orients.end(), t);
+        if(raw != orients.end())
+            return *it;
+    }
+    return nullptr;
+}
+

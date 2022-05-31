@@ -14,6 +14,8 @@ public:
     static points getNextOrientations(points t);
 };
 
+enum class TypeExtension {main, riviere, auberge};
+
 enum class TypeElement {riviere, ville, abbaye, pre, route, jardin, last};
 
 enum class TypeMeeple { normal, big, abbe, paysan, last};

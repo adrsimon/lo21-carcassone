@@ -34,8 +34,9 @@ public:
     int const getIdCurrentTuile() { return idCurrentTuile; }
     void setOrientationTuile(int o) { orientationTuile = 0; }
     void setIdCurrentTuile(int i) { idCurrentTuile = 0; }
-    Tuile* getTuile(int x, int y) const { return plateau.at(pair<int,int>(x,y)); }
+    Tuile* getTuile(int x, int y);
     std::vector<Tuile*> getVoisins(int x, int y);
+    Tuile* getVoisinByOrientation(int x, int y, TypeCardinaux::points t);
 
     // Finders
     Groupement* getGroupementWithElement(Element* e);
@@ -43,7 +44,7 @@ public:
 
     void placerTuile(Tuile* t, int x, int y) { plateau.insert(pair<pair<int,int>, Tuile*>(pair<int,int>(x,y),t)); }
     //Tuile** recupererVoisins(int x, int y);
-    bool voisinsCompatibles(int x, int y, Tuile* t);
+    bool isTuileCompatible(int x, int y, Tuile* t);
     int compterVoisins(int x, int y) { return getVoisins(x,y).size(); }
 };
 

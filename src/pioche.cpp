@@ -164,22 +164,24 @@ Element* parseElem(XMLNode* element) {
     }
 }
 
-void Pioche::genererTuiles(std::list<std::string> extensions) {
+void Pioche::genererTuiles(std::list<TypeExtension> extensions) {
     // loading XML file
     std::string path;
     for (auto it = extensions.begin(); it != extensions.end(); it++) {
         XMLDocument tiles;
         std::vector<Tuile*> destination;
-        if ((*it) == "main") {
-            tiles.LoadFile("../utils/tuiles-main.xml");
-        } else if ((*it) == "riviere") {
-            tiles.LoadFile("../utils/tuiles-riviere.xml");
-        } else if ((*it) == "auberge") {
-            tiles.LoadFile("../utils/tuiles-auberges.xml");
-        } else {
-            std::cout << "Pas de tuiles à générer pour l'extension : " << (*it) << std::endl;
-            return;
+        switch (*it) {
+            case TypeExtension::main:
+                tiles.LoadFile("../utils/tuiles-main.xml");
+                break;
+            case TypeExtension::riviere:
+                tiles.LoadFile("../utils/tuiles-riviere.xml");
+                break;
+            case TypeExtension::auberge:
+                tiles.LoadFile("../utils/tuiles-auberges.xml");
+                break;
         }
+
         XMLElement *root = tiles.FirstChildElement("tuiles");
         XMLElement *tuile = root->FirstChildElement("tuile");
 
@@ -196,7 +198,7 @@ void Pioche::genererTuiles(std::list<std::string> extensions) {
             }
             // creating the tuile
             Tuile *t = new Tuile(tuile_id, elements);
-            if ((*it) == "riviere") {
+            if ((*it) == TypeExtension::riviere) {
                 tuiles_riviere.push_back(t);
                 nbTuilesRiviereMax++;
             } else {

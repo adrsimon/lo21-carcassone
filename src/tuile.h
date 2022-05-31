@@ -23,6 +23,8 @@ public:
         return elements;
     }
 
+    Element* getElementByOrientation(TypeCardinaux::points t);
+
     int getID() const {
         return ID;
     }
