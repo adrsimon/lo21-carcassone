@@ -69,6 +69,26 @@ Tuile* Pioche::piocher() {
 
 using namespace tinyxml2;
 
+TypeCardinaux::points parseOrientation(std::string orientation) {
+    if (orientation == "N") {
+        return TypeCardinaux::points::nord;
+    } else if (orientation == "NE") {
+        return TypeCardinaux::points::nord_est;
+    } else if (orientation == "E") {
+        return TypeCardinaux::points::est;
+    } else if (orientation == "SE") {
+        return TypeCardinaux::points::sud_est;
+    } else if (orientation == "S") {
+        return TypeCardinaux::points::sud;
+    } else if (orientation == "SO") {
+        return TypeCardinaux::points::sud_ouest;
+    } else if (orientation == "O") {
+        return TypeCardinaux::points::ouest;
+    } else if (orientation == "NO") {
+        return TypeCardinaux::points::nord_ouest;
+    }
+}
+
 Element* parseElem(XMLNode* element) {
     std::string type = element->FirstChildElement("type")->GetText();;
 
@@ -93,9 +113,10 @@ Element* parseElem(XMLNode* element) {
             orientation_size = 1;
             nb_orientations = (orientations.length() + 1) / 2;
         }
-        std::list<std::string> final_orientations;
+        std::list<TypeCardinaux::points> final_orientations;
         for (size_t i = 0; i < nb_orientations; i++) {
-            std::string orientation = orientations.substr(i * (orientation_size + 1), orientation_size);
+            std::string str_orientation = orientations.substr(i * (orientation_size + 1), orientation_size);
+            TypeCardinaux::points orientation = parseOrientation(str_orientation);
             final_orientations.push_back(orientation);
         }
         if (type == "ville") {
