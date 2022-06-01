@@ -6,7 +6,6 @@
 
 int main(int argc, char** argv) {
 
-    std::cout<< "Hello world" << std::endl;
 
     /* TODO LIST
      * 1. Initialisation de la partie ------------------------- OK
@@ -25,15 +24,23 @@ int main(int argc, char** argv) {
      ****** 2.7. Ajouter le meeple dans les groupements         TO DO
      ****** 2.8. Demander si un groupement est fini             TO DO
      ****** 2.9. Attribuer les points                           TO DO
-     * 3. Fin de la partie ------------------------------------ TO DO
-     ****** 3.1. Afficher le score                              TO DO
-     ****** 3.2. Afficher le gagnant                            TO DO
+     * 3. Fin de la partie ------------------------------------ OK
+     ****** 3.1. Afficher le score                              OK
+     ****** 3.2. Afficher le gagnant                            OK
      */
 
 
     Jeu& jeu = Jeu::getJeu();
     jeu.initialiser();
 
+    std::cout<< "----- DEBUT DE LA PARTIE -----" << std::endl;
+    std::cout << std::endl;
+    std::cout << "Nombre de joueurs : " << jeu.getJoueurs().size() << std::endl;
+    int compteurJoueur = 1;
+    for (auto& j : jeu.getJoueurs()) {
+        std::cout << "Joueur " << compteurJoueur << " : " << j->getNom() << std::endl;
+        compteurJoueur++;
+    }
 
     while (!jeu.getPioche()->getTuiles().empty()) {
         // CREATION D'UN NOUVEAU TOUR
@@ -80,6 +87,21 @@ int main(int argc, char** argv) {
                 }
             }
         }
+    }
+
+    // FIN DE LA PARTIE
+
+    int maxPoints = 0;
+    std::string nomGagnant;
+    compteurJoueur = 0;
+    for (auto& j : jeu.getJoueurs()) {
+        std::cout << "Joueur " << compteurJoueur << " : " << j->getNom()  << " - " << j->getScore() << " points." << std::endl;
+        compteurJoueur++;
+        if (j->getScore() > maxPoints) {
+            maxPoints = j->getScore();
+            nomGagnant = j->getNom();
+        }
+        std::cout << "Le gagnant est : " << nomGagnant << std::endl;
     }
 
     /*
