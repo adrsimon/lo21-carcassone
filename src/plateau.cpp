@@ -142,3 +142,12 @@ int Plateau::evaluerGroupement(Groupement* g) {
     }
     return sum * (modifier ? 2 : 1);
 }
+
+std::vector<std::pair<int,int>> Plateau::getNullVoisins(int x, int y) {
+    std::vector<std::pair<int,int>> res;
+    if (getTuile(x+1, y) == nullptr) res.push_back(std::pair<int,int>(x+1,y));
+    if (getTuile(x-1, y) == nullptr) res.push_back(std::pair<int,int>(x-1,y));
+    if (getTuile(x, y+1) == nullptr) res.push_back(std::pair<int,int>(x,y+1));
+    if (getTuile(x, y-1) == nullptr) res.push_back(std::pair<int,int>(x,y-1));
+    return res;
+}

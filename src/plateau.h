@@ -34,8 +34,10 @@ public:
     int const getIdCurrentTuile() { return idCurrentTuile; }
     void setOrientationTuile(int o) { orientationTuile = 0; }
     void setIdCurrentTuile(int i) { idCurrentTuile = 0; }
+    std::map<pair<int,int>, Tuile*> getMap() {return plateau;};
     Tuile* getTuile(int x, int y);
     std::vector<Tuile*> getVoisins(int x, int y);
+    std::vector<std::pair<int,int>> getNullVoisins(int x, int y);
     Tuile* getVoisinByOrientation(int x, int y, TypeCardinaux::points t);
 
     // Finders
