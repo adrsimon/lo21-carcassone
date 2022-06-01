@@ -58,13 +58,13 @@ bool Plateau::isTuileCompatible(int x, int y, Tuile* t) {
     for (auto it = dir.begin();  it != dir.end() ; it++) {
         Tuile* voisin = getVoisinByOrientation(x,y, *it);
         Element* inverseElem = nullptr;
+        Element* elemVoisin = t->getElementByOrientation(*it);
         if(voisin != nullptr) {
             inverseElem = voisin->getElementByOrientation(TypeCardinaux::getOrientationInverse(*it));
-            if(inverseElem != nullptr) {
-                if(inverseElem->getType() != t->getElementByOrientation(*it)->getType())
+            if(inverseElem != nullptr && elemVoisin != nullptr) {
+                if(inverseElem->getType() != elemVoisin->getType())
                     return false;
             } else {
-                if( t->getElementByOrientation(*it) != nullptr)
                     return false;
             }
         }
