@@ -35,12 +35,10 @@ public:
     void setExtensions(bool m, bool r, bool ac);
     void nextTurn();
     
-    void addJoueur(std::string nom) {joueurs.push_back(new Joueur(nom));}
+    void addJoueur(std::string nom, TypeCouleur couleur) {joueurs.push_back(new Joueur(nom, couleur));}
 
     void poserMeeple(Joueur* j, Element* e, TypeMeeple t);
     void recupererMeeple(Meeple* m);
-    void updateJoueur();
-    void updateTuile();
     void tourTuile(int x, int y);
 };
 

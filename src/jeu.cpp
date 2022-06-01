@@ -31,11 +31,11 @@ void Jeu::initialiser() {
     pioche->genererTuiles(extensions);
 
     // Initialisation des joueurs
-    addJoueur("Adrien");
-    addJoueur("Léo");
-    addJoueur("Chloé");
-    addJoueur("Sixtine");
-    addJoueur("Claire");
+    addJoueur("Adrien", TypeCouleur::rouge);
+    addJoueur("Léo", TypeCouleur::bleu);
+    addJoueur("Chloé", TypeCouleur::jaune);
+    addJoueur("Sixtine", TypeCouleur::vert);
+    addJoueur("Claire", TypeCouleur::rose);
 
     currentJoueur = joueurs.front();
 }
@@ -74,28 +74,10 @@ void Jeu::recupererMeeple(Meeple* m){
     g->removeMeeple(m);
 }
 
-void Jeu::updateJoueur(){
-    auto it=joueurs.begin();
-    for (it=joueurs.begin();it!=joueurs.end();it++) {
-        if((*it)==this->getCurrentJoueur()) {
-            it++;
-            if(it==joueurs.end()) {
-                currentJoueur = joueurs.front();
-            } else {
-                currentJoueur = *it;
-            }
-            break;
-        }
-    }
-}
-
 void Jeu::tourTuile(int x, int y) {
     if(pioche->piocher() == nullptr)
         throw "Jeu fini";
     std::cout<<"test";
-}
-void Jeu::updateTuile(){
-    //last_tuile=pioche->piocher();
 }
 
 
