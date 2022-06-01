@@ -36,3 +36,7 @@ Groupement &Groupement::operator=(const Groupement &g){
     complete=g.complete;
     return *this;
 }
+
+bool Groupement::isFinished() {
+    return false;
+}

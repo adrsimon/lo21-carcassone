@@ -30,6 +30,7 @@ public:
 
     // Checkers
     bool isTypeOf(Element* e) { return e->getType() == typeGroupement; }
+    bool isFinished();
 
     // Setters
     void setComplete(bool b) {complete = b;}
