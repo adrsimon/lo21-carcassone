@@ -36,10 +36,12 @@ int main(int argc, char** argv) {
 
 
     while (!jeu.getPioche()->getTuiles().empty()) {
+        // CREATION D'UN NOUVEAU TOUR
         std::cout << std::endl;
         std::cout << "-------- NOUVEAU TOUR --------" << std::endl;
         std::cout << std::endl;
         jeu.nextTurn();
+
         // ETAT DU TOUR
         std::cout << "C'est au tour de : " << jeu.getCurrentJoueur()->getNom() << std::endl;
         std::cout << "Il reste " << jeu.getPioche()->getTuiles().size() + jeu.getPioche()->getTuilesRiviere().size() << " cartes dans la pioche" << std::endl;
@@ -47,34 +49,37 @@ int main(int argc, char** argv) {
         // SI C'EST VIDE (premier tour) ON LA PLACE AU MILIEU
         if (jeu.getPlateau()->getMap().empty()) {
             jeu.getPlateau()->placerTuile(jeu.getCurrentTuile(), 0, 0);
-        } else { // SINON
+            std::cout << "Tuile placée en (0, 0)" << std::endl;
+        } else { // SINON ON CHOISIT UNE POSITION
             bool tuilePlacable = false;
             while (!tuilePlacable) {
                 std::cout << "Voisins libres : " << std::endl;
                 int compteurOption = 0;
                 int choix;
-                // CASES DISPONIBLES
+                // on recupère les places disponibles autour de ce qu'il y'a déjà sur le plateau
                 std::vector<std::pair<int,int>> casesLibres;
-                for (auto caseOccupee : jeu.getPlateau()->getMap()) { // POUR TOUTES LES CASES OCCUPEES DE LA CARTE
-                    for (auto caseVide : jeu.getPlateau()->getNullVoisins(caseOccupee.first.first, caseOccupee.first.second)) // ON RECUPERE TOUTES LES CASES VIDES
-                    casesLibres.push_back(caseVide); // ET ON LES AJOUTE A LA LISTE DE CASE VIDE
+                for (auto caseOccupee : jeu.getPlateau()->getMap()) {
+                    for (auto caseVide : jeu.getPlateau()->getNullVoisins(caseOccupee.first.first, caseOccupee.first.second)) casesLibres.push_back(caseVide);
                 }
+                // on affiche les cases disponibles
                 for (auto i : casesLibres) {
-                    std::cout << compteurOption << " - (X, Y): (" << i.first << ", " << i.second << ")" << std::endl; // ON AFFICHE TOUTES LES CASES VIDES
+                    std::cout << compteurOption << " - (X, Y): (" << i.first << ", " << i.second << ")" << std::endl;
                     compteurOption++;
                 }
+                // on demande au joueur de choisir une case
                 std::cin >> choix;
                 int x = casesLibres[choix].first;
                 int y = casesLibres[choix].second;
+                // on vérifie que la case choisie est bien compatible
                 if (jeu.getPlateau()->isTuileCompatible(x, y, jeu.getCurrentTuile())) {
                     jeu.getPlateau()->placerTuile(jeu.getCurrentTuile(), x, y);
                     tuilePlacable = true;
+                    std::cout << "Tuile placée en (" << x << ", " << y << ")" << std::endl;
                 } else {
                     std::cout << "Tuile incompatible" << std::endl;
                 }
             }
         }
-
     }
 
     /*
