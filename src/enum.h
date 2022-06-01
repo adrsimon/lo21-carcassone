@@ -15,6 +15,8 @@ enum class TypeExtension {main, riviere, auberge};
 
 enum class TypeElement {riviere, ville, abbaye, pre, route, jardin, last};
 
-enum class TypeMeeple { normal, big, abbe, paysan, last};
+enum class TypeMeeple { normal, big, abbe};
+
+enum class TypeCouleur {rouge, bleu, vert, jaune, rose};
 
 #endif /* enum_h */
