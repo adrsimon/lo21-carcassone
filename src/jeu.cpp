@@ -18,14 +18,23 @@ void Jeu::libererJeu(){
     instance=nullptr;
 }
 
-Jeu::Jeu() {
-    plateau = &Plateau::getInstance();
-    pioche = &Pioche::getInstance();
-};
-
+Jeu::Jeu() = default;
 Jeu::~Jeu() = default;
 
+void Jeu::initialiser() {
+    plateau = &Plateau::getInstance();
+    pioche = &Pioche::getInstance();
+    setExtensions(true, true, false);
+    pioche->genererTuiles(extensions);
+}
+
 // FONCTIONS DE JEU
+
+void Jeu::setExtensions(const bool m, const bool r, const bool ac) {
+    if (m) extensions.push_back(TypeExtension::main);
+    if (r) extensions.push_back(TypeExtension::riviere);
+    if (ac) extensions.push_back(TypeExtension::auberge);
+}
 
 void Jeu::poserMeeple(Joueur* j, Element* e, TypeMeeple t) {
     Meeple* m = j->getAvailableMeepleByType(t);
@@ -43,7 +52,6 @@ void Jeu::recupererMeeple(Meeple* m){
         throw "groupement";
     g->removeMeeple(m);
 }
-
 
 void Jeu::updateJoueur(){
     auto it=joueurs.begin();
