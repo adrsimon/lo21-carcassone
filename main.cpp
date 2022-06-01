@@ -19,15 +19,15 @@ int main(int argc, char** argv) {
      ****** 2.1. Pioche une carte                               OK
      ****** 2.2. Poser une carte                                OK
      ****** 2.3. Vérifier la compatibilité                      OK
-     ****** 2.4. Tourner la carte si besoin                     DOING
-     ****** 2.5. Ajouter dans les groupements
-     ****** 2.6. Poser un meeple
-     ****** 2.7. Ajouter le meeple dans les groupements
-     ****** 2.8. Demander si un groupement est fini
-     ****** 2.9. Attribuer les points
+     ****** 2.4. Tourner la carte si besoin                     TO DO
+     ****** 2.5. Ajouter dans les groupements                   TO DO
+     ****** 2.6. Poser un meeple                                TO DO
+     ****** 2.7. Ajouter le meeple dans les groupements         TO DO
+     ****** 2.8. Demander si un groupement est fini             TO DO
+     ****** 2.9. Attribuer les points                           TO DO
      * 3. Fin de la partie ------------------------------------ TO DO
-     ****** 3.1. Afficher le score
-     ****** 3.2. Afficher le gagnant
+     ****** 3.1. Afficher le score                              TO DO
+     ****** 3.2. Afficher le gagnant                            TO DO
      */
 
 
