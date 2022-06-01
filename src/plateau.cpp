@@ -131,3 +131,14 @@ void Plateau::placerMeeple(Tuile* t, Meeple* m, TypeElement type) {
         if(getGroupementWithElement(*it)->getType() == type)
             getGroupementWithElement(*it)->addMeeple(m);
 }
+
+int Plateau::evaluerGroupement(Groupement* g) {
+    std::list<Element*> elems = g->getElements();
+    bool modifier;
+    int sum=0;
+    for(auto it = elems.begin(); it != elems.end(); it++) {
+        sum+=(*it)->getElementPoints();
+        if((*it)->hasModifier()) modifier=true;
+    }
+    return sum * (modifier ? 2 : 1);
+}

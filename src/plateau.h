@@ -48,7 +48,8 @@ public:
 
     bool isMeeplePlacable(Tuile* t);
     void placerMeeple(Tuile* t, Meeple* m, TypeElement type);
-    //Tuile** recupererVoisins(int x, int y);
+
+    int evaluerGroupement(Groupement* g);
 
     int compterVoisins(int x, int y) { return getVoisins(x,y).size(); }
 };
