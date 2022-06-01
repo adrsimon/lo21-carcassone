@@ -22,10 +22,31 @@ Jeu::Jeu() = default;
 Jeu::~Jeu() = default;
 
 void Jeu::initialiser() {
+    // Création du plateau et de la pioche
     plateau = &Plateau::getInstance();
     pioche = &Pioche::getInstance();
+
+    // Génération des tuiles en fonction des extensions
     setExtensions(true, true, false);
     pioche->genererTuiles(extensions);
+
+    // Initialisation des joueurs
+    addJoueur("Adrien");
+    addJoueur("Léo");
+    addJoueur("Chloé");
+    addJoueur("Sixtine");
+    addJoueur("Claire");
+
+    currentJoueur = joueurs.front();
+}
+
+void Jeu::nextTurn() {
+    // On passe au joueur suivant
+    joueurs.push_back(joueurs.front());
+    joueurs.pop_front();
+    currentJoueur = joueurs.front();
+    // On pioche une tuile
+    currentTuile = pioche->piocher();
 }
 
 // FONCTIONS DE JEU
@@ -56,7 +77,7 @@ void Jeu::recupererMeeple(Meeple* m){
 void Jeu::updateJoueur(){
     auto it=joueurs.begin();
     for (it=joueurs.begin();it!=joueurs.end();it++) {
-        if((*it)==this->getCurrent()) {
+        if((*it)==this->getCurrentJoueur()) {
             it++;
             if(it==joueurs.end()) {
                 currentJoueur = joueurs.front();

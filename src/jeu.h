@@ -28,16 +28,14 @@ public:
     void initialiser();
 
     Pioche *const getPioche() const {return pioche;}
-    Tuile* getLastTuile() const {return currentTuile;}
-    const Joueur* getCurrent() const {return currentJoueur; }
+    Tuile* getCurrentTuile() const {return currentTuile;}
+    const Joueur* getCurrentJoueur() const {return currentJoueur;}
     Plateau *const getPlateau() const {return plateau;}
     std::list<Joueur*> getJoueurs() const {return joueurs;}
+    void setExtensions(bool m, bool r, bool ac);
+    void nextTurn();
     
-    void addJoueur(std::string nom){
-        joueurs.push_back(new Joueur(nom));
-    }
-
-    void setExtensions(bool m, const bool r, const bool ac);
+    void addJoueur(std::string nom) {joueurs.push_back(new Joueur(nom));}
 
     void poserMeeple(Joueur* j, Element* e, TypeMeeple t);
     void recupererMeeple(Meeple* m);
