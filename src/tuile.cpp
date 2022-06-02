@@ -25,3 +25,12 @@ Element* Tuile::getElementByOrientation(TypeCardinaux::points t) {
     return nullptr;
 }
 
+std::list<Element*> Tuile::getElementByType(TypeElement e) {
+    std::list<Element*> raws;
+    for (auto it = elements.begin(); it != elements.end(); it++) {
+        if((*it)->getType() == e)
+            raws.push_back(*it);
+    }
+    return raws;
+}
+

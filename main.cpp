@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
      ****** 2.2. Poser une carte                                OK
      ****** 2.3. Vérifier la compatibilité                      OK
      ****** 2.4. Tourner la carte si besoin                     TO DO
-     ****** 2.5. Ajouter dans les groupements                   TO DO
+     ****** 2.5. Ajouter dans les groupements                   OK
      ****** 2.6. Poser un meeple                                TO DO
      ****** 2.7. Ajouter le meeple dans les groupements         TO DO
      ****** 2.8. Demander si un groupement est fini             TO DO
@@ -29,9 +29,10 @@ int main(int argc, char** argv) {
      ****** 3.2. Afficher le gagnant                            OK
      */
 
-
     Jeu& jeu = Jeu::getJeu();
-    jeu.initialiser();
+    std::vector<std::string> noms = { "Adrien", "Chloé", "Léo", "Claire", "Sixtine"};
+    std::vector<TypeCouleur> cs = { TypeCouleur::bleu, TypeCouleur::orange, TypeCouleur::rose, TypeCouleur::vert, TypeCouleur::jaune};
+    jeu.initialiser(noms, cs, true);
 
     std::cout<< "----- DEBUT DE LA PARTIE -----" << std::endl;
     std::cout << std::endl;
@@ -42,51 +43,40 @@ int main(int argc, char** argv) {
         compteurJoueur++;
     }
 
-    while (!jeu.getPioche()->getTuiles().empty()) {
+    while (!jeu.isGameFinished()) {
         // CREATION D'UN NOUVEAU TOUR
         std::cout << std::endl;
         std::cout << "-------- NOUVEAU TOUR --------" << std::endl;
         std::cout << std::endl;
-        jeu.nextTurn();
 
         // ETAT DU TOUR
         std::cout << "C'est au tour de : " << jeu.getCurrentJoueur()->getNom() << std::endl;
         std::cout << "Il reste " << jeu.getPioche()->getTuiles().size() + jeu.getPioche()->getTuilesRiviere().size() << " cartes dans la pioche" << std::endl;
+        std::cout << "Tuile à jouer: " << jeu.getCurrentTuileId() << std::endl;
 
-        // SI C'EST VIDE (premier tour) ON LA PLACE AU MILIEU
-        if (jeu.getPlateau()->getMap().empty()) {
-            jeu.getPlateau()->placerTuile(jeu.getCurrentTuile(), 0, 0);
-            std::cout << "Tuile placée en (0, 0)" << std::endl;
-        } else { // SINON ON CHOISIT UNE POSITION
-            bool tuilePlacable = false;
-            while (!tuilePlacable) {
-                std::cout << "Voisins libres : " << std::endl;
-                int compteurOption = 0;
-                int choix;
-                // on recupère les places disponibles autour de ce qu'il y'a déjà sur le plateau
-                std::vector<std::pair<int,int>> casesLibres;
-                for (auto caseOccupee : jeu.getPlateau()->getMap()) {
-                    for (auto caseVide : jeu.getPlateau()->getNullVoisins(caseOccupee.first.first, caseOccupee.first.second)) casesLibres.push_back(caseVide);
-                }
-                // on affiche les cases disponibles
-                for (auto i : casesLibres) {
-                    std::cout << compteurOption << " - (X, Y): (" << i.first << ", " << i.second << ")" << std::endl;
-                    compteurOption++;
-                }
-                // on demande au joueur de choisir une case
-                std::cin >> choix;
-                int x = casesLibres[choix].first;
-                int y = casesLibres[choix].second;
-                // on vérifie que la case choisie est bien compatible
-                if (jeu.getPlateau()->isTuileCompatible(x, y, jeu.getCurrentTuile())) {
-                    jeu.getPlateau()->placerTuile(jeu.getCurrentTuile(), x, y);
-                    tuilePlacable = true;
-                    std::cout << "Tuile placée en (" << x << ", " << y << ")" << std::endl;
-                } else {
-                    std::cout << "Tuile incompatible" << std::endl;
-                }
+        bool tuilePlacable = false;
+        while (!tuilePlacable) {
+            std::cout << "Voisins libres : " << std::endl;
+            int compteurOption = 0;
+            int choix;
+            std::vector<std::pair<int,int>> casesLibres = jeu.tuileChoix();
+            for (auto i : casesLibres) {
+                std::cout << compteurOption << " - (X, Y): (" << i.first << ", " << i.second << ")" << std::endl;
+                compteurOption++;
+            }
+            // on demande au joueur de choisir une case
+            std::cin >> choix;
+            int x = casesLibres[choix].first;
+            int y = casesLibres[choix].second;
+            // on vérifie que la case choisie est bien compatible
+            if (jeu.tuileAction(x,y)) {
+                tuilePlacable = true;
+                std::cout << "Tuile placée en (" << x << ", " << y << ")" << std::endl;
+            } else {
+                std::cout << "Tuile incompatible" << std::endl;
             }
         }
+        jeu.nextTurn();
     }
 
     // FIN DE LA PARTIE
@@ -105,26 +95,22 @@ int main(int argc, char** argv) {
     }
 
     /*
-
+    Plateau& plateau = Plateau::getInstance();
+    Pioche& pioche = Pioche::getInstance();
+    pioche.genererTuiles();
     Tuile* t;
-    t = pioche->piocher();
-    Groupement* g1 = new Groupement(TypeElement::pre);
-    g1->addElement(new ElementPre({TypeCardinaux::nord}));
-    g1->addElement(new ElementPre({TypeCardinaux::est}));
+    t = pioche.piocher();
 
-    Groupement* g2 = new Groupement(TypeElement::pre);
-    g2->addElement(new ElementPre({TypeCardinaux::ouest}));
-    g2->addElement(new ElementPre({TypeCardinaux::nord}));
-
-    //Groupement* g3 = new Groupement(TypeElement::ville);
-    *g1 + *g2;
     std::cout << "Tuile 1:" << t->getID() << std::endl;
-    plateau->placerTuile(t, 5,5);
-    t = pioche->piocher();
-    std::cout << "Tuile 2:" << t->getID() << std::endl;
-    std::cout << "Test: " << plateau->isTuileCompatible(4,5, t);
-    if(plateau->isTuileCompatible(4,5, t))
-        plateau->placerTuile(t,4,5);
+    plateau.placerTuile(t, 0,0);
+    bool test;
+    do {
+        t = pioche.piocher();
+        std::cout << "Tuile 2:" << t->getID() << std::endl;
+        std::cout << "Test: " << plateau.isTuileCompatible(-1,0, t);
+        test = plateau.isTuileCompatible(-1,0, t);
+    } while(!test);
+    plateau.placerTuile(t,-1,0);
     std::cout << "FINI";
     */
 

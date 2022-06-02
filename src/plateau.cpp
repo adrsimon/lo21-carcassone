@@ -64,7 +64,7 @@ bool Plateau::isTuileCompatible(int x, int y, Tuile* t) {
             if(inverseElem != nullptr && elemVoisin != nullptr) {
                 if(inverseElem->getType() != elemVoisin->getType())
                     return false;
-            } else {
+            } else if((inverseElem == nullptr && elemVoisin != nullptr) || (inverseElem != nullptr && elemVoisin == nullptr)){
                     return false;
             }
         }
@@ -117,7 +117,7 @@ void Plateau::placerTuile(Tuile* t, int x, int y) {
     }
 }
 
-bool Plateau::isMeeplePlacable(Tuile* t) {
+bool Plateau::isMeeplePlacable(Tuile* t, Element* e) {
     std::list<Element*> elems = t->getElements();
     for(auto it = elems.begin(); it != elems.end(); it++)
         if(getGroupementWithElement(*it)->getMeeples().empty())
@@ -125,10 +125,10 @@ bool Plateau::isMeeplePlacable(Tuile* t) {
         return false;
 }
 
-void Plateau::placerMeeple(Tuile* t, Meeple* m, TypeElement type) {
+void Plateau::placerMeeple(Tuile* t, Meeple* m, Element* e) {
     std::list<Element*> elems = t->getElements();
     for(auto it = elems.begin(); it != elems.end(); it++)
-        if(getGroupementWithElement(*it)->getType() == type)
+        if(!getGroupementWithElement(*it)->getMeeples().size())
             getGroupementWithElement(*it)->addMeeple(m);
 }
 
@@ -141,6 +141,15 @@ int Plateau::evaluerGroupement(Groupement* g) {
         if((*it)->hasModifier()) modifier=true;
     }
     return sum * (modifier ? 2 : 1);
+}
+
+std::vector<std::pair<int, int>> Plateau::getCasesLibres() {
+    std::vector<std::pair<int, int>> casesLibres;
+    for (auto caseOccupee : plateau)
+        for (auto caseVide : getNullVoisins(caseOccupee.first.first, caseOccupee.first.second))
+            casesLibres.push_back(caseVide);
+
+    return casesLibres;
 }
 
 std::vector<std::pair<int,int>> Plateau::getNullVoisins(int x, int y) {

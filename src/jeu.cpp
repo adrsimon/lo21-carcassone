@@ -21,23 +21,23 @@ void Jeu::libererJeu(){
 Jeu::Jeu() = default;
 Jeu::~Jeu() = default;
 
-void Jeu::initialiser() {
+void Jeu::initialiser(std::vector<std::string> noms, std::vector<TypeCouleur> cs, bool m, bool r, bool ac) {
     // Création du plateau et de la pioche
     plateau = &Plateau::getInstance();
     pioche = &Pioche::getInstance();
 
     // Génération des tuiles en fonction des extensions
-    setExtensions(true, true, false);
+    setExtensions(m, r, ac);
     pioche->genererTuiles(extensions);
 
     // Initialisation des joueurs
-    addJoueur("Adrien", TypeCouleur::rouge);
-    addJoueur("Léo", TypeCouleur::bleu);
-    addJoueur("Chloé", TypeCouleur::jaune);
-    addJoueur("Sixtine", TypeCouleur::vert);
-    addJoueur("Claire", TypeCouleur::rose);
+    for(int i = 0; i < noms.size(); i++) {
+        addJoueur(noms[i], cs[i]);
+    }
 
     currentJoueur = joueurs.front();
+    plateau->placerTuile(pioche->piocher(), 0, 0);
+    currentTuile = pioche->piocher();
 }
 
 void Jeu::nextTurn() {
@@ -49,6 +49,16 @@ void Jeu::nextTurn() {
     currentTuile = pioche->piocher();
 }
 
+bool Jeu::tuileAction(int x, int y) {
+    if(plateau->isTuileCompatible(x,y, currentTuile)) {
+        plateau->placerTuile(currentTuile, x, y);
+        return true;
+    }
+    return false;
+}
+
+bool Jeu::meepleAction(TypeElement e) {
+}
 // FONCTIONS DE JEU
 
 void Jeu::setExtensions(const bool m, const bool r, const bool ac) {

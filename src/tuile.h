@@ -24,6 +24,7 @@ public:
     }
 
     Element* getElementByOrientation(TypeCardinaux::points t);
+    std::list<Element*> getElementByType(TypeElement e);
 
     int getID() const {
         return ID;

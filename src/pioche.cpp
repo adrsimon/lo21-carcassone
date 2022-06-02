@@ -94,6 +94,7 @@ TypeCardinaux::points parseOrientation(const std::string& orientation) {
         return TypeCardinaux::nord_ouest;
     if (orientation == "ON")
         return TypeCardinaux::ouest_nord;
+    throw "Error";
 }
 
 Element* parseElem(XMLNode* element) {
@@ -162,6 +163,7 @@ Element* parseElem(XMLNode* element) {
             std::cout << "Erreur : type d'element inconnu" << std::endl;
         }
     }
+    throw "Error";
 }
 
 void Pioche::genererTuiles(std::list<TypeExtension> extensions) {

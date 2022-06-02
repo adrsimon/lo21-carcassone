@@ -17,6 +17,6 @@ enum class TypeElement {riviere, ville, abbaye, pre, route, jardin, last};
 
 enum class TypeMeeple { normal, big, abbe};
 
-enum class TypeCouleur {rouge, bleu, vert, jaune, rose};
+enum class TypeCouleur {rouge, bleu, vert, jaune, rose, orange};
 
 #endif /* enum_h */

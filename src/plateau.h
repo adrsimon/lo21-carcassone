@@ -45,11 +45,13 @@ public:
     Groupement* getGroupementWithMeeple(Meeple* m);
     std::list<Groupement*> getGroupements() { return groupements; }
 
+    std::vector<std::pair<int, int>> getCasesLibres();
+
     bool isTuileCompatible(int x, int y, Tuile* t);
     void placerTuile(Tuile* t, int x, int y);
 
-    bool isMeeplePlacable(Tuile* t);
-    void placerMeeple(Tuile* t, Meeple* m, TypeElement type);
+    bool isMeeplePlacable(Tuile* t, Element* e);
+    void placerMeeple(Tuile* t, Meeple* m, Element* e);
 
     int evaluerGroupement(Groupement* g);
 
