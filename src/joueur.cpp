@@ -5,13 +5,34 @@
 #include "joueur.h"
 
 Meeple* Joueur::getAvailableMeepleByType(TypeMeeple t) {
-    auto it = meeples.begin();
-    // condition d'arrêt fin d'it
-    // OU it->not placed AND it typer == t
-    while(it != meeples.end() || (!(*it)->isPlaced()) && (*it)->getType() == t) {
-        it++;
+    for (auto it = meeples.begin(); it != meeples.end(); it++) {
+        if(!(*it)->isPlaced() && (*it)->getType() == t)
+            return *it;
     }
-    if(it == meeples.end())
-        return nullptr;
-    return *it;
+    return nullptr;
+}
+
+std::vector<std::pair<TypeMeeple, int>> Joueur::getAvailableMeeplesAmount() {
+    std::vector<std::pair<TypeMeeple, int>> raws;
+    int n=0; int b=0; int a=0;
+    for(auto it = meeples.begin(); it != meeples.end(); it++) {
+        if(!(*it)->isPlaced()) {
+            switch ((*it)->getType()) {
+                case TypeMeeple::normal:
+                    n++;
+                    break;
+                case TypeMeeple::big:
+                    b++;
+                    break;
+                case TypeMeeple::abbe:
+                    a++;
+                    break;
+            }
+        }
+    }
+    raws.push_back(std::pair<TypeMeeple, int>(TypeMeeple::normal, n));
+    raws.push_back(std::pair<TypeMeeple, int>(TypeMeeple::big, b));
+    raws.push_back(std::pair<TypeMeeple, int>(TypeMeeple::abbe, a));
+
+    return raws;
 }

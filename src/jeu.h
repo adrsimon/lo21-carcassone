@@ -44,7 +44,9 @@ public:
     // Jeu functions
     void nextTurn();
     bool isGameFinished() const { return pioche->getTuiles().size() ==0; }
-    std::vector<std::pair<int, int>> tuileChoix() { return plateau->getCasesLibres(); }
+    int getTuilesAmount() const { return pioche->getTuiles().size() + pioche->getTuilesRiviere().size(); }
+    std::vector<std::pair<TypeMeeple, int>> getPlayerMeeplesAmount() { return currentJoueur->getAvailableMeeplesAmount(); }
+    std::vector<std::pair<int, int>> getAvailableTuilesChoices() { return plateau->getCasesLibres(); }
     bool tuileAction(int x, int y);
     bool meepleAction(TypeElement e);
 

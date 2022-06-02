@@ -22,6 +22,7 @@ private:
 public:
     // Getters
     std::list<Meeple*> getMeeples() const { return meeples; }
+    std::vector<std::pair<TypeMeeple, int>> getAvailableMeeplesAmount();
     Meeple* getAvailableMeepleByType(TypeMeeple t);
     int getScore() const { return score; }
     std::string getNom() const { return nom; }
