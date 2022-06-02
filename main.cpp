@@ -18,7 +18,7 @@ int main(int argc, char** argv) {
      ****** 2.1. Pioche une carte                               OK
      ****** 2.2. Poser une carte                                OK
      ****** 2.3. Vérifier la compatibilité                      OK
-     ****** 2.4. Tourner la carte si besoin                     TO DO
+     ****** 2.4. Tourner la carte si besoin                     OK
      ****** 2.5. Ajouter dans les groupements                   OK
      ****** 2.6. Poser un meeple                                TO DO
      ****** 2.7. Ajouter le meeple dans les groupements         TO DO

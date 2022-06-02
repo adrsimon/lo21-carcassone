@@ -31,6 +31,7 @@ public:
     // Checkers
     bool isTypeOf(Element* e) { return e->getType() == typeGroupement; }
     bool isFinished();
+    bool isMeepleAddable() { return meeples.size() == 0; }
 
     // Setters
     void setComplete(bool b) {complete = b;}
