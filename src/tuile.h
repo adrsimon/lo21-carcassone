@@ -13,7 +13,7 @@ public:
     ~Tuile() = default;
     Tuile(const Tuile& j)=default;
     Tuile& operator=(const Tuile& j);
-    void setOrientation();
+    void rotateOrientation();
     std::string getIllustation() const {
         std::string path = "../utils/tiles_illustrations/" + std::to_string(ID) + ".jpeg";
         return path;

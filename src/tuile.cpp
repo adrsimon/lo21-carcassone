@@ -2,8 +2,7 @@
 #include "element.h"
 #include <list>
 
-void Tuile::setOrientation()
-{
+void Tuile::rotateOrientation() {
     for (Element* i : elements){
         i->rotateOrientation();
     }

@@ -47,6 +47,7 @@ public:
     int getTuilesAmount() const { return pioche->getTuiles().size() + pioche->getTuilesRiviere().size(); }
     std::vector<std::pair<TypeMeeple, int>> getPlayerMeeplesAmount() { return currentJoueur->getAvailableMeeplesAmount(); }
     std::vector<std::pair<int, int>> getAvailableTuilesChoices() { return plateau->getCasesLibres(); }
+    void rotateTuile() { return currentTuile->rotateOrientation(); }
     bool tuileAction(int x, int y);
     bool meepleAction(TypeElement e);
 
