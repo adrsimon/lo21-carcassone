@@ -47,8 +47,8 @@ Tuile* Pioche::piocher() {
         }
     } else { // sinon on pioche dans les tuiles normales
         if (nbTuilesRiviereMax == 0 && tuiles.size() == nbTuilesMax) { // si y'a pas la rivière faut piocher la tuile de départ
-            t = tuiles[3];
-            tuiles.erase(tuiles.begin()+3);
+            t = tuiles[7];
+            tuiles.erase(tuiles.begin()+7);
         } else { // sinon on prend une tuile au hasard
             random = rand() % tuiles.size();
             t = tuiles[random];
