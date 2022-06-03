@@ -49,8 +49,6 @@ int main(int argc, char** argv) {
         std::cout << "-------- NOUVEAU TOUR --------" << std::endl;
         std::cout << std::endl;
 
-        jeu.nextTurn();
-
         // ETAT DU TOUR
         std::cout << "C'est au tour de : " << jeu.getCurrentJoueur()->getNom() << std::endl;
         std::cout << "Il reste " << jeu.getTuilesAmount() << " cartes dans la pioche" << std::endl;
@@ -138,7 +136,7 @@ int main(int argc, char** argv) {
 
                 // retrouver le bon element dans la liste
                 int i = 0;
-                for (auto elem : jeu.getCurrentTuile()->getElements()) {
+                for (auto elem : jeu.getCurrentTuileElements()) {
                     if (i == choixElement) {
                         e = elem;
                         break;
@@ -151,9 +149,9 @@ int main(int argc, char** argv) {
                 compteurOption = 0;
                 std::cout << "Meeples disponibles : " << std::endl;
                 int compteurNormal = 0, compteurAbbe = 0, compteurBig = 0;
-                for (auto i : jeu.getCurrentJoueur()->getMeeples()){
+                for (auto i : jeu.getPlayerMeeplesAmount()){
                     const char* meeple;
-                    switch (i->getType()) {
+                    switch (i.first) {
                         case TypeMeeple::normal:
                             compteurNormal++;
                             break;
@@ -186,7 +184,6 @@ int main(int argc, char** argv) {
                 meeplePlaced = jeu.meepleAction(e, t);
                 if (meeplePlaced) {
                     std::cout << "Meeple placé" << std::endl;
-                    jeu.getPlateau()->placerMeeple(jeu.getCurrentTuile(), jeu.getCurrentJoueur()->getAvailableMeepleByType(t), e);
                 }
                 else std::cout << "Meeple incompatible ou Element inexistant" << std::endl;
             }
