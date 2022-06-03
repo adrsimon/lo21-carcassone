@@ -49,6 +49,8 @@ int main(int argc, char** argv) {
         std::cout << "-------- NOUVEAU TOUR --------" << std::endl;
         std::cout << std::endl;
 
+        jeu.nextTurn();
+
         // ETAT DU TOUR
         std::cout << "C'est au tour de : " << jeu.getCurrentJoueur()->getNom() << std::endl;
         std::cout << "Il reste " << jeu.getTuilesAmount() << " cartes dans la pioche" << std::endl;
@@ -57,31 +59,45 @@ int main(int argc, char** argv) {
         // TUILES PLACEMENT
         bool tuilePlaced = false;
         do {
-            std::cout << "Voisins libres : " << std::endl;
-            int compteurOption = 0;
-            int choix;
-            std::vector<std::pair<int,int>> casesLibres = jeu.getAvailableTuilesChoices();
-            for (auto i : casesLibres) {
-                std::cout << compteurOption << " - (X, Y): (" << i.first << ", " << i.second << ")" << std::endl;
-                compteurOption++;
+            // pour tourner la tuile si besoin
+            char choixTourner;
+            std::cout << "Tourner la case ? (o/n) : ";
+            std::cin >> choixTourner;
+            if (choixTourner == 'o') {
+                std::cout << "Tuile tournée de 90 degrés" << std::endl;
+                jeu.getCurrentTuile()->rotateOrientation();
+            } else std::cout << "Tuile non-tournée." << std::endl;
+
+            // pour choisir la case
+            std::cout << "Cases libres : " << std::endl;
+            int compteurOption = 0, choix;
+            int x, y;
+            std::vector<std::pair<int,int>> casesLibres;
+            if (jeu.getPlateau()->getMap().empty()) { // Si c'est la première case on la place forcément en 0, 0
+                std::cout << compteurOption << " - (X, Y): (0, 0)" << std::endl;
+                std::cin >> choix;
+                x = 0;
+                y = 0;
+            } else {
+                casesLibres = jeu.getAvailableTuilesChoices();
+                for (auto i: casesLibres) {
+                    std::cout << compteurOption << " - (X, Y): (" << i.first << ", " << i.second << ")" << std::endl;
+                    compteurOption++;
+                }
+                // on demande au joueur de choisir une case
+                std::cin >> choix;
+                x = casesLibres[choix].first;
+                y = casesLibres[choix].second;
             }
-            // on demande au joueur de choisir une case
-            std::cin >> choix;
-            int x = casesLibres[choix].first;
-            int y = casesLibres[choix].second;
             // on vérifie que la case choisie est bien compatible
             tuilePlaced = jeu.tuileAction(x,y);
             if (tuilePlaced)
                 std::cout << "Tuile placée en (" << x << ", " << y << ")" << std::endl;
             else
                 std::cout << "Tuile incompatible" << std::endl;
-
         } while(!tuilePlaced);
 
-        //MEEPLE PLACEMENT
-        bool meeplePlaced = false;
 
-        jeu.nextTurn();
     }
 
     // FIN DE LA PARTIE
