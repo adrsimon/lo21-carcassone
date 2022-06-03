@@ -37,7 +37,7 @@ public:
     Pioche *const getPioche() const {return pioche;}
     Tuile* getCurrentTuile() const {return currentTuile;}
     int getCurrentTuileId() const { return currentTuile->getID(); }
-    const Joueur* getCurrentJoueur() const {return currentJoueur;}
+    Joueur *const getCurrentJoueur() const {return currentJoueur;}
     Plateau *const getPlateau() const {return plateau;}
     std::list<Joueur*> getJoueurs() const {return joueurs;}
 

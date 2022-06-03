@@ -20,8 +20,8 @@ int main(int argc, char** argv) {
      ****** 2.3. Vérifier la compatibilité                      OK
      ****** 2.4. Tourner la carte si besoin                     OK
      ****** 2.5. Ajouter dans les groupements                   OK
-     ****** 2.6. Poser un meeple                                TO DO
-     ****** 2.7. Ajouter le meeple dans les groupements         TO DO
+     ****** 2.6. Poser un meeple                                OK
+     ****** 2.7. Ajouter le meeple dans les groupements         OK
      ****** 2.8. Demander si un groupement est fini             TO DO
      ****** 2.9. Attribuer les points                           TO DO
      * 3. Fin de la partie ------------------------------------ OK
@@ -30,8 +30,8 @@ int main(int argc, char** argv) {
      */
 
     Jeu& jeu = Jeu::getJeu();
-    std::vector<std::string> noms = { "Adrien", "Chloé", "Léo", "Claire", "Sixtine"};
-    std::vector<TypeCouleur> cs = { TypeCouleur::bleu, TypeCouleur::orange, TypeCouleur::rose, TypeCouleur::vert, TypeCouleur::jaune};
+    std::vector<std::string> noms = { "Adrien", "Léo"};
+    std::vector<TypeCouleur> cs = { TypeCouleur::bleu, TypeCouleur::orange};
     jeu.initialiser(noms, cs, true);
 
     std::cout<< "----- DEBUT DE LA PARTIE -----" << std::endl;
@@ -65,21 +65,17 @@ int main(int argc, char** argv) {
             std::cin >> choixTourner;
             if (choixTourner == 'o') {
                 std::cout << "Tuile tournée de 90 degrés" << std::endl;
-                jeu.getCurrentTuile()->rotateOrientation();
+                jeu.rotateTuile();
             } else std::cout << "Tuile non-tournée." << std::endl;
 
             // pour choisir la case
-            std::cout << "Cases libres : " << std::endl;
-            int compteurOption = 0, choix;
-            int x, y;
-            std::vector<std::pair<int,int>> casesLibres;
+            int x = 0, y = 0;
             if (jeu.getPlateau()->getMap().empty()) { // Si c'est la première case on la place forcément en 0, 0
-                std::cout << compteurOption << " - (X, Y): (0, 0)" << std::endl;
-                std::cin >> choix;
-                x = 0;
-                y = 0;
+                std::cout << "Tuile automatiquement placée." << std::endl;
             } else {
-                casesLibres = jeu.getAvailableTuilesChoices();
+                std::cout << "Cases libres : " << std::endl;
+                int compteurOption = 0, choix;
+                std::vector<std::pair<int,int>> casesLibres = jeu.getAvailableTuilesChoices();
                 for (auto i: casesLibres) {
                     std::cout << compteurOption << " - (X, Y): (" << i.first << ", " << i.second << ")" << std::endl;
                     compteurOption++;
@@ -97,7 +93,104 @@ int main(int argc, char** argv) {
                 std::cout << "Tuile incompatible" << std::endl;
         } while(!tuilePlaced);
 
+        //MEEPLE PLACEMENT
+        bool meeplePlaced = false;
+        char choixMeeple;
+        do {
+            std::cout << "Poser un meeple sur cette tuile ? (o/n) : ";
+            std::cin >> choixMeeple;
+            if (choixMeeple == 'n') {
+                std::cout << "Pas de meeple placé." << std::endl;
+                meeplePlaced = true;
+            } else {
+                std::cout << "Placement du meeple :" << std::endl;
+                int compteurOption = 0, choixElement;
+                Element* e;
+                TypeMeeple t;
+                std::cout << "Elements disponibles : " << std::endl;
+                for (auto i : jeu.getCurrentTuile()->getElements()) {
+                    const char *elem = "";
+                    switch(i->getType()) {
+                        case TypeElement::ville:
+                            elem = "Ville";
+                            break;
+                        case TypeElement::abbaye:
+                            elem = "Abbaye";
+                            break;
+                        case TypeElement::pre:
+                            elem = "Pré";
+                            break;
+                        case TypeElement::route:
+                            elem = "Route";
+                            break;
+                        case TypeElement::jardin:
+                            elem = "Jardin";
+                            break;
+                        default:
+                            break;
+                    }
+                    if (std::strcmp(elem, "") != 0) {
+                        std::cout << compteurOption << " - " << elem << std::endl;
+                        compteurOption++;
+                    }
+                }
+                std::cin >> choixElement;
 
+                // retrouver le bon element dans la liste
+                int i = 0;
+                for (auto elem : jeu.getCurrentTuile()->getElements()) {
+                    if (i == choixElement) {
+                        e = elem;
+                        break;
+                    }
+                    i++;
+                }
+
+                // on choisit le type de meeple à poser
+                int choixType;
+                compteurOption = 0;
+                std::cout << "Meeples disponibles : " << std::endl;
+                int compteurNormal = 0, compteurAbbe = 0, compteurBig = 0;
+                for (auto i : jeu.getCurrentJoueur()->getMeeples()){
+                    const char* meeple;
+                    switch (i->getType()) {
+                        case TypeMeeple::normal:
+                            compteurNormal++;
+                            break;
+                        case TypeMeeple::big:
+                            compteurBig++;
+                            break;
+                        case TypeMeeple::abbe:
+                            compteurAbbe++;
+                            break;
+                    }
+                }
+
+                std::cout << "0 - Normal : " << compteurNormal << " meeple(s) diponible(s)" << std::endl;
+                std::cout << "1 - Big : " << compteurBig << " meeple diponible" << std::endl;
+                std::cout << "2 - Abbe : " << compteurAbbe << " meeple diponible" << std::endl;
+                std::cin >> choixType;
+
+                switch (choixType) {
+                    case '0':
+                        t = TypeMeeple::normal;
+                        break;
+                    case '1':
+                        t = TypeMeeple::big;
+                        break;
+                    case '2':
+                        t = TypeMeeple::abbe;
+                        break;
+                }
+
+                meeplePlaced = jeu.meepleAction(e, t);
+                if (meeplePlaced) {
+                    std::cout << "Meeple placé" << std::endl;
+                    jeu.getPlateau()->placerMeeple(jeu.getCurrentTuile(), jeu.getCurrentJoueur()->getAvailableMeepleByType(t), e);
+                }
+                else std::cout << "Meeple incompatible ou Element inexistant" << std::endl;
+            }
+        } while(!meeplePlaced);
     }
 
     // FIN DE LA PARTIE
@@ -114,26 +207,6 @@ int main(int argc, char** argv) {
         }
         std::cout << "Le gagnant est : " << nomGagnant << std::endl;
     }
-
-    /*
-    Plateau& plateau = Plateau::getInstance();
-    Pioche& pioche = Pioche::getInstance();
-    pioche.genererTuiles();
-    Tuile* t;
-    t = pioche.piocher();
-
-    std::cout << "Tuile 1:" << t->getID() << std::endl;
-    plateau.placerTuile(t, 0,0);
-    bool test;
-    do {
-        t = pioche.piocher();
-        std::cout << "Tuile 2:" << t->getID() << std::endl;
-        std::cout << "Test: " << plateau.isTuileCompatible(-1,0, t);
-        test = plateau.isTuileCompatible(-1,0, t);
-    } while(!test);
-    plateau.placerTuile(t,-1,0);
-    std::cout << "FINI";
-    */
 
     /*
     QApplication app(argc, argv);

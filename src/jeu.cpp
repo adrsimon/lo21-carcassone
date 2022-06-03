@@ -46,7 +46,10 @@ void Jeu::nextTurn() {
 }
 
 bool Jeu::tuileAction(int x, int y) {
-    if(plateau->isTuileCompatible(x,y, currentTuile)) {
+    if (plateau->getMap().empty()) {
+        plateau->placerTuile(currentTuile, x, y);
+        return true;}
+    if (plateau->isTuileCompatible(x,y, currentTuile)) {
         plateau->placerTuile(currentTuile, x, y);
         return true;
     }
@@ -57,7 +60,6 @@ bool Jeu::meepleAction(Element* e, TypeMeeple t) {
     Meeple* m = currentJoueur->getAvailableMeepleByType(t);
     Groupement* g = plateau->getGroupementWithElement(e);
     if(m == nullptr || g == nullptr || m->isPlaced() || !g->isMeepleAddable()) return false;
-    g->addMeeple(m);
     return true;
 }
 // FONCTIONS DE JEU
