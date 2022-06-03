@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
      ****** 2.5. Ajouter dans les groupements                   OK
      ****** 2.6. Poser un meeple                                OK
      ****** 2.7. Ajouter le meeple dans les groupements         OK
-     ****** 2.8. Demander si un groupement est fini             TO DO
+     ****** 2.8. Demander si un groupement est fini             OK
      ****** 2.9. Attribuer les points                           TO DO
      * 3. Fin de la partie ------------------------------------ OK
      ****** 3.1. Afficher le score                              OK
@@ -172,13 +172,13 @@ int main(int argc, char** argv) {
                 std::cin >> choixType;
 
                 switch (choixType) {
-                    case '0':
+                    case 0:
                         t = TypeMeeple::normal;
                         break;
-                    case '1':
+                    case 1:
                         t = TypeMeeple::big;
                         break;
-                    case '2':
+                    case 2:
                         t = TypeMeeple::abbe;
                         break;
                 }
@@ -191,6 +191,51 @@ int main(int argc, char** argv) {
                 else std::cout << "Meeple incompatible ou Element inexistant" << std::endl;
             }
         } while(!meeplePlaced);
+
+
+        // GROUPEMENT VALIDATION
+        bool groupementValidated = false;
+        char choixGroupement;
+        do {
+            std::cout << "Un groupement est-il fini ? (o/n) : ";
+            std::cin >> choixGroupement;
+            if (choixGroupement == 'o') {
+                int compteurOption = 0, choixNumGroupement;
+                std::list<Groupement*> groupements = jeu.getPlateau()->getGroupements();
+                for (auto i : groupements) {
+                    switch (i->getType()) {
+                        case TypeElement::ville:
+                            std::cout << compteurOption << " - Ville " << std::endl;
+                            break;
+                        case TypeElement::abbaye:
+                            std::cout << compteurOption << " - Abbaye " << std::endl;
+                            break;
+                        case TypeElement::pre:
+                            std::cout << compteurOption << " - Pré " << std::endl;
+                            break;
+                        case TypeElement::route:
+                            std::cout << compteurOption << " - Route " << std::endl;
+                            break;
+                        case TypeElement::jardin:
+                            std::cout << compteurOption << " - Jardin " << std::endl;
+                            break;
+                        default:
+                            break;
+                    }
+                    compteurOption++;
+                }
+                std::cin >> choixNumGroupement;
+
+
+                // RETROUVER LE BON JOUEUR POUR LE GROUPEMENT, LUI DONNER LES POINTS, RENDRE LES MEEPLES
+                int points;
+                Joueur* joueur;
+                joueur->setScore(joueur->getScore() + points);
+
+                std::cout << "Groupement validé" << std::endl;
+                groupementValidated = true;
+            } else std::cout << "Groupement non-validé" << std::endl;
+        } while(!groupementValidated);
     }
 
     // FIN DE LA PARTIE
