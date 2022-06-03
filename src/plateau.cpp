@@ -98,17 +98,15 @@ void Plateau::placerTuile(Tuile* t, int x, int y) {
     for(auto it = elems.begin(); it != elems.end(); it++) {
         std::list<TypeCardinaux::points> dirs = (*it)->getOrientations();
         g = new Groupement((*it)->getType());
-        if (dirs.size() > 1) {
-            Tuile* voisin;
-            for (auto it2 = dirs.begin(); it2 != dirs.end(); it2++) {
-                voisin = getVoisinByOrientation(x, y, *it2);
-                if(voisin != nullptr) {
-                    Groupement *toAdd = getGroupementWithElement(voisin->getElementByOrientation(TypeCardinaux::getOrientationInverse(*it2)));
-                    if(toAdd != nullptr) {
-                        *g + *toAdd;
-                        groupements.remove(toAdd);
-                        delete toAdd;
-                    }
+        Tuile* voisin;
+        for (auto it2 = dirs.begin(); it2 != dirs.end(); it2++) {
+            voisin = getVoisinByOrientation(x, y, *it2);
+            if(voisin != nullptr) {
+                Groupement *toAdd = getGroupementWithElement(voisin->getElementByOrientation(TypeCardinaux::getOrientationInverse(*it2)));
+                if(toAdd != nullptr) {
+                    *g + *toAdd;
+                    groupements.remove(toAdd);
+                    delete toAdd;
                 }
             }
         }
