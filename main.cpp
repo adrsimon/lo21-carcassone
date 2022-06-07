@@ -236,6 +236,7 @@ int main(int argc, char** argv) {
             } else std::cout << "Groupement non-validé" << std::endl;
         } while(!groupementValidated);
         */
+        jeu.nextTurn();
     }
 
     // FIN DE LA PARTIE
