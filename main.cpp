@@ -149,17 +149,16 @@ int main(int argc, char** argv) {
                 compteurOption = 0;
                 std::cout << "Meeples disponibles : " << std::endl;
                 int compteurNormal = 0, compteurAbbe = 0, compteurBig = 0;
-                for (auto i : jeu.getPlayerMeeplesAmount()){
-                    const char* meeple;
+                for (auto i : jeu.getPlayerMeeplesAmount()) {
                     switch (i.first) {
                         case TypeMeeple::normal:
-                            compteurNormal++;
+                            compteurNormal=i.second;
                             break;
                         case TypeMeeple::big:
-                            compteurBig++;
+                            compteurBig=i.second;
                             break;
                         case TypeMeeple::abbe:
-                            compteurAbbe++;
+                            compteurAbbe=i.second;
                             break;
                     }
                 }
