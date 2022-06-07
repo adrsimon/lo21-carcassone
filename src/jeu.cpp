@@ -38,7 +38,7 @@ void Jeu::initialiser(std::vector<std::string> noms, std::vector<TypeCouleur> cs
     currentJoueur = joueurs.front();
     currentTuile = pioche->piocher();
     plateau->placerTuile(currentTuile,0,0);
-
+    currentTuile = pioche->piocher();
 }
 
 void Jeu::nextTurn() {

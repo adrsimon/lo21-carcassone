@@ -189,7 +189,7 @@ int main(int argc, char** argv) {
             }
         } while(!meeplePlaced);
 
-
+        /*
         // GROUPEMENT VALIDATION
         bool groupementValidated = false;
         char choixGroupement;
@@ -225,14 +225,17 @@ int main(int argc, char** argv) {
 
 
                 // RETROUVER LE BON JOUEUR POUR LE GROUPEMENT, LUI DONNER LES POINTS, RENDRE LES MEEPLES
+
                 int points;
                 Joueur* joueur;
                 joueur->setScore(joueur->getScore() + points);
+
 
                 std::cout << "Groupement validé" << std::endl;
                 groupementValidated = true;
             } else std::cout << "Groupement non-validé" << std::endl;
         } while(!groupementValidated);
+        */
     }
 
     // FIN DE LA PARTIE
