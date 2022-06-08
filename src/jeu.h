@@ -52,8 +52,7 @@ public:
     void rotateTuile() { return currentTuile->rotateOrientation(); }
     bool tuileAction(int x, int y);
     bool meepleAction(Element* e, TypeMeeple::points t);
-
-    void recupererMeeple(Meeple* m);
+    bool recupererMeeple(Meeple* m);
 };
 
 #endif

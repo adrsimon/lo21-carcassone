@@ -65,6 +65,9 @@ bool Jeu::meepleAction(Element* e, TypeMeeple::points t) {
     Meeple* m = currentJoueur->getAvailableMeepleByType(t);
     Groupement* g = plateau->getGroupementWithElement(e);
     if(m == nullptr || g == nullptr || m->isPlaced() || !g->isMeepleAddable()) return false;
+    g->addMeeple(m);
+    e->setMeeple(true);
+    m->setAvailable(false);
     return true;
 }
 // FONCTIONS DE JEU
@@ -75,11 +78,12 @@ void Jeu::setExtensions(const bool m, const bool r, const bool ac) {
     if (ac) extensions.push_back(TypeExtension::auberge);
 }
 
-void Jeu::recupererMeeple(Meeple* m){
+bool Jeu::recupererMeeple(Meeple* m){
     Groupement* g = plateau->getGroupementWithMeeple(m);
-    if(g == nullptr)
-        throw "groupement";
+    if(g == nullptr || !m->isPlaced()) return false;
     g->removeMeeple(m);
+    m->setAvailable(true);
+    return true;
 }
 
 
