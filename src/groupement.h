@@ -12,18 +12,18 @@ class Groupement {
 private:
     std::list<Meeple *> meeples; // Liste de meeples
     std::list<Element *> elements;
-    TypeElement typeGroupement;
+    TypeElement::points typeGroupement;
     bool complete = false;
 
 public:
-    Groupement(TypeElement t) {
+    Groupement(TypeElement::points t) {
         typeGroupement = t;
     }
     virtual ~Groupement() = default;
 
     // Getters
     std::list<Meeple *> getMeeples() const { return meeples; }
-    TypeElement const getType() { return typeGroupement; }
+    TypeElement::points const getType() { return typeGroupement; }
     bool isComplete() { return complete; }
     std::list<Element *> getElements() const { return elements; }
     int getAllElementsPoints();

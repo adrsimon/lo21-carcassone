@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
 
     Jeu& jeu = Jeu::getJeu();
     std::vector<std::string> noms = { "Adrien", "Léo"};
-    std::vector<TypeCouleur> cs = { TypeCouleur::bleu, TypeCouleur::orange};
+    std::vector<TypeCouleur::points> cs = { TypeCouleur::bleu, TypeCouleur::orange};
     jeu.initialiser(noms, cs, true);
 
     std::cout<< "----- DEBUT DE LA PARTIE -----" << std::endl;
@@ -104,33 +104,11 @@ int main(int argc, char** argv) {
                 std::cout << "Placement du meeple :" << std::endl;
                 int compteurOption = 0, choixElement;
                 Element* e;
-                TypeMeeple t;
+                TypeMeeple::points t;
                 std::cout << "Elements disponibles : " << std::endl;
                 for (auto i : jeu.getCurrentTuile()->getElements()) {
-                    const char *elem = "";
-                    switch(i->getType()) {
-                        case TypeElement::ville:
-                            elem = "Ville";
-                            break;
-                        case TypeElement::abbaye:
-                            elem = "Abbaye";
-                            break;
-                        case TypeElement::pre:
-                            elem = "Pré";
-                            break;
-                        case TypeElement::route:
-                            elem = "Route";
-                            break;
-                        case TypeElement::jardin:
-                            elem = "Jardin";
-                            break;
-                        default:
-                            break;
-                    }
-                    if (std::strcmp(elem, "") != 0) {
-                        std::cout << compteurOption << " - " << elem << std::endl;
-                        compteurOption++;
-                    }
+                    std::cout << compteurOption << " - " << TypeElement::toString(i->getType()) << std::endl;
+                    compteurOption++;
                 }
                 std::cin >> choixElement;
 
@@ -148,24 +126,13 @@ int main(int argc, char** argv) {
                 int choixType;
                 compteurOption = 0;
                 std::cout << "Meeples disponibles : " << std::endl;
-                int compteurNormal = 0, compteurAbbe = 0, compteurBig = 0;
+                int compteur=0;
                 for (auto i : jeu.getPlayerMeeplesAmount()) {
-                    switch (i.first) {
-                        case TypeMeeple::normal:
-                            compteurNormal=i.second;
-                            break;
-                        case TypeMeeple::big:
-                            compteurBig=i.second;
-                            break;
-                        case TypeMeeple::abbe:
-                            compteurAbbe=i.second;
-                            break;
-                    }
+                    std::string str = TypeMeeple::toString(i.first);
+                    std::cout << compteur << " - " << str << ": " << i.second << " meeple(s) disponible(s)" << std::endl;
+                    compteur++;
                 }
 
-                std::cout << "0 - Normal : " << compteurNormal << " meeple(s) diponible(s)" << std::endl;
-                std::cout << "1 - Big : " << compteurBig << " meeple diponible" << std::endl;
-                std::cout << "2 - Abbe : " << compteurAbbe << " meeple diponible" << std::endl;
                 std::cin >> choixType;
 
                 switch (choixType) {
@@ -188,7 +155,6 @@ int main(int argc, char** argv) {
             }
         } while(!meeplePlaced);
 
-        /*
         // GROUPEMENT VALIDATION
         bool groupementValidated = false;
         char choixGroupement;
@@ -197,27 +163,8 @@ int main(int argc, char** argv) {
             std::cin >> choixGroupement;
             if (choixGroupement == 'o') {
                 int compteurOption = 0, choixNumGroupement;
-                std::list<Groupement*> groupements = jeu.getPlateau()->getGroupements();
-                for (auto i : groupements) {
-                    switch (i->getType()) {
-                        case TypeElement::ville:
-                            std::cout << compteurOption << " - Ville " << std::endl;
-                            break;
-                        case TypeElement::abbaye:
-                            std::cout << compteurOption << " - Abbaye " << std::endl;
-                            break;
-                        case TypeElement::pre:
-                            std::cout << compteurOption << " - Pré " << std::endl;
-                            break;
-                        case TypeElement::route:
-                            std::cout << compteurOption << " - Route " << std::endl;
-                            break;
-                        case TypeElement::jardin:
-                            std::cout << compteurOption << " - Jardin " << std::endl;
-                            break;
-                        default:
-                            break;
-                    }
+                for (auto i : jeu.getSizeOfGroupements()) {
+                    std::cout << compteurOption << " - " << TypeElement::toString(i.first) << ": " << i.second << " élément(s)" << std::endl;
                     compteurOption++;
                 }
                 std::cin >> choixNumGroupement;
@@ -234,7 +181,7 @@ int main(int argc, char** argv) {
                 groupementValidated = true;
             } else std::cout << "Groupement non-validé" << std::endl;
         } while(!groupementValidated);
-        */
+
         jeu.nextTurn();
     }
 

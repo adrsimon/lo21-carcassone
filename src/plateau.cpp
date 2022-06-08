@@ -158,3 +158,41 @@ std::vector<std::pair<int,int>> Plateau::getNullVoisins(int x, int y) {
     if (getTuile(x, y-1) == nullptr) res.push_back(std::pair<int,int>(x,y-1));
     return res;
 }
+
+std::vector<std::pair<TypeElement::points, int>> Plateau::getSizeOfGroupements() {
+    std::vector<std::pair<TypeElement::points, int>> raws;
+    int ro=0; int v=0; int a=0; int ri=0; int j=0; int p=0;
+    for(auto it = groupements.begin(); it != groupements.end(); it++) {
+        if(!(*it)->isFinished()) {
+            switch ((*it)->getType()) {
+                case TypeElement::route:
+                    ro++;
+                    break;
+                case TypeElement::ville:
+                    v++;
+                    break;
+                case TypeElement::abbaye:
+                    a++;
+                    break;
+                case TypeElement::riviere:
+                    ri++;
+                    break;
+                case TypeElement::jardin:
+                    j++;
+                    break;
+                case TypeElement::pre:
+                    p++;
+                    break;
+            }
+        }
+    }
+    raws.push_back(std::pair<TypeElement::points, int>(TypeElement::route, ro));
+    raws.push_back(std::pair<TypeElement::points, int>(TypeElement::ville, v));
+    raws.push_back(std::pair<TypeElement::points, int>(TypeElement::abbaye, a));
+    raws.push_back(std::pair<TypeElement::points, int>(TypeElement::riviere, ri));
+    raws.push_back(std::pair<TypeElement::points, int>(TypeElement::jardin, j));
+    raws.push_back(std::pair<TypeElement::points, int>(TypeElement::pre, p));
+
+
+    return raws;
+}

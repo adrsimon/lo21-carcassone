@@ -17,7 +17,7 @@ public:
     }
 
     Tuile* piocher();
-    void genererTuiles(std::list<TypeExtension> extensions = {TypeExtension::main});
+    void genererTuiles(std::list<TypeExtension::points> extensions = {TypeExtension::main});
 private:
     static Pioche* instance;
     Pioche() : nbTuilesMax(0), nbTuilesRiviereMax(0), tuiles(std::vector<Tuile*>()), tuiles_riviere(std::vector<Tuile*>()) {};

@@ -18,20 +18,20 @@ private:
     int score;
     std::list<Meeple*> meeples;
     const std::string nom;
-    TypeCouleur couleur;
+    TypeCouleur::points couleur;
 public:
     // Getters
     std::list<Meeple*> getMeeples() const { return meeples; }
-    std::vector<std::pair<TypeMeeple, int>> getAvailableMeeplesAmount();
-    Meeple* getAvailableMeepleByType(TypeMeeple t);
+    std::vector<std::pair<TypeMeeple::points, int>> getAvailableMeeplesAmount();
+    Meeple* getAvailableMeepleByType(TypeMeeple::points t);
     int getScore() const { return score; }
     std::string getNom() const { return nom; }
-    TypeCouleur getCouleur() const { return couleur; }
+    TypeCouleur::points getCouleur() const { return couleur; }
     // Setters
     void setScore(int s) { score = s; }
 
     // Constructors and Destructors
-    Joueur(std::string nom, TypeCouleur couleur) : nom(nom), couleur(couleur), score(0) {
+    Joueur(std::string nom, TypeCouleur::points couleur) : nom(nom), couleur(couleur), score(0) {
         for(int i=0; i<5; i++) {
             meeples.push_back(new Meeple());
         }

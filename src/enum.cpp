@@ -38,3 +38,58 @@ TypeCardinaux::points TypeCardinaux::getNextOrientations(points t) {
         case ouest_sud: return nord_ouest;
     }
 }
+
+std::string TypeCardinaux::toString(points t) {
+    switch (t) {
+        case nord: return "Nord";
+        case est: return "Est";
+        case sud: return "Sud";
+        case ouest: return "Ouest";
+        case nord_est: return "Nord Est";
+        case nord_ouest: return "Nord Ouest";
+        case sud_est: return "Sud Est";
+        case sud_ouest: return "Sud Ouest";
+        case est_sud: return "Est Sud";
+        case est_nord: return "Est Nord";
+        case ouest_nord: return "Ouest Nord";
+        case ouest_sud: return "Ouest Sud";
+    }
+}
+
+std::string TypeExtension::toString(points t) {
+    switch (t) {
+        case main: return "Principale";
+        case riviere: return "Rivière";
+        case auberge: return "Auberge et Cathédrale";
+    }
+}
+
+std::string TypeElement::toString(points t) {
+    switch (t) {
+        case riviere: return "Rivière";
+        case route: return "Route";
+        case ville: return "Ville";
+        case pre: return "Pré";
+        case abbaye: return "Abbaye";
+        case jardin: return "Jardin";
+    }
+}
+
+std::string TypeMeeple::toString(points t) {
+    switch (t) {
+        case normal: return "Normal";
+        case big: return "Big";
+        case abbe: return "Abbé";
+    }
+}
+
+std::string TypeCouleur::toString(points t) {
+    switch (t) {
+        case rouge: return "rouge";
+        case vert: return "vert";
+        case bleu: return "bleu";
+        case jaune: return "jaune";
+        case orange: return "orange";
+        case rose: return "rose";
+    }
+}

@@ -18,9 +18,9 @@ private:
     Joueur* currentJoueur;
     Plateau* plateau;
     Pioche* pioche;
-    std::list<TypeExtension> extensions;
+    std::list<TypeExtension::points> extensions;
 
-    void addJoueur(std::string nom, TypeCouleur couleur) {joueurs.push_back(new Joueur(nom, couleur));}
+    void addJoueur(std::string nom, TypeCouleur::points couleur) {joueurs.push_back(new Joueur(nom, couleur));}
     void setExtensions(bool m, bool r, bool ac);
 
 public:
@@ -31,7 +31,7 @@ public:
     Jeu& operator=(const Jeu& j)=delete;
 
     // Init
-    void initialiser(std::vector<std::string> noms, std::vector<TypeCouleur> cs, bool m=false, bool r=false, bool ac=false);
+    void initialiser(std::vector<std::string> noms, std::vector<TypeCouleur::points> cs, bool m=false, bool r=false, bool ac=false);
 
     // Getters
     Pioche *const getPioche() const {return pioche;}
@@ -45,15 +45,15 @@ public:
     void nextTurn();
     bool isGameFinished() const { return pioche->getTuiles().size() ==0; }
     int getTuilesAmount() const { return pioche->getTuiles().size() + pioche->getTuilesRiviere().size(); }
-    std::vector<std::pair<TypeMeeple, int>> getPlayerMeeplesAmount() { return currentJoueur->getAvailableMeeplesAmount(); }
+    std::vector<std::pair<TypeMeeple::points, int>> getPlayerMeeplesAmount() { return currentJoueur->getAvailableMeeplesAmount(); }
+    std::vector<std::pair<TypeElement::points, int>> getSizeOfGroupements() { return plateau->getSizeOfGroupements(); }
     std::vector<std::pair<int, int>> getAvailableTuilesChoices() { return plateau->getCasesLibres(); }
     std::list<Element*> getCurrentTuileElements() { return currentTuile->getElements(); }
     void rotateTuile() { return currentTuile->rotateOrientation(); }
     bool tuileAction(int x, int y);
-    bool meepleAction(Element* e, TypeMeeple t);
+    bool meepleAction(Element* e, TypeMeeple::points t);
 
     void recupererMeeple(Meeple* m);
-    void tourTuile(int x, int y);
 };
 
 #endif

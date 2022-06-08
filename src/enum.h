@@ -4,19 +4,38 @@
 #include <list>
 #include <string>
 
+
 class TypeCardinaux {
 public:
     enum points {nord, est, sud, ouest, ouest_nord, nord_ouest, nord_est, est_nord, est_sud, sud_est, sud_ouest, ouest_sud};
     static points getOrientationInverse(points t);
     static points getNextOrientations(points t);
+    static std::string toString(points t);
 };
 
-enum class TypeExtension {main, riviere, auberge};
+class TypeExtension {
+public:
+    enum points {main, riviere, auberge};
+    static std::string toString(points t);
+};
 
-enum class TypeElement {riviere, ville, abbaye, pre, route, jardin, last};
+class TypeElement {
+public:
+    enum points {riviere, ville, abbaye, pre, route, jardin, last};
+    static std::string toString(points t);
+};
 
-enum class TypeMeeple { normal, big, abbe};
+class TypeMeeple {
+public:
+    enum points { normal, big, abbe};
+    static std::string toString(points t);
+};
 
-enum class TypeCouleur {rouge, bleu, vert, jaune, rose, orange};
+class TypeCouleur {
+public:
+    enum points {rouge, bleu, vert, jaune, rose, orange};
+    static std::string toString(points t);
+};
+
 
 #endif /* enum_h */

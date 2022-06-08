@@ -21,7 +21,7 @@ void Jeu::libererJeu(){
 Jeu::Jeu() = default;
 Jeu::~Jeu() = default;
 
-void Jeu::initialiser(std::vector<std::string> noms, std::vector<TypeCouleur> cs, bool m, bool r, bool ac) {
+void Jeu::initialiser(std::vector<std::string> noms, std::vector<TypeCouleur::points> cs, bool m, bool r, bool ac) {
     // Création du plateau et de la pioche
     plateau = &Plateau::getInstance();
     pioche = &Pioche::getInstance();
@@ -61,7 +61,7 @@ bool Jeu::tuileAction(int x, int y) {
     return false;
 }
 
-bool Jeu::meepleAction(Element* e, TypeMeeple t) {
+bool Jeu::meepleAction(Element* e, TypeMeeple::points t) {
     Meeple* m = currentJoueur->getAvailableMeepleByType(t);
     Groupement* g = plateau->getGroupementWithElement(e);
     if(m == nullptr || g == nullptr || m->isPlaced() || !g->isMeepleAddable()) return false;
@@ -82,10 +82,5 @@ void Jeu::recupererMeeple(Meeple* m){
     g->removeMeeple(m);
 }
 
-void Jeu::tourTuile(int x, int y) {
-    if(pioche->piocher() == nullptr)
-        throw "Jeu fini";
-    std::cout<<"test";
-}
 
 

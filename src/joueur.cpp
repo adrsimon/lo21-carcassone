@@ -4,7 +4,7 @@
 
 #include "joueur.h"
 
-Meeple* Joueur::getAvailableMeepleByType(TypeMeeple t) {
+Meeple* Joueur::getAvailableMeepleByType(TypeMeeple::points t) {
     for (auto it = meeples.begin(); it != meeples.end(); it++) {
         if(!(*it)->isPlaced() && (*it)->getType() == t)
             return *it;
@@ -12,8 +12,8 @@ Meeple* Joueur::getAvailableMeepleByType(TypeMeeple t) {
     return nullptr;
 }
 
-std::vector<std::pair<TypeMeeple, int>> Joueur::getAvailableMeeplesAmount() {
-    std::vector<std::pair<TypeMeeple, int>> raws;
+std::vector<std::pair<TypeMeeple::points, int>> Joueur::getAvailableMeeplesAmount() {
+    std::vector<std::pair<TypeMeeple::points, int>> raws;
     int n=0; int b=0; int a=0;
     for(auto it = meeples.begin(); it != meeples.end(); it++) {
         if(!(*it)->isPlaced()) {
@@ -30,9 +30,9 @@ std::vector<std::pair<TypeMeeple, int>> Joueur::getAvailableMeeplesAmount() {
             }
         }
     }
-    raws.push_back(std::pair<TypeMeeple, int>(TypeMeeple::normal, n));
-    raws.push_back(std::pair<TypeMeeple, int>(TypeMeeple::big, b));
-    raws.push_back(std::pair<TypeMeeple, int>(TypeMeeple::abbe, a));
+    raws.push_back(std::pair<TypeMeeple::points, int>(TypeMeeple::normal, n));
+    raws.push_back(std::pair<TypeMeeple::points, int>(TypeMeeple::big, b));
+    raws.push_back(std::pair<TypeMeeple::points, int>(TypeMeeple::abbe, a));
 
     return raws;
 }

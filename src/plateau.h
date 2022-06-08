@@ -30,10 +30,6 @@ public:
     static void libereInstance();
 
     // Getters & Setters
-    int const getOrientationTuile() { return orientationTuile; }
-    int const getIdCurrentTuile() { return idCurrentTuile; }
-    void setOrientationTuile(int o) { orientationTuile = 0; }
-    void setIdCurrentTuile(int i) { idCurrentTuile = 0; }
     std::map<pair<int,int>, Tuile*> getMap() {return plateau;};
     Tuile* getTuile(int x, int y);
     std::vector<Tuile*> getVoisins(int x, int y);
@@ -43,7 +39,7 @@ public:
     // Finders
     Groupement* getGroupementWithElement(Element* e);
     Groupement* getGroupementWithMeeple(Meeple* m);
-    std::list<Groupement*> getGroupements() { return groupements; }
+    std::vector<std::pair<TypeElement::points, int>> getSizeOfGroupements();
 
     std::vector<std::pair<int, int>> getCasesLibres();
 

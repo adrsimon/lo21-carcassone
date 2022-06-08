@@ -166,7 +166,7 @@ Element* parseElem(XMLNode* element) {
     throw "Error";
 }
 
-void Pioche::genererTuiles(std::list<TypeExtension> extensions) {
+void Pioche::genererTuiles(std::list<TypeExtension::points> extensions) {
     // loading XML file
     std::string path;
     for (auto it = extensions.begin(); it != extensions.end(); it++) {
