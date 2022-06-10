@@ -7,7 +7,7 @@
 VuePlateau::VuePlateau(QWidget *parent) : QGridLayout(parent){
     for (int i = 0; i < 13; i++) {
         for(int j=0; j <22; j++) {
-            tuiles[i][j] = new VueTuile(i-6,j-11);
+            tuiles[i][j] = new VueTuile(j-11,-(i-6));
             addWidget(tuiles[i][j], i, j);
             connect(tuiles[i][j],&VueTuile::tuileClicked, this, &VuePlateau::tuileClick);
         }
@@ -17,14 +17,15 @@ VuePlateau::VuePlateau(QWidget *parent) : QGridLayout(parent){
 }
 
 void VuePlateau::tuileClick(VueTuile* vt) {
-    if(j.tuileAction(vt->getVueTuileX(), vt->getVueTuileY())) {
+    std::cout <<  vt->getVueTuileX() << vt->getVueTuileY() << std::endl;
+    if(j.tuileAction( vt->getVueTuileX(), vt->getVueTuileY())) {
         poserTuile(j.getCurrentTuileId(), vt->getVueTuileX(), vt->getVueTuileY());
+        j.nextTurn();
+        endTour();
     } else {
-        QMessageBox msgBox;
-        msgBox.setText("Tuile non compatible");
-        msgBox.setInformativeText("Pose ta tuile à un autre endroit !");
-        msgBox.setStandardButtons(QMessageBox::Cancel);
-        msgBox.setDefaultButton(QMessageBox::Cancel);
+        QMessageBox qmsgbox;
+        qmsgbox.setText("Tuile Non Compatible");
+        qmsgbox.exec();
     }
 }
 

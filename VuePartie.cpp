@@ -24,21 +24,16 @@ VuePartie::VuePartie(QWidget *parent): QWidget(parent) {
 
     // Title and Picture
     setWindowTitle("Projet LO21 - Carcassonne");
-    QImage* logo = new QImage();
-    logo->load("/Users/leo/Documents/UTC/LO21/testing things/utils/carcassonelogo.png");
-    QLabel* header = new QLabel();
-    header->setPixmap(QPixmap::fromImage(*logo));
-    header->resize(1100, 600);
 
     // Pioche
     nbCartesPioche = new QProgressBar;
     nbCartesPioche->setRange(0, 100);
-    nbCartesPioche->setValue(45);
+    nbCartesPioche->setValue(100);
     nbCartesPioche->setTextVisible(false);
 
     // Buttons
     settingsBoutton = new QPushButton("Paramètres");
-    piocherBoutton = new QPushButton("Piocher");
+    tournerBoutton = new QPushButton("Tourner Tuile");
     jouerBoutton = new QPushButton("Jouer");
     groupementBoutton = new QPushButton("Grouper");
     quitterBoutton = new QPushButton("Quitter");
@@ -46,22 +41,16 @@ VuePartie::VuePartie(QWidget *parent): QWidget(parent) {
     // Buttons connection
     connect(settingsBoutton, &QPushButton::released, this, &VuePartie::cliqueSettings);
     connect(jouerBoutton, &QPushButton::released, this, &VuePartie::cliqueJouer);
-    connect(piocherBoutton, &QPushButton::released, this, &VuePartie::cliquePiocher);
+    connect(tournerBoutton, &QPushButton::released, this, &VuePartie::cliquePiocher);
     connect(quitterBoutton, &QPushButton::released, this, &VuePartie::cliqueQuitter);
 
     // Player information
     QImage* tuileImage = new QImage();
     tuileImage->load("/Users/leo/Documents/UTC/LO21/lo21-carcassone/utils/tiles_illustrations/1.jpeg");
-    QLabel* tuile = new QLabel();
     tuile->setPixmap(QPixmap::fromImage(*tuileImage));
-    QLabel* nomJoueur = new QLabel("Joueur x");
-    QLabel* meepleRestant = new QLabel("Meeple restants : x");
-    QLabel* piocheText = new QLabel("Tuile Restantes: x");
-    QLabel* tuileText = new QLabel("Tuile à placer");
 
     // LAYOUT BUTTONS
     layoutRight = new QVBoxLayout();
-    layoutRight->addWidget(piocherBoutton, 0,Qt::AlignHCenter);
     layoutRight->addWidget(jouerBoutton, 0,Qt::AlignHCenter);
     layoutRight->addWidget(settingsBoutton, 0,Qt::AlignHCenter);
     layoutRight->addWidget(groupementBoutton, 0,Qt::AlignHCenter);
@@ -70,13 +59,14 @@ VuePartie::VuePartie(QWidget *parent): QWidget(parent) {
     layoutRight->addWidget(nbCartesPioche, 0,Qt::AlignHCenter);
     layoutRight->addWidget(tuileText, 0, Qt::AlignHCenter);
     layoutRight->addWidget(tuile, 0,Qt::AlignHCenter);
+    layoutRight->addWidget(tournerBoutton, 0,Qt::AlignHCenter);
     layoutRight->addWidget(nomJoueur, 0,Qt::AlignHCenter);
     layoutRight->addWidget(meepleRestant, 0,Qt::AlignHCenter);
     layoutRight->setSpacing(30);
 
     // Layout Plateau
     layoutPlateau = new VuePlateau();
-
+    connect(layoutPlateau, &VuePlateau::updatePlayers, this, &VuePartie::updateInfo);
 
     // UI and final layout
     couche = new QHBoxLayout();
@@ -96,12 +86,31 @@ void VuePartie::cliqueSettings() {
     vueSettings->show();
 }
 
+void VuePartie::updateInfo() {
+    std::string str = "Joueur: " + jeu.getCurrentJoueur()->getNom();
+    nomJoueur->setText(QString::fromStdString(str));
+    str =  to_string(jeu.getTuilesAmount()) + " Tuiles dans la pioche";
+    piocheText->setText(QString::fromStdString(str));
+    std::cout << "Tuile à jouer: " << jeu.getCurrentTuileId() << std::endl;
+    QImage* tuileImage = new QImage();
+    str = "/Users/leo/Documents/UTC/LO21/lo21-carcassone/utils/tiles_illustrations/" + to_string(jeu.getCurrentTuileId()) + ".jpeg";
+    tuileImage->load(QString::fromStdString(str));
+    tuile->setPixmap(QPixmap::fromImage(*tuileImage));
+    nbCartesPioche->setValue(jeu.getTuilesAmount());
+    update();
+}
+
 void VuePartie::cliqueJouer() {
     if(vueSettings == nullptr)
         return;
+    if(!isPlaying) {
+        layoutPlateau->poserTuile(jeu.getFirstTuileId(), 0, 0);
+        nbCartesPioche->setRange(0, jeu.getTuilesAmount());
+        nbCartesPioche->setValue(jeu.getTuilesAmount());
+    }
+    updateInfo();
     isPlaying=true;
-    std::cout << "je suis la " << std::endl;
-    layoutPlateau->poserTuile(jeu.getFirstTuileId(), 0, 0);
+
 }
 
 void VuePartie::cliquePiocher() {

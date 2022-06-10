@@ -18,10 +18,12 @@ public:
 
 private:
     VueTuile* tuiles[20][20];
-    void tuileClick(VueTuile* vt);
     Jeu& j = Jeu::getJeu();
+private slots:
+    void tuileClick(VueTuile* vt);
+    void endTour() { emit updatePlayers(); }
 signals:
-    void attemptToPutTuile();
+    void updatePlayers();
 };
 
 #endif //TESTING_THINGS_VUEPLATEAU_H

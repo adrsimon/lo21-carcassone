@@ -33,10 +33,16 @@ private:
     QProgressBar* nbCartesPioche;
 
     QPushButton* settingsBoutton;
-    QPushButton* piocherBoutton;
+    QPushButton* tournerBoutton;
     QPushButton* jouerBoutton;
     QPushButton* groupementBoutton;
     QPushButton* quitterBoutton;
+
+    QLabel* nomJoueur = new QLabel("Joueur x");
+    QLabel* meepleRestant = new QLabel("Meeple restants : x");
+    QLabel* piocheText = new QLabel("Tuile Restantes: x");
+    QLabel* tuileText = new QLabel("Tuile à placer");
+    QLabel* tuile = new QLabel();
 
     VueSettings* vueSettings;
     VueValider* vueValider;
@@ -46,7 +52,7 @@ private:
     QHBoxLayout* couche;
 public:
     VuePartie(QWidget *parent = nullptr);
-    void updatePage(std::string nom);
+    void updateInfo();
 private slots:
     void cliqueSettings();
     void cliqueJouer();
