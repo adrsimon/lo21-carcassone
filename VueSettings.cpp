@@ -30,15 +30,13 @@ VueSettings::VueSettings(QWidget *parent) : QDialog(parent) {
 
     // Displaying Extensions
     QLabel* titreExtensions = new QLabel("Liste des Extensions");
-    QCheckBox* extensions[4];
+    QCheckBox* extensions[2];
     layoutExtensions = new QVBoxLayout();
     layoutExtensions->addWidget(titreExtensions);
-    extensions[0] = new QCheckBox("Extension 1");
-    extensions[1] = new QCheckBox("Extension 2");
-    extensions[2] = new QCheckBox("Extension 3");
-    extensions[3] = new QCheckBox("Extension 4");
+    extensions[0] = new QCheckBox("Rivière");
+    extensions[1] = new QCheckBox("Auberge");
 
-    for(int i=0; i<4; i++) {
+    for(int i=0; i<2; i++) {
         layoutExtensions->addWidget(extensions[i]);
     }
 
@@ -58,9 +56,22 @@ VueSettings::VueSettings(QWidget *parent) : QDialog(parent) {
 void VueSettings::cliquerValider() {
     // Saving joueurs Names
     for (int i = 0; i < 6; i++) {
-        nomJoueurs.push_back(joueurs[i]->text().toStdString());
+        if(joueurs[i]->text().toStdString() != "")
+            nomJoueurs.push_back(joueurs[i]->text().toStdString());
     }
+    bool r = *extensions.begin();
+    extensions.begin()++;
+    bool ac = *extensions.begin();
+
+    std::vector<TypeCouleur::points> couleurs = {
+            TypeCouleur::rouge, TypeCouleur::bleu, TypeCouleur::vert, TypeCouleur::jaune, TypeCouleur::rose, TypeCouleur::orange
+    };
+
+    Jeu& j=Jeu::getJeu();
+    j.initialiser(nomJoueurs,couleurs,true,r,ac);
+
     close();
+
 }
 
 void VueSettings::cliquerAnnuler() {
@@ -68,3 +79,5 @@ void VueSettings::cliquerAnnuler() {
 }
 
 VueSettings::~VueSettings() {}
+
+

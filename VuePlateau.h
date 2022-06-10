@@ -6,16 +6,20 @@
 #define VUEPLATEAU_H
 
 #include <QGridLayout>
+#include <QMessageBox>
 #include "VueTuile.h"
+#include "src/jeu.h"
 
 class VuePlateau : public QGridLayout {
     Q_OBJECT
 public:
     explicit VuePlateau(QWidget *parent = nullptr);
+    void poserTuile(int id, int x, int y);
 
 private:
     VueTuile* tuiles[20][20];
-    void test();
+    void tuileClick(VueTuile* vt);
+    Jeu& j = Jeu::getJeu();
 signals:
     void attemptToPutTuile();
 };

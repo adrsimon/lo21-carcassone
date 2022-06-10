@@ -4,6 +4,8 @@
 #include <QDialog>
 #include <QFormLayout>
 #include <QtWidgets>
+#include "src/jeu.h"
+#include "src/enum.h"
 
 class VueSettings : public QDialog
 {
@@ -12,12 +14,12 @@ class VueSettings : public QDialog
 public:
     explicit VueSettings(QWidget *parent = nullptr);
     ~VueSettings();
-    std::list<std::string> const getNomJoueurs() { return nomJoueurs; }
+    std::vector<std::string> const getNomJoueurs() { return nomJoueurs; }
 
 private:
 
     // Settings to export
-    std::list<std::string> nomJoueurs;
+    std::vector<std::string> nomJoueurs;
     std::list<bool> extensions;
 
     // UX

@@ -16,14 +16,20 @@ public:
     explicit VueTuile(int x, int y, QWidget *parent = nullptr, size_t id=-1);
     void setTuile(const size_t newId);
     size_t getTuile() const { return id; }
-    bool tuilePresente() const { return id!=-1; }
+    int getVueTuileX() const { return x; }
+    int getVueTuileY() const { return y; }
 
 private:
     size_t id;
     int x;
     int y;
+
+signals:
+    void tuileClicked(VueTuile*);
+
 private slots:
-    void test();
+    void clickedEvent() { emit tuileClicked(this); }
+
 };
 
 

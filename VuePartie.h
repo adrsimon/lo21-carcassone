@@ -28,7 +28,7 @@ class VuePartie : public QWidget {
 private:
     bool isPlaying = false;
 
-    //Jeu& jeu = Jeu::getJeu();
+    Jeu& jeu = Jeu::getJeu();
 
     QProgressBar* nbCartesPioche;
 
@@ -42,10 +42,8 @@ private:
     VueValider* vueValider;
     VuePlateau* layoutPlateau;
 
-    QVBoxLayout* layoutButtons;
-    QHBoxLayout* layoutLogo;
-    QVBoxLayout* layoutPlayer;
-    QGridLayout* couche;
+    QVBoxLayout* layoutRight;
+    QHBoxLayout* couche;
 public:
     VuePartie(QWidget *parent = nullptr);
     void updatePage(std::string nom);

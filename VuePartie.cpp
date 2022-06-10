@@ -28,7 +28,7 @@ VuePartie::VuePartie(QWidget *parent): QWidget(parent) {
     logo->load("/Users/leo/Documents/UTC/LO21/testing things/utils/carcassonelogo.png");
     QLabel* header = new QLabel();
     header->setPixmap(QPixmap::fromImage(*logo));
-    header->resize(1100, 100);
+    header->resize(1100, 600);
 
     // Pioche
     nbCartesPioche = new QProgressBar;
@@ -51,7 +51,7 @@ VuePartie::VuePartie(QWidget *parent): QWidget(parent) {
 
     // Player information
     QImage* tuileImage = new QImage();
-    tuileImage->load("/Users/leo/Documents/UTC/LO21/testing things/utils/1.jpeg");
+    tuileImage->load("/Users/leo/Documents/UTC/LO21/lo21-carcassone/utils/tiles_illustrations/1.jpeg");
     QLabel* tuile = new QLabel();
     tuile->setPixmap(QPixmap::fromImage(*tuileImage));
     QLabel* nomJoueur = new QLabel("Joueur x");
@@ -59,41 +59,32 @@ VuePartie::VuePartie(QWidget *parent): QWidget(parent) {
     QLabel* piocheText = new QLabel("Tuile Restantes: x");
     QLabel* tuileText = new QLabel("Tuile à placer");
 
-    // HEADER LAYOUT
-    layoutLogo = new QHBoxLayout();
-    layoutLogo->addWidget(header, 0, Qt::AlignHCenter);
-
     // LAYOUT BUTTONS
-    layoutButtons = new QVBoxLayout();
-    layoutButtons->addWidget(piocherBoutton, 0,Qt::AlignHCenter);
-    layoutButtons->addWidget(jouerBoutton, 0,Qt::AlignHCenter);
-    layoutButtons->addWidget(settingsBoutton, 0,Qt::AlignHCenter);
-    layoutButtons->addWidget(groupementBoutton, 0,Qt::AlignHCenter);
-    layoutButtons->addWidget(quitterBoutton, 0,Qt::AlignHCenter);
-
-    // LAYOUT Player information
-    layoutPlayer = new QVBoxLayout();
-    layoutPlayer->addWidget(piocheText, 0, Qt::AlignHCenter);
-    layoutPlayer->addWidget(nbCartesPioche, 0,Qt::AlignHCenter);
-    layoutPlayer->addWidget(tuileText, 0, Qt::AlignHCenter);
-    layoutPlayer->addWidget(tuile, 0,Qt::AlignHCenter);
-    layoutPlayer->addWidget(nomJoueur, 0,Qt::AlignHCenter);
-    layoutPlayer->addWidget(meepleRestant, 0,Qt::AlignHCenter);
-    layoutPlayer->setSpacing(30);
+    layoutRight = new QVBoxLayout();
+    layoutRight->addWidget(piocherBoutton, 0,Qt::AlignHCenter);
+    layoutRight->addWidget(jouerBoutton, 0,Qt::AlignHCenter);
+    layoutRight->addWidget(settingsBoutton, 0,Qt::AlignHCenter);
+    layoutRight->addWidget(groupementBoutton, 0,Qt::AlignHCenter);
+    layoutRight->addWidget(quitterBoutton, 0,Qt::AlignHCenter);
+    layoutRight->addWidget(piocheText, 0, Qt::AlignHCenter);
+    layoutRight->addWidget(nbCartesPioche, 0,Qt::AlignHCenter);
+    layoutRight->addWidget(tuileText, 0, Qt::AlignHCenter);
+    layoutRight->addWidget(tuile, 0,Qt::AlignHCenter);
+    layoutRight->addWidget(nomJoueur, 0,Qt::AlignHCenter);
+    layoutRight->addWidget(meepleRestant, 0,Qt::AlignHCenter);
+    layoutRight->setSpacing(30);
 
     // Layout Plateau
     layoutPlateau = new VuePlateau();
 
 
     // UI and final layout
-    couche = new QGridLayout();
-    //couche->addLayout(layoutLogo, 0, 0, 2, 0);
-    couche->addLayout(layoutPlateau, 0, 0);
-    couche->addLayout(layoutButtons, 1, 1);
-    couche->addLayout(layoutPlayer, 0, 1);
+    couche = new QHBoxLayout();
+    couche->addLayout(layoutPlateau);
+    couche->addLayout(layoutRight);
     setLayout(couche);
     //setStyleSheet("background-color:white; color:black;");
-    setFixedSize(1100, 750);
+    setFixedSize(1400, 800);
 
 }
 
@@ -109,9 +100,8 @@ void VuePartie::cliqueJouer() {
     if(vueSettings == nullptr)
         return;
     isPlaying=true;
-    std::list<std::string> raw = vueSettings->getNomJoueurs();
-    for(auto it = raw.begin(); it != raw.end(); it++)
-        std::cout << "Joueur:" << *it << std::endl;
+    std::cout << "je suis la " << std::endl;
+    layoutPlateau->poserTuile(jeu.getFirstTuileId(), 0, 0);
 }
 
 void VuePartie::cliquePiocher() {

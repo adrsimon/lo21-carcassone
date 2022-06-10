@@ -49,6 +49,7 @@ public:
     std::vector<std::pair<TypeElement::points, int>> getSizeOfGroupements() { return plateau->getSizeOfGroupements(); }
     std::vector<std::pair<int, int>> getAvailableTuilesChoices() { return plateau->getCasesLibres(); }
     std::list<Element*> getCurrentTuileElements() { return currentTuile->getElements(); }
+    int getFirstTuileId() { return plateau->getMap().at(pair<int,int>(0,0))->getID(); }
     void rotateTuile() { return currentTuile->rotateOrientation(); }
     bool tuileAction(int x, int y);
     bool meepleAction(Element* e, TypeMeeple::points t);
