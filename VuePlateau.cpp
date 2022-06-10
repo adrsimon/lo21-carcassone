@@ -18,10 +18,15 @@ VuePlateau::VuePlateau(QWidget *parent) : QGridLayout(parent){
 
 void VuePlateau::tuileClick(VueTuile* vt) {
     std::cout <<  vt->getVueTuileX() << vt->getVueTuileY() << std::endl;
+    QMessageBox qmsgbox;
     if(j.tuileAction( vt->getVueTuileX(), vt->getVueTuileY())) {
         poserTuile(j.getCurrentTuileId(), vt->getVueTuileX(), vt->getVueTuileY());
         j.nextTurn();
         endTour();
+        qmsgbox.setText("Voulez-vous poser un Meeple ?");
+        qmsgbox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        qmsgbox.setDefaultButton(QMessageBox::No);
+        int mpl = qmsgbox.exec();
     } else {
         QMessageBox qmsgbox;
         qmsgbox.setText("Tuile Non Compatible");
@@ -31,4 +36,8 @@ void VuePlateau::tuileClick(VueTuile* vt) {
 
 void VuePlateau::poserTuile(int id, int x, int y) {
     tuiles[x+6][y+11]->setTuile(id);
+}
+
+void VuePlateau::poserMeeple() {
+
 }

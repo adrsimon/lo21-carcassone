@@ -15,6 +15,7 @@ class VuePlateau : public QGridLayout {
 public:
     explicit VuePlateau(QWidget *parent = nullptr);
     void poserTuile(int id, int x, int y);
+    void poserMeeple();
 
 private:
     VueTuile* tuiles[20][20];
