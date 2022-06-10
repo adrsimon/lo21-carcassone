@@ -2,6 +2,7 @@
 // Created by Leo Peron on 28/05/2022.
 //
 
+#include <iostream>
 #include "VueTuile.h"
 
 VueTuile::VueTuile(int x, int y, QWidget *parent, size_t id) : x(x), y(y), id(id),QPushButton(parent) {
@@ -25,3 +26,4 @@ void VueTuile::test() {
     setIconSize(QSize(50,50));
     update();
 }
+

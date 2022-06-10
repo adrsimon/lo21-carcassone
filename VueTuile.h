@@ -7,11 +7,11 @@
 
 #include <QWidget>
 #include <QPushButton>
-
+#include "src/plateau.h"
 
 class VueTuile : public QPushButton
 {
-    Q_OBJECT
+Q_OBJECT
 public:
     explicit VueTuile(int x, int y, QWidget *parent = nullptr, size_t id=-1);
     void setTuile(const size_t newId);
@@ -22,9 +22,11 @@ private:
     size_t id;
     int x;
     int y;
+    QImage img;
 private slots:
     void test();
 };
+
 
 
 #endif //TESTING_THINGS_VUETUILE_H

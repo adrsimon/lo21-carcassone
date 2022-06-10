@@ -5,19 +5,34 @@
 #ifndef VUEPLATEAU_H
 #define VUEPLATEAU_H
 
-#include <QGridLayout>
+#include <QGraphicsScene>
+#include <QMenu>
+#include <QGraphicsSceneMouseEvent>
+#include <QGraphicsItem>
+#include <QLabel>
+
 #include "VueTuile.h"
 
-class VuePlateau : public QGridLayout {
-    Q_OBJECT
+class VuePlateau : public QGraphicsScene {
+Q_OBJECT
 public:
-    explicit VuePlateau(QWidget *parent = nullptr);
+    explicit VuePlateau(QObject *parent = nullptr, QLabel* tuile=nullptr);
+
+    void createGrille();
+    void addTuile(QGraphicsPixmapItem* item, QPointF* pos);
+    void setCurrentTuile(QLabel* tuile) {currentTuile=tuile;}
+
+protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+
 
 private:
-    VueTuile* tuiles[20][20];
-    void test();
+    QObject *parent;
+    QLabel *currentTuile;
 signals:
-    void attemptToPutTuile();
+    void itemSelected(QGraphicsItem *item);
+
 };
+
 
 #endif //TESTING_THINGS_VUEPLATEAU_H

@@ -1,4 +1,6 @@
 #include "VueSettings.h"
+#include "src/jeu.h"
+#include <iostream>
 #include <QPushButton>
 #include <QtWidgets>
 #include <QHBoxLayout>
@@ -30,15 +32,14 @@ VueSettings::VueSettings(QWidget *parent) : QDialog(parent) {
 
     // Displaying Extensions
     QLabel* titreExtensions = new QLabel("Liste des Extensions");
-    QCheckBox* extensions[4];
+    QCheckBox* extensions[3];
     layoutExtensions = new QVBoxLayout();
     layoutExtensions->addWidget(titreExtensions);
-    extensions[0] = new QCheckBox("Extension 1");
-    extensions[1] = new QCheckBox("Extension 2");
-    extensions[2] = new QCheckBox("Extension 3");
-    extensions[3] = new QCheckBox("Extension 4");
+    extensions[1] = new QCheckBox("Rivière");
+    extensions[2] = new QCheckBox("Auberge");
+    //extensions[3] = new QCheckBox("Extension 4");
 
-    for(int i=0; i<4; i++) {
+    for(int i=0; i<3; i++) {
         layoutExtensions->addWidget(extensions[i]);
     }
 
@@ -60,7 +61,19 @@ void VueSettings::cliquerValider() {
     for (int i = 0; i < 6; i++) {
         nomJoueurs.push_back(joueurs[i]->text().toStdString());
     }
+    bool r = *extensions.begin();
+    extensions.begin()++;
+    bool ac = *extensions.begin();
+
+    std::vector<TypeCouleur::points> couleurs = {
+            TypeCouleur::rouge, TypeCouleur::bleu, TypeCouleur::vert, TypeCouleur::jaune, TypeCouleur::rose, TypeCouleur::orange
+    };
+
+    Jeu& j=Jeu::getJeu();
+    j.initialiser(nomJoueurs,couleurs,true,r,ac);
+
     close();
+
 }
 
 void VueSettings::cliquerAnnuler() {
@@ -68,3 +81,4 @@ void VueSettings::cliquerAnnuler() {
 }
 
 VueSettings::~VueSettings() {}
+

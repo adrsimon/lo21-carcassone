@@ -5,20 +5,20 @@
 #include <QFormLayout>
 #include <QtWidgets>
 
-class VueSettings : public QDialog
-{
-    Q_OBJECT
+class VueSettings : public QDialog {
+Q_OBJECT
 
 public:
     explicit VueSettings(QWidget *parent = nullptr);
     ~VueSettings();
-    std::list<std::string> const getNomJoueurs() { return nomJoueurs; }
+    std::vector<std::string> const getNomJoueurs() { return nomJoueurs; }
 
 private:
 
     // Settings to export
-    std::list<std::string> nomJoueurs;
+    std::vector<std::string> nomJoueurs;
     std::list<bool> extensions;
+    //std::vector<TypeCouleur> couleurs = {TypeCouleur::bleu, TypeCouleur::vert, TypeCouleur::rouge, TypeCouleur::jaune, TypeCouleur::rose, TypeCouleur::orange};
 
     // UX
     QPushButton* validerBoutton;
@@ -32,5 +32,8 @@ private slots:
     void cliquerValider();
     void cliquerAnnuler();
 };
+
+
+
 
 #endif // VUESETTINGS_H
