@@ -29,6 +29,7 @@ protected:
 private:
     QObject *parent;
     QLabel *currentTuile;
+
 signals:
     void itemSelected(QGraphicsItem *item);
 

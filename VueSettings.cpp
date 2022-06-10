@@ -32,14 +32,13 @@ VueSettings::VueSettings(QWidget *parent) : QDialog(parent) {
 
     // Displaying Extensions
     QLabel* titreExtensions = new QLabel("Liste des Extensions");
-    QCheckBox* extensions[3];
+    QCheckBox* extensions[2];
     layoutExtensions = new QVBoxLayout();
     layoutExtensions->addWidget(titreExtensions);
-    extensions[1] = new QCheckBox("Rivière");
-    extensions[2] = new QCheckBox("Auberge");
-    //extensions[3] = new QCheckBox("Extension 4");
+    extensions[0] = new QCheckBox("Rivière");
+    extensions[1] = new QCheckBox("Auberge");
 
-    for(int i=0; i<3; i++) {
+    for(int i=0; i<2; i++) {
         layoutExtensions->addWidget(extensions[i]);
     }
 
@@ -59,7 +58,8 @@ VueSettings::VueSettings(QWidget *parent) : QDialog(parent) {
 void VueSettings::cliquerValider() {
     // Saving joueurs Names
     for (int i = 0; i < 6; i++) {
-        nomJoueurs.push_back(joueurs[i]->text().toStdString());
+        if(joueurs[i]->text().toStdString() != "")
+            nomJoueurs.push_back(joueurs[i]->text().toStdString());
     }
     bool r = *extensions.begin();
     extensions.begin()++;

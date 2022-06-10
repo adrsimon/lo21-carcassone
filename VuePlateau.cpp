@@ -5,16 +5,15 @@
 #include <iostream>
 #include "VuePlateau.h"
 
-VuePlateau::VuePlateau(QObject* parent, QLabel* tuile) : parent(parent), currentTuile(tuile) {}
+VuePlateau::VuePlateau(QObject* parent, QLabel* tuile) : parent(parent), currentTuile(tuile) {
+    setBackgroundBrush(QBrush(Qt::white, Qt::SolidPattern));
+}
 
 void VuePlateau::createGrille(){
-    for (int x=0; x<=2000; x+=50)
-        for (int y=0; y<=2000; y+=50) {
-            QRectF rect(x,y,50,50);
-            QGraphicsRectItem* item;
-            item=this->addRect(rect,QPen(Qt::black));
-            item->setFlag(QGraphicsItem::ItemIsSelectable);
-        }
+    QRectF rect(0,0,50,50);
+    QGraphicsRectItem* item;
+    item=this->addRect(rect,QPen(Qt::black));
+    item->setFlag(QGraphicsItem::ItemIsSelectable);
     //view->fitInView(scene->itemsBoundingRect());
 }
 

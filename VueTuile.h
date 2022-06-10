@@ -13,18 +13,27 @@ class VueTuile : public QPushButton
 {
 Q_OBJECT
 public:
-    explicit VueTuile(int x, int y, QWidget *parent = nullptr, size_t id=-1);
+    explicit VueTuile(QWidget *parent = nullptr, size_t id=-1);
     void setTuile(const size_t newId);
     size_t getTuile() const { return id; }
     bool tuilePresente() const { return id!=-1; }
+
+protected:
+    void paintEvent(QPaintEvent *event) override;
 
 private:
     size_t id;
     int x;
     int y;
     QImage img;
+    QBrush brush;
+
+signals:
+    void tuileClicked(VueTuile*);
+
+
 private slots:
-    void test();
+    void clickedEvent() { emit tuileClicked(this); }
 };
 
 

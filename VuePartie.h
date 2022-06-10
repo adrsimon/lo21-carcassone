@@ -20,6 +20,11 @@ private:
     VuePlateau *scene;
     QGraphicsView *view;
 
+    QLabel* nomJoueur = new QLabel("Joueur: x");
+    QLabel* meepleRestant = new QLabel("Meeple restants : x");
+    QLabel* piocheText = new QLabel("Tuile Restantes: x");
+    QLabel* tuileText = new QLabel("Tuile à placer");
+
     QMenu *itemMenu;
     QToolBox *toolBox;
     bool isPlaying = false;
@@ -29,7 +34,6 @@ private:
     QProgressBar* nbCartesPioche;
 
     QPushButton* settingsBoutton;
-    QPushButton* piocherBoutton;
     QPushButton* jouerBoutton;
     QPushButton* groupementBoutton;
     QPushButton* quitterBoutton;
@@ -64,13 +68,15 @@ private slots:
 
     void cliqueSettings();
     void cliqueJouer();
-    void cliquePiocher();
     void cliqueRotate();
     void cliqueQuitter() { close(); };
     void affichagePlacerMeeple();
     void affichageGroupementFini();
     void validerPlacerMeeple();
     void validerGroupementFini();
+private:
+    void jouer();
+    void updateInfo();
 };
 
 
