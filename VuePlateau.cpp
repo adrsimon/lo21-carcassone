@@ -3,6 +3,10 @@
 //
 
 #include "VuePlateau.h"
+#include "VuePoseMeeple.h"
+#include <QFormLayout>
+#include <QLabel>
+#include <QRadioButton>
 
 VuePlateau::VuePlateau(QWidget *parent) : QGridLayout(parent){
     for (int i = 0; i < 13; i++) {
@@ -12,8 +16,6 @@ VuePlateau::VuePlateau(QWidget *parent) : QGridLayout(parent){
             connect(tuiles[i][j],&VueTuile::tuileClicked, this, &VuePlateau::tuileClick);
         }
     }
-    //QGridLayout::setHorizontalSpacing(5);
-    //QGridLayout::setVerticalSpacing(5);
 }
 
 void VuePlateau::tuileClick(VueTuile* vt) {
@@ -21,12 +23,14 @@ void VuePlateau::tuileClick(VueTuile* vt) {
     QMessageBox qmsgbox;
     if(j.tuileAction( vt->getVueTuileX(), vt->getVueTuileY())) {
         poserTuile(j.getCurrentTuileId(), vt->getVueTuileX(), vt->getVueTuileY());
-        j.nextTurn();
-        endTour();
         qmsgbox.setText("Voulez-vous poser un Meeple ?");
         qmsgbox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         qmsgbox.setDefaultButton(QMessageBox::No);
         int mpl = qmsgbox.exec();
+        if(mpl == QMessageBox::Yes)
+            poserMeeple();
+        j.nextTurn();
+        endTour();
     } else {
         QMessageBox qmsgbox;
         qmsgbox.setText("Tuile Non Compatible");
@@ -35,9 +39,10 @@ void VuePlateau::tuileClick(VueTuile* vt) {
 }
 
 void VuePlateau::poserTuile(int id, int x, int y) {
-    tuiles[x+6][y+11]->setTuile(id);
+    tuiles[-y+6][x+11]->setTuile(id, j.getRotation());
 }
 
 void VuePlateau::poserMeeple() {
-
+    VuePoseMeeple* pose = new VuePoseMeeple();
+    pose->show();
 }

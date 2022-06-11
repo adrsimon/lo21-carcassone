@@ -9,7 +9,6 @@
 #include <vector>
 #include <set>
 #include "VueSettings.h"
-#include "VueValider.h"
 #include "VuePlateau.h"
 //#include "src/jeu.h"
 
@@ -45,7 +44,6 @@ private:
     QLabel* tuile = new QLabel();
 
     VueSettings* vueSettings;
-    VueValider* vueValider;
     VuePlateau* layoutPlateau;
 
     QVBoxLayout* layoutRight;
@@ -56,8 +54,9 @@ public:
 private slots:
     void cliqueSettings();
     void cliqueJouer();
-    void cliquePiocher();
     void cliqueQuitter() { close(); };
+
+    void cliqueTourner();
 };
 
 

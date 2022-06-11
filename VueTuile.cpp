@@ -11,11 +11,14 @@ VueTuile::VueTuile(int x, int y, QWidget *parent, size_t id) : x(x), y(y), id(id
     setCheckable(true);
 }
 
-void VueTuile::setTuile(const size_t newId) {
+void VueTuile::setTuile(const size_t newId, const int rotation) {
     std::string str  = "/Users/leo/Documents/UTC/LO21/lo21-carcassone/utils/tiles_illustrations/" + std::to_string(newId) + ".jpeg";
     QImage* img = new QImage();
     img->load(QString::fromStdString(str));
-    setIcon(QPixmap::fromImage(*img));
+    QPixmap pix = QPixmap::fromImage(*img);
+    QTransform t;
+    pix = pix.transformed(t.rotate(90*rotation));
+    setIcon(pix);
     setIconSize(QSize(43,43));
     update();
 }

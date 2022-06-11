@@ -14,7 +14,7 @@ class VueTuile : public QPushButton
     Q_OBJECT
 public:
     explicit VueTuile(int x, int y, QWidget *parent = nullptr, size_t id=-1);
-    void setTuile(const size_t newId);
+    void setTuile(const size_t newId, const int rotation);
     size_t getTuile() const { return id; }
     int getVueTuileX() const { return x; }
     int getVueTuileY() const { return y; }

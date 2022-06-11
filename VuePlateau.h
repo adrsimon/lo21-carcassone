@@ -18,7 +18,7 @@ public:
     void poserMeeple();
 
 private:
-    VueTuile* tuiles[20][20];
+    VueTuile* tuiles[13][22];
     Jeu& j = Jeu::getJeu();
 private slots:
     void tuileClick(VueTuile* vt);

@@ -19,6 +19,7 @@ private:
     Plateau* plateau;
     Pioche* pioche;
     std::list<TypeExtension::points> extensions;
+    int rotation=0;
 
     void addJoueur(std::string nom, TypeCouleur::points couleur) {joueurs.push_back(new Joueur(nom, couleur));}
     void setExtensions(bool m, bool r, bool ac);
@@ -50,7 +51,8 @@ public:
     std::vector<std::pair<int, int>> getAvailableTuilesChoices() { return plateau->getCasesLibres(); }
     std::list<Element*> getCurrentTuileElements() { return currentTuile->getElements(); }
     int getFirstTuileId() { return plateau->getMap().at(pair<int,int>(0,0))->getID(); }
-    void rotateTuile() { return currentTuile->rotateOrientation(); }
+    int getRotation() const { return rotation; }
+    void rotateTuile() { currentTuile->rotateOrientation(); rotation = (++rotation)%4; }
     bool tuileAction(int x, int y);
     bool meepleAction(Element* e, TypeMeeple::points t);
     bool recupererMeeple(Meeple* m);

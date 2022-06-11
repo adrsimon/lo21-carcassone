@@ -41,7 +41,7 @@ VuePartie::VuePartie(QWidget *parent): QWidget(parent) {
     // Buttons connection
     connect(settingsBoutton, &QPushButton::released, this, &VuePartie::cliqueSettings);
     connect(jouerBoutton, &QPushButton::released, this, &VuePartie::cliqueJouer);
-    connect(tournerBoutton, &QPushButton::released, this, &VuePartie::cliquePiocher);
+    connect(tournerBoutton, &QPushButton::released, this, &VuePartie::cliqueTourner);
     connect(quitterBoutton, &QPushButton::released, this, &VuePartie::cliqueQuitter);
 
     // Player information
@@ -113,9 +113,10 @@ void VuePartie::cliqueJouer() {
 
 }
 
-void VuePartie::cliquePiocher() {
-    delete vueValider;
-    vueValider = new VueValider(this);
-    vueValider->show();
-    std::cout << vueValider->getResult() << std::endl;
+void VuePartie::cliqueTourner() {
+    QPixmap pixmap(tuile->pixmap());
+    QTransform t;
+    pixmap = pixmap.transformed(t.rotate(90));
+    tuile->setPixmap(pixmap);
+    jeu.rotateTuile();
 }

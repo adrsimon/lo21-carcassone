@@ -48,6 +48,7 @@ void Jeu::nextTurn() {
     joueurs.pop_front();
     // On pioche une tuile
     currentTuile = pioche->piocher();
+    rotation=0;
 }
 
 bool Jeu::tuileAction(int x, int y) {
