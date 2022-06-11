@@ -4,7 +4,7 @@
 
 #include "VuePoseMeeple.h"
 
-VuePoseMeeple::VuePoseMeeple(QWidget *parent) : QDialog(parent) {
+VuePoseMeeple::VuePoseMeeple(VueTuile* vt, QWidget *parent) : vt(vt), QDialog(parent) {
 
     setWindowTitle("Element sur lequel poser un Meeple ?");
 
@@ -73,7 +73,8 @@ void VuePoseMeeple::cliquerValider() {
             QMessageBox qmsgbox;
             qmsgbox.setText("Meeple Posé !");
             qmsgbox.exec();
-           close();
+            vt->addMeeple(e->getOrientations().front(), j.getCurrentJoueurColor());
+            vt->update();
         } else {
             QMessageBox qmsgbox;
             qmsgbox.setText("Action Impossible, Veuillez recommencer");

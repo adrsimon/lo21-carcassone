@@ -9,13 +9,14 @@
 #include <QFormLayout>
 #include <QtWidgets>
 #include "src/jeu.h"
+#include "VueTuile.h"
 
 class VuePoseMeeple : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit VuePoseMeeple(QWidget *parent = nullptr);
+    explicit VuePoseMeeple(VueTuile* vt, QWidget *parent = nullptr);
     ~VuePoseMeeple();
 
 private:
@@ -25,6 +26,7 @@ private:
 
     std::vector<pair<QCheckBox*, Element*>> elemsButtons;
     std::vector<pair<QCheckBox*, TypeMeeple::points>> meeplesButtons;
+    VueTuile* vt;
     // UX
     QPushButton* validerBoutton;
     QPushButton* annulerBoutton;

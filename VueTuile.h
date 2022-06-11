@@ -7,6 +7,7 @@
 
 #include <QWidget>
 #include <QPushButton>
+#include "src/enum.h"
 
 
 class VueTuile : public QPushButton
@@ -18,9 +19,13 @@ public:
     size_t getTuile() const { return id; }
     int getVueTuileX() const { return x; }
     int getVueTuileY() const { return y; }
+    void addMeeple(TypeCardinaux::points card, TypeCouleur::points cou) { meeples.push_back(std::pair<TypeCardinaux::points, TypeCouleur::points>(card,cou)); }
 
+protected:
+    void paintEvent(QPaintEvent *event) override;
 private:
     size_t id;
+    std::vector<std::pair<TypeCardinaux::points, TypeCouleur::points>> meeples;
     int x;
     int y;
 

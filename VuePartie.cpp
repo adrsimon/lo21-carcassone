@@ -35,7 +35,6 @@ VuePartie::VuePartie(QWidget *parent): QWidget(parent) {
     settingsBoutton = new QPushButton("Paramètres");
     tournerBoutton = new QPushButton("Tourner Tuile");
     jouerBoutton = new QPushButton("Jouer");
-    groupementBoutton = new QPushButton("Grouper");
     quitterBoutton = new QPushButton("Quitter");
 
     // Buttons connection
@@ -53,7 +52,6 @@ VuePartie::VuePartie(QWidget *parent): QWidget(parent) {
     layoutRight = new QVBoxLayout();
     layoutRight->addWidget(jouerBoutton, 0,Qt::AlignHCenter);
     layoutRight->addWidget(settingsBoutton, 0,Qt::AlignHCenter);
-    layoutRight->addWidget(groupementBoutton, 0,Qt::AlignHCenter);
     layoutRight->addWidget(quitterBoutton, 0,Qt::AlignHCenter);
     layoutRight->addWidget(piocheText, 0, Qt::AlignHCenter);
     layoutRight->addWidget(nbCartesPioche, 0,Qt::AlignHCenter);
@@ -61,7 +59,9 @@ VuePartie::VuePartie(QWidget *parent): QWidget(parent) {
     layoutRight->addWidget(tuile, 0,Qt::AlignHCenter);
     layoutRight->addWidget(tournerBoutton, 0,Qt::AlignHCenter);
     layoutRight->addWidget(nomJoueur, 0,Qt::AlignHCenter);
-    layoutRight->addWidget(meepleRestant, 0,Qt::AlignHCenter);
+    layoutRight->addWidget(meepleNRestant, 0,Qt::AlignHCenter);
+    layoutRight->addWidget(meepleBRestant, 0,Qt::AlignHCenter);
+    layoutRight->addWidget(meepleARestant, 0,Qt::AlignHCenter);
     layoutRight->setSpacing(30);
 
     // Layout Plateau
@@ -71,6 +71,7 @@ VuePartie::VuePartie(QWidget *parent): QWidget(parent) {
     // UI and final layout
     couche = new QHBoxLayout();
     couche->addLayout(layoutPlateau);
+    layoutRight->setSpacing(0);
     couche->addLayout(layoutRight);
     setLayout(couche);
     //setStyleSheet("background-color:white; color:black;");
@@ -91,7 +92,23 @@ void VuePartie::updateInfo() {
     nomJoueur->setText(QString::fromStdString(str));
     str =  to_string(jeu.getTuilesAmount()) + " Tuiles dans la pioche";
     piocheText->setText(QString::fromStdString(str));
-    std::cout << "Tuile à jouer: " << jeu.getCurrentTuileId() << std::endl;
+    auto meeples = jeu.getPlayerMeeplesAmount();
+    for(auto it = meeples.begin(); it != meeples.end(); it++) {
+        switch(it->first) {
+            case TypeMeeple::normal:
+                str = "Meeples Normaux restants: " + to_string(it->second);
+                meepleNRestant->setText(QString::fromStdString(str));
+                break;
+            case TypeMeeple::big:
+                str = "Meeples Big restants: " + to_string(it->second);
+                meepleBRestant->setText(QString::fromStdString(str));
+                break;
+            case TypeMeeple::abbe:
+                str = "Meeples Abbe restants: " + to_string(it->second);
+                meepleARestant->setText(QString::fromStdString(str));
+                break;
+        }
+    }
     QImage* tuileImage = new QImage();
     str = "/Users/leo/Documents/UTC/LO21/lo21-carcassone/utils/tiles_illustrations/" + to_string(jeu.getCurrentTuileId()) + ".jpeg";
     tuileImage->load(QString::fromStdString(str));
@@ -114,6 +131,8 @@ void VuePartie::cliqueJouer() {
 }
 
 void VuePartie::cliqueTourner() {
+    if(!isPlaying)
+        return;
     QPixmap pixmap(tuile->pixmap());
     QTransform t;
     pixmap = pixmap.transformed(t.rotate(90));

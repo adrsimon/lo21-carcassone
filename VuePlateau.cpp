@@ -27,7 +27,8 @@ void VuePlateau::tuileClick(VueTuile* vt) {
         qmsgbox.setDefaultButton(QMessageBox::No);
         int mpl = qmsgbox.exec();
         if(mpl == QMessageBox::Yes)
-            poserMeeple();
+            poserMeeple(vt);
+        std::cout << j.getCurrentJoueur()->getNom() << std::endl;
         j.nextTurn();
         endTour();
     } else {
@@ -41,7 +42,7 @@ void VuePlateau::poserTuile(int id, int x, int y) {
     tuiles[-y+6][x+11]->setTuile(id, j.getRotation());
 }
 
-void VuePlateau::poserMeeple() {
-    VuePoseMeeple* pose = new VuePoseMeeple();
+void VuePlateau::poserMeeple(VueTuile* vt) {
+    VuePoseMeeple* pose = new VuePoseMeeple(vt);
     pose->exec();
 }

@@ -2,6 +2,7 @@
 // Created by Leo Peron on 28/05/2022.
 //
 
+#include <QPainter>
 #include "VueTuile.h"
 
 VueTuile::VueTuile(int x, int y, QWidget *parent, size_t id) : x(x), y(y), id(id),QPushButton(parent) {
@@ -19,6 +20,34 @@ void VueTuile::setTuile(const size_t newId, const int rotation) {
     QTransform t;
     pix = pix.transformed(t.rotate(90*rotation));
     setIcon(pix);
-    setIconSize(QSize(43,43));
+    setIconSize(QSize(44,44));
     update();
+}
+
+void VueTuile::paintEvent(QPaintEvent* e)
+{
+    QPushButton::paintEvent(e);
+    QPainter painter(this);
+
+    QPoint test = QPoint(0, 0);
+
+    QRect buttonRect=rect();
+    painter.setBrush(QBrush(Qt::red,Qt::SolidPattern));
+
+    for(auto it = meeples.begin(); it != meeples.end(); it++) {
+        switch (it->first) {
+            case TypeCardinaux::nord:
+                painter.drawRect(15,0, 10, 10);
+                break;
+            case TypeCardinaux::est:
+                painter.drawRect(30,15, 10, 10);
+                break;
+            case TypeCardinaux::sud:
+                painter.drawRect(15,30, 10, 10);
+                break;
+            case TypeCardinaux::ouest:
+                painter.drawRect(0,15, 10, 10);
+                break;
+        }
+    }
 }

@@ -34,12 +34,13 @@ private:
     QPushButton* settingsBoutton;
     QPushButton* tournerBoutton;
     QPushButton* jouerBoutton;
-    QPushButton* groupementBoutton;
     QPushButton* quitterBoutton;
 
-    QLabel* nomJoueur = new QLabel("Joueur x");
-    QLabel* meepleRestant = new QLabel("Meeple restants : x");
-    QLabel* piocheText = new QLabel("Tuile Restantes: x");
+    QLabel* nomJoueur = new QLabel("Joueur: X");
+    QLabel* meepleNRestant = new QLabel("Meeples Normaux restants: X");
+    QLabel* meepleBRestant = new QLabel("Meeples Big restants: X");
+    QLabel* meepleARestant = new QLabel("Meeples Abbe restants: X");
+    QLabel* piocheText = new QLabel("Tuile Restantes: X");
     QLabel* tuileText = new QLabel("Tuile à placer");
     QLabel* tuile = new QLabel();
 

@@ -39,6 +39,7 @@ public:
     Tuile* getCurrentTuile() const {return currentTuile;}
     int getCurrentTuileId() const { return currentTuile->getID(); }
     Joueur *const getCurrentJoueur() const {return currentJoueur;}
+    TypeCouleur::points const getCurrentJoueurColor() const { return currentJoueur->getCouleur(); }
     Plateau *const getPlateau() const {return plateau;}
     std::list<Joueur*> getJoueurs() const {return joueurs;}
 
