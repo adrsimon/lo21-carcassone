@@ -32,9 +32,10 @@ void VueTuile::paintEvent(QPaintEvent* e)
     QPoint test = QPoint(0, 0);
 
     QRect buttonRect=rect();
-    painter.setBrush(QBrush(Qt::red,Qt::SolidPattern));
 
     for(auto it = meeples.begin(); it != meeples.end(); it++) {
+
+        painter.setBrush(QBrush(toQColor(it->second),Qt::SolidPattern));
         switch (it->first) {
             case TypeCardinaux::nord:
                 painter.drawRect(15,0, 10, 10);
@@ -50,4 +51,16 @@ void VueTuile::paintEvent(QPaintEvent* e)
                 break;
         }
     }
+}
+
+QColor VueTuile::toQColor(TypeCouleur::points c) {
+    switch (c) {
+        case TypeCouleur::rose: return QColor(255,55,255);
+        case TypeCouleur::rouge: return QColor(255,0,0);
+        case TypeCouleur::bleu: return QColor(0,0,255);
+        case TypeCouleur::vert: return QColor(0,255,0);
+        case TypeCouleur::jaune: return QColor(255,255,0);
+        case TypeCouleur::orange: return QColor(255,128,0);
+    }
+    return QColor(0,0,0);
 }

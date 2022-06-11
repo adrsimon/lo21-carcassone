@@ -20,6 +20,7 @@ public:
     int getVueTuileX() const { return x; }
     int getVueTuileY() const { return y; }
     void addMeeple(TypeCardinaux::points card, TypeCouleur::points cou) { meeples.push_back(std::pair<TypeCardinaux::points, TypeCouleur::points>(card,cou)); }
+    QColor toQColor(TypeCouleur::points c);
 
 protected:
     void paintEvent(QPaintEvent *event) override;

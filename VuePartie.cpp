@@ -59,6 +59,7 @@ VuePartie::VuePartie(QWidget *parent): QWidget(parent) {
     layoutRight->addWidget(tuile, 0,Qt::AlignHCenter);
     layoutRight->addWidget(tournerBoutton, 0,Qt::AlignHCenter);
     layoutRight->addWidget(nomJoueur, 0,Qt::AlignHCenter);
+    layoutRight->addWidget(scoreJoueur, 0, Qt::AlignHCenter);
     layoutRight->addWidget(meepleNRestant, 0,Qt::AlignHCenter);
     layoutRight->addWidget(meepleBRestant, 0,Qt::AlignHCenter);
     layoutRight->addWidget(meepleARestant, 0,Qt::AlignHCenter);
@@ -90,6 +91,8 @@ void VuePartie::cliqueSettings() {
 void VuePartie::updateInfo() {
     std::string str = "Joueur: " + jeu.getCurrentJoueur()->getNom();
     nomJoueur->setText(QString::fromStdString(str));
+    str = "Score: " + to_string(jeu.getCurrentJoueur()->getScore());
+    scoreJoueur->setText(QString::fromStdString(str));
     str =  to_string(jeu.getTuilesAmount()) + " Tuiles dans la pioche";
     piocheText->setText(QString::fromStdString(str));
     auto meeples = jeu.getPlayerMeeplesAmount();

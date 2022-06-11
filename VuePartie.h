@@ -37,6 +37,7 @@ private:
     QPushButton* quitterBoutton;
 
     QLabel* nomJoueur = new QLabel("Joueur: X");
+    QLabel* scoreJoueur = new QLabel("Score: X");
     QLabel* meepleNRestant = new QLabel("Meeples Normaux restants: X");
     QLabel* meepleBRestant = new QLabel("Meeples Big restants: X");
     QLabel* meepleARestant = new QLabel("Meeples Abbe restants: X");

@@ -36,6 +36,8 @@ void Jeu::initialiser(std::vector<std::string> noms, std::vector<TypeCouleur::po
     }
 
     currentJoueur = joueurs.front();
+    joueurs.push_back(joueurs.front());
+    joueurs.pop_front();
     currentTuile = pioche->piocher();
     plateau->placerTuile(currentTuile,0,0);
     currentTuile = pioche->piocher();
@@ -85,6 +87,15 @@ bool Jeu::recupererMeeple(Meeple* m){
     g->removeMeeple(m);
     m->setAvailable(true);
     return true;
+}
+
+std::list<Groupement*> Jeu::getCurrentTuileGroupements() {
+    std::list<Groupement*> raws;
+    std::list<Element*> elems = currentTuile->getElements();
+    for(auto it = elems.begin(); it != elems.end(); it++) {
+        raws.push_back(plateau->getGroupementWithElement(*it));
+    }
+    return raws;
 }
 
 

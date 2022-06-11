@@ -49,6 +49,7 @@ public:
     int getTuilesAmount() const { return pioche->getTuiles().size() + pioche->getTuilesRiviere().size(); }
     std::vector<std::pair<TypeMeeple::points, int>> getPlayerMeeplesAmount() { return currentJoueur->getAvailableMeeplesAmount(); }
     std::vector<std::pair<TypeElement::points, int>> getSizeOfGroupements() { return plateau->getSizeOfGroupements(); }
+    std::list<Groupement*> getCurrentTuileGroupements();
     std::vector<std::pair<int, int>> getAvailableTuilesChoices() { return plateau->getCasesLibres(); }
     std::list<Element*> getCurrentTuileElements() { return currentTuile->getElements(); }
     int getFirstTuileId() { return plateau->getMap().at(pair<int,int>(0,0))->getID(); }

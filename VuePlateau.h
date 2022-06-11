@@ -16,6 +16,7 @@ public:
     explicit VuePlateau(QWidget *parent = nullptr);
     void poserTuile(int id, int x, int y);
     void poserMeeple(VueTuile* vt);
+    void groupementFini();
 
 private:
     VueTuile* tuiles[13][22];

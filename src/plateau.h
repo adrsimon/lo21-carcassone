@@ -39,6 +39,7 @@ public:
     // Finders
     Groupement* getGroupementWithElement(Element* e);
     Groupement* getGroupementWithMeeple(Meeple* m);
+    std::list<Groupement*> getGroupements() { return groupements; }
     std::vector<std::pair<TypeElement::points, int>> getSizeOfGroupements();
 
     std::vector<std::pair<int, int>> getCasesLibres();

@@ -4,6 +4,7 @@
 
 #include "VuePlateau.h"
 #include "VuePoseMeeple.h"
+#include "VueGroupement.h"
 #include <QFormLayout>
 #include <QRadioButton>
 
@@ -21,6 +22,8 @@ void VuePlateau::tuileClick(VueTuile* vt) {
     std::cout <<  vt->getVueTuileX() << vt->getVueTuileY() << std::endl;
     QMessageBox qmsgbox;
     if(j.tuileAction( vt->getVueTuileX(), vt->getVueTuileY())) {
+
+        // Meeple Interaction
         poserTuile(j.getCurrentTuileId(), vt->getVueTuileX(), vt->getVueTuileY());
         qmsgbox.setText("Voulez-vous poser un Meeple ?");
         qmsgbox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -29,6 +32,10 @@ void VuePlateau::tuileClick(VueTuile* vt) {
         if(mpl == QMessageBox::Yes)
             poserMeeple(vt);
         std::cout << j.getCurrentJoueur()->getNom() << std::endl;
+
+        // Groupement Interaction
+        groupementFini();
+        // Tour FINI
         j.nextTurn();
         endTour();
     } else {
@@ -45,4 +52,9 @@ void VuePlateau::poserTuile(int id, int x, int y) {
 void VuePlateau::poserMeeple(VueTuile* vt) {
     VuePoseMeeple* pose = new VuePoseMeeple(vt);
     pose->exec();
+}
+
+void VuePlateau::groupementFini() {
+    VueGroupement* grp = new VueGroupement();
+    grp->exec();
 }
