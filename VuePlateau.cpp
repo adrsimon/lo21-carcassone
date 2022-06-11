@@ -5,7 +5,6 @@
 #include "VuePlateau.h"
 #include "VuePoseMeeple.h"
 #include <QFormLayout>
-#include <QLabel>
 #include <QRadioButton>
 
 VuePlateau::VuePlateau(QWidget *parent) : QGridLayout(parent){
@@ -44,5 +43,5 @@ void VuePlateau::poserTuile(int id, int x, int y) {
 
 void VuePlateau::poserMeeple() {
     VuePoseMeeple* pose = new VuePoseMeeple();
-    pose->show();
+    pose->exec();
 }
