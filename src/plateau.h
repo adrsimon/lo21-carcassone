@@ -24,6 +24,12 @@ private:
     std::map<pair<int,int>, Tuile*> plateau;
     std::list<Groupement*> groupements = {};
 
+    void checkRoute(Groupement* g);
+    void checkVille(Groupement* g);
+    void checkPre(Groupement* g);
+    void checkAbbaye(Groupement* g);
+    void checkJardin(Groupement* g);
+
 public:
     // Singleton methods
     static Plateau& getInstance();
@@ -37,6 +43,9 @@ public:
     Tuile* getVoisinByOrientation(int x, int y, TypeCardinaux::points t);
 
     // Finders
+    pair<int, int> getTuileCoordinates(Tuile* t);
+    Tuile* getTuileWithElement(Element* e);
+    std::list<Groupement*> getGroupementsWithTuile(Tuile* t);
     Groupement* getGroupementWithElement(Element* e);
     Groupement* getGroupementWithMeeple(Meeple* m);
     std::list<Groupement*> getGroupements() { return groupements; }
@@ -50,6 +59,7 @@ public:
     bool isMeeplePlacable(Tuile* t, Element* e);
     void placerMeeple(Tuile* t, Meeple* m, Element* e);
 
+    void checkGroupement(Groupement* g);
     int evaluerGroupement(Groupement* g);
 
     int compterVoisins(int x, int y) { return getVoisins(x,y).size(); }

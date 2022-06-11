@@ -27,6 +27,7 @@ public:
     int getScore() const { return score; }
     std::string getNom() const { return nom; }
     TypeCouleur::points getCouleur() const { return couleur; }
+    bool isMeepleOfPlayer(Meeple* m);
     // Setters
     void setScore(int s) { score = s; }
 

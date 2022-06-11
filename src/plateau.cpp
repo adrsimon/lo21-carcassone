@@ -53,7 +53,7 @@ Tuile* Plateau::getVoisinByOrientation(int x, int y, TypeCardinaux::points t) {
 }
 
 bool Plateau::isTuileCompatible(int x, int y, Tuile* t) {
-    if(getTuile(x,y) != nullptr) return false;
+    if(getTuile(x,y) != nullptr || getNullVoisins(x,y).size() == 4) return false;
     std::vector<TypeCardinaux::points> dir = {TypeCardinaux::nord, TypeCardinaux::est, TypeCardinaux::sud, TypeCardinaux::ouest};
     for (auto it = dir.begin();  it != dir.end() ; it++) {
         Tuile* voisin = getVoisinByOrientation(x,y, *it);
@@ -95,7 +95,9 @@ void Plateau::placerTuile(Tuile* t, int x, int y) {
     std::vector<Tuile*> voisins = getVoisins(x, y);
     std::list<Element*> elems = t->getElements();
     Groupement* g;
+    std::cout << "- Placage de la tuile sur le plateau" << std::endl;
     for(auto it = elems.begin(); it != elems.end(); it++) {
+        std::cout << "Ajout de l'élément " << TypeElement::toString((*it)->getType()) << " aux groupements" << std::endl;
         std::list<TypeCardinaux::points> dirs = (*it)->getOrientations();
         g = new Groupement((*it)->getType());
         Tuile* voisin;
@@ -159,6 +161,33 @@ std::vector<std::pair<int,int>> Plateau::getNullVoisins(int x, int y) {
     return res;
 }
 
+pair<int, int> Plateau::getTuileCoordinates(Tuile* t) {
+    for(auto it = plateau.begin(); it != plateau.end(); it++) {
+        if((*it).second == t)
+            return (*it).first;
+    }
+}
+
+Tuile* Plateau::getTuileWithElement(Element* e) {
+    for(auto it = plateau.begin(); it != plateau.end(); it++) {
+        std::list<Element*> elems = (*it).second->getElements();
+        auto finded = std::find(elems.begin(), elems.end(), e);
+        if(finded != elems.end())
+            return (*it).second;
+    }
+    return nullptr;
+}
+
+std::list<Groupement*> Plateau::getGroupementsWithTuile(Tuile* t) {
+    std::list<Groupement*> raws;
+    std::list<Element*> elems = t->getElements();
+    for(auto it = elems.begin(); it != elems.end(); it++)
+        if(getGroupementWithElement(*it) != nullptr)
+            raws.push_back(getGroupementWithElement(*it));
+
+    return raws;
+}
+
 std::vector<std::pair<TypeElement::points, int>> Plateau::getSizeOfGroupements() {
     std::vector<std::pair<TypeElement::points, int>> raws;
     int ro=0; int v=0; int a=0; int ri=0; int j=0; int p=0;
@@ -195,4 +224,58 @@ std::vector<std::pair<TypeElement::points, int>> Plateau::getSizeOfGroupements()
 
 
     return raws;
+}
+void Plateau::checkGroupement(Groupement* g) {
+    switch(g->getType()) {
+        case TypeElement::route:
+            checkRoute(g);
+            break;
+        case TypeElement::abbaye:
+            checkAbbaye(g);
+            break;
+        case TypeElement::ville:
+            checkVille(g);
+        case TypeElement::pre:
+            checkPre(g);
+            break;
+        case TypeElement::jardin:
+            checkJardin(g);
+            break;
+        case TypeElement::riviere:
+            break;
+    }
+}
+
+void Plateau::checkRoute(Groupement *g) {
+    int count=0;
+    std::list<Element*> elems = g->getElements();
+    for(auto it = elems.begin(); it != elems.end(); it++)
+        if((*it)->getOrientations().size() == 1)
+            count ++;
+
+        g->setComplete(count == 2);
+}
+
+void Plateau::checkVille(Groupement *g) {
+    std::list<Element*> elems = g->getElements();
+    for(auto it = elems.begin(); it != elems.end(); it++) {
+        Tuile* t = getTuileWithElement(*it);
+        pair<int,int> cords = getTuileCoordinates(t);
+        std::list<TypeCardinaux::points> cards = (*it)->getOrientations();
+        for(auto it2 = cards.begin(); it2 != cards.end(); it2 ++) {
+            if(getVoisinByOrientation(cords.first, cords.second, *it2) == nullptr)
+                return;
+        }
+    }
+    g->setComplete(true);
+}
+
+void Plateau::checkPre(Groupement* g) {
+
+}
+void Plateau::checkAbbaye(Groupement* g) {
+
+}
+void Plateau::checkJardin(Groupement* g) {
+
 }

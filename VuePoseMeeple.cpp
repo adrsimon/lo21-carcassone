@@ -75,6 +75,7 @@ void VuePoseMeeple::cliquerValider() {
             qmsgbox.exec();
             vt->addMeeple(e->getOrientations().front(), j.getCurrentJoueurColor());
             vt->update();
+            close();
         } else {
             QMessageBox qmsgbox;
             qmsgbox.setText("Action Impossible, Veuillez recommencer");

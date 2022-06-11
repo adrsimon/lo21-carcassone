@@ -68,6 +68,7 @@ bool Jeu::meepleAction(Element* e, TypeMeeple::points t) {
     Meeple* m = currentJoueur->getAvailableMeepleByType(t);
     Groupement* g = plateau->getGroupementWithElement(e);
     if(m == nullptr || g == nullptr || m->isPlaced() || !g->isMeepleAddable()) return false;
+    std::cout << currentJoueur->getNom() << " a posé un Meeple " << TypeMeeple::toString(t) << " sur " << TypeElement::toString(e->getType()) << std::endl;
     g->addMeeple(m);
     e->setMeeple(true);
     m->setAvailable(false);
@@ -98,5 +99,48 @@ std::list<Groupement*> Jeu::getCurrentTuileGroupements() {
     return raws;
 }
 
+void Jeu::checkCurrentTuileGroupements() {
+    std::cout << "- Check des groupements terminés -" << std::endl;
+    std::list<Groupement*> grps = plateau->getGroupementsWithTuile(currentTuile);
+    for(auto it = grps.begin(); it != grps.end(); it++) {
+        plateau->checkGroupement(*it);
+        if((*it)->isFinished()) {
+            std::cout << "Groupement " << TypeElement::toString((*it)->getType()) << " terminé." << std::endl;
+            attribuerPoints(*it);
+        }
+    }
+}
 
+void Jeu::attribuerPoints(Groupement* g) {
+    int score = plateau->evaluerGroupement(g);
+    std::list<Meeple*> meeples = (g)->getMeeples();
+    map<Joueur*, int> numbers;
+    // INSERT RAWS
+    for(auto it = joueurs.begin(); it != joueurs.end(); it++) {
+        numbers.insert(pair<Joueur*, int>(*it, 0));
+    }
+    // ADD COUNT
+    for(auto it = meeples.begin(); it != meeples.end(); it++) {
+        for(auto it2 = joueurs.begin(); it2 != joueurs.end(); it2++) {
+            if((*it2)->isMeepleOfPlayer(*it))
+                numbers.find(*it2)->second++;
+        }
+    }
+    bool alone=true;
+    int max = 0;
+    std::list<Joueur*> jWinners;
+    // SETTINGS WINNERS
+    for(auto it = numbers.begin(); it != numbers.end(); it++) {
+        if((*it).second > max) {
+            max = (*it).second;
+            jWinners.clear();
+            jWinners.push_back((*it).first);
+        } else if((*it).second == max && max != 0)
+            jWinners.push_back((*it).first);
+    }
+    for(auto it = jWinners.begin(); it != jWinners.end(); it++) {
+        std::cout << "Le joueur " << (*it)->getNom() << " a gagné " << to_string(score) << " points." << std::endl;
+        (*it)->setScore((*it)->getScore() + score);
+    }
 
+}

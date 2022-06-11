@@ -36,3 +36,7 @@ std::vector<std::pair<TypeMeeple::points, int>> Joueur::getAvailableMeeplesAmoun
 
     return raws;
 }
+
+bool Joueur::isMeepleOfPlayer(Meeple* m) {
+    return std::find(meeples.begin(), meeples.end(),m) != meeples.end();
+}

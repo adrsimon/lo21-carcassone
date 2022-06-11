@@ -18,8 +18,8 @@ Groupement& Groupement::operator+(const Groupement& g){
     std::list<Element*> elems = g.getElements();
     for(auto it = elems.begin(); it != elems.end(); it++)
         elements.push_back(*it);
-    std::list<Meeple*> meeples = g.getMeeples();
-    for(auto it = meeples.begin(); it != meeples.end(); it++)
+    std::list<Meeple*> mpls = g.getMeeples();
+    for(auto it = mpls.begin(); it != mpls.end(); it++)
         meeples.push_back(*it);
     return *this;
 }
@@ -38,5 +38,5 @@ Groupement &Groupement::operator=(const Groupement &g){
 }
 
 bool Groupement::isFinished() {
-    return false;
+    return complete;
 }

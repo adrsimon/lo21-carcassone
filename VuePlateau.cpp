@@ -19,7 +19,6 @@ VuePlateau::VuePlateau(QWidget *parent) : QGridLayout(parent){
 }
 
 void VuePlateau::tuileClick(VueTuile* vt) {
-    std::cout <<  vt->getVueTuileX() << vt->getVueTuileY() << std::endl;
     QMessageBox qmsgbox;
     if(j.tuileAction( vt->getVueTuileX(), vt->getVueTuileY())) {
 
@@ -31,10 +30,13 @@ void VuePlateau::tuileClick(VueTuile* vt) {
         int mpl = qmsgbox.exec();
         if(mpl == QMessageBox::Yes)
             poserMeeple(vt);
-        std::cout << j.getCurrentJoueur()->getNom() << std::endl;
 
-        // Groupement Interaction
+        /*Groupement Interaction
         groupementFini();
+        */
+
+        // TRY GROUPEMENT AUTOMATIQUE
+        j.checkCurrentTuileGroupements();
         // Tour FINI
         j.nextTurn();
         endTour();
