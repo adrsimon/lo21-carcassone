@@ -22,14 +22,14 @@ class BigMeeple: public Meeple {
 public:
     BigMeeple() : Meeple() {}
     TypeMeeple::points const getType() override { return TypeMeeple::big; }
-    int const getPoids() { return 2; }
+    int const getPoids() override { return 2; }
 };
 
 class AbbeMeeple: public Meeple {
 public:
     AbbeMeeple() : Meeple() {}
     TypeMeeple::points const getType() override { return TypeMeeple::abbe; }
-    int const getPoids() { return 1; }
+    int const getPoids() override { return 1; }
 };
 
 #endif

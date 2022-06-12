@@ -153,14 +153,21 @@ void Plateau::placerMeeple(Tuile* t, Meeple* m, Element* e) {
 }
 
 int Plateau::evaluerGroupement(Groupement* g) {
-    std::list<Element*> elems = g->getElements();
-    bool modifier;
-    int sum=0;
-    for(auto it = elems.begin(); it != elems.end(); it++) {
-        sum+=(*it)->getElementPoints();
-        if((*it)->hasModifier()) modifier=true;
+
+    if(g->getType() == TypeElement::abbaye || g->getType() == TypeElement::jardin) {
+        Tuile* t = getTuileWithElement(g->getElements().front());
+        std::pair<int,int> cords = getTuileCoordinates(t);
+        return 8 - getNullVoisins(cords.first, cords.second).size();
+    } else {
+        std::list<Element*> elems = g->getElements();
+        bool modifier;
+        int sum=0;
+        for(auto it = elems.begin(); it != elems.end(); it++) {
+            sum+=(*it)->getElementPoints();
+            if((*it)->hasModifier()) modifier=true;
+        }
+        return sum * (modifier ? 2 : 1);
     }
-    return sum * (modifier ? 2 : 1);
 }
 
 std::vector<std::pair<int, int>> Plateau::getCasesLibres() {

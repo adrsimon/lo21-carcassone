@@ -73,7 +73,8 @@ void VuePoseMeeple::cliquerValider() {
             QMessageBox qmsgbox;
             qmsgbox.setText("Meeple Posé !");
             qmsgbox.exec();
-            vt->addMeeple(e->getOrientations().front(), j.getCurrentJoueurColor(), t);
+            TypeCardinaux::points pt = e->getOrientations().size() == 0 ? TypeCardinaux::last : e->getOrientations().front();
+            vt->addMeeple(pt, j.getCurrentJoueurColor(), t);
             vt->update();
             close();
         } else {

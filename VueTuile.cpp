@@ -104,8 +104,7 @@ void VueTuile::retirerAbbe(TypeCouleur::points c) {
     bool finded = false;
     auto it = meeples.begin();
     while(it != meeples.end() && !finded) {
-        if(std::get<1>(*it) == c) {
-            std::cout << "ici" << std::endl;
+        if(std::get<1>(*it) == c && std::get<2>(*it) == TypeMeeple::abbe) {
             meeples.erase(it);
             removingAbbe = true;
             finded = true;

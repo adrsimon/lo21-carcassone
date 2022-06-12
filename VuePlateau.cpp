@@ -4,7 +4,6 @@
 
 #include "VuePlateau.h"
 #include "VuePoseMeeple.h"
-#include "VueGroupement.h"
 #include <QFormLayout>
 #include <QRadioButton>
 
@@ -73,11 +72,6 @@ void VuePlateau::poserTuile(int id, int x, int y) {
 void VuePlateau::poserMeeple(VueTuile* vt) {
     VuePoseMeeple* pose = new VuePoseMeeple(vt);
     pose->exec();
-}
-
-void VuePlateau::groupementFini() {
-    VueGroupement* grp = new VueGroupement();
-    grp->exec();
 }
 
 void VuePlateau::gameOver() {

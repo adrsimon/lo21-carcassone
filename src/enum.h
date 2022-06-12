@@ -7,7 +7,7 @@
 
 class TypeCardinaux {
 public:
-    enum points {nord, est, sud, ouest, ouest_nord, nord_ouest, nord_est, est_nord, est_sud, sud_est, sud_ouest, ouest_sud};
+    enum points {nord, est, sud, ouest, ouest_nord, nord_ouest, nord_est, est_nord, est_sud, sud_est, sud_ouest, ouest_sud, last};
     static points getOrientationInverse(points t);
     static points getNextOrientations(points t);
     static std::string toString(points t);
