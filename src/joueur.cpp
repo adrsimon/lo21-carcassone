@@ -46,10 +46,12 @@ bool Joueur::isAbbePlaced() {
     for(auto it = meeples.begin(); it != meeples.end(); it++) {
         if((*it)->getType() == TypeMeeple::abbe) return (*it)->isPlaced();
     }
+    return false;
 }
 
 Meeple* Joueur::getAbbe() {
     for(auto it = meeples.begin(); it != meeples.end(); it++) {
         if((*it)->getType() == TypeMeeple::abbe) return *it;
     }
+    return nullptr;
 }
