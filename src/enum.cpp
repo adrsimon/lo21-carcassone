@@ -18,8 +18,9 @@ TypeCardinaux::points TypeCardinaux::getOrientationInverse(points t) {
         case est_nord: return ouest_nord;
         case ouest_nord: return est_nord;
         case ouest_sud: return est_sud;
-
+        case last: return last;
     }
+    return last;
 }
 
 TypeCardinaux::points TypeCardinaux::getNextOrientations(points t) {
@@ -36,7 +37,9 @@ TypeCardinaux::points TypeCardinaux::getNextOrientations(points t) {
         case est_nord: return sud_est;
         case ouest_nord: return nord_est;
         case ouest_sud: return nord_ouest;
+        case last: return last;
     }
+    return last;
 }
 
 std::string TypeCardinaux::toString(points t) {
@@ -53,7 +56,15 @@ std::string TypeCardinaux::toString(points t) {
         case est_nord: return "Est Nord";
         case ouest_nord: return "Ouest Nord";
         case ouest_sud: return "Ouest Sud";
+        case last: return "Non";
     }
+    return "Non";
+}
+
+bool TypeCardinaux::isStraight(points t1, points t2) {
+    if((t1 == nord && t2 == sud) || (t2 == nord && t1 == sud)) return true;
+    if((t1 == est && t2 == ouest) || (t2 == est && t1 == ouest)) return true;
+    return false;
 }
 
 std::string TypeExtension::toString(points t) {
@@ -61,7 +72,10 @@ std::string TypeExtension::toString(points t) {
         case main: return "Principale";
         case riviere: return "Rivière";
         case auberge: return "Auberge et Cathédrale";
+        case abbe: return "Abbé";
+        case paysan: return "Paysan";
     }
+    return "None";
 }
 
 std::string TypeElement::toString(points t) {
@@ -72,7 +86,9 @@ std::string TypeElement::toString(points t) {
         case pre: return "Pré";
         case abbaye: return "Abbaye";
         case jardin: return "Jardin";
+        case last: return "None";
     }
+    return "None";
 }
 
 std::string TypeMeeple::toString(points t) {
