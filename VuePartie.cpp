@@ -126,7 +126,6 @@ void VuePartie::cliqueJouer() {
     if(vueSettings == nullptr)
         return;
     if(!isPlaying) {
-        std::cout << "ici" << std::endl;
         layoutPlateau->poserTuile(jeu.getFirstTuileId(), 11, 6);
         nbCartesPioche->setRange(0, jeu.getTuilesAmount());
         nbCartesPioche->setValue(jeu.getTuilesAmount());

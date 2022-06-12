@@ -65,7 +65,7 @@ void VuePlateau::tuileClick(VueTuile* vt) {
 }
 
 void VuePlateau::poserTuile(int id, int x, int y) {
-    int rotation = (j.getCurrentTuileId() == id)  ? j.getRotation() : 0;
+    int rotation = (j.getFirstTuileId() == 201 && x==11 && y ==6) ? 1 : ((j.getCurrentTuileId() == id)  ? j.getRotation() : 0);
     tuiles[x][y]->setTuile(id, rotation);
 }
 

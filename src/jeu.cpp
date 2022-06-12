@@ -39,8 +39,11 @@ void Jeu::initialiser(std::vector<std::string> noms, std::vector<TypeCouleur::po
     joueurs.push_back(joueurs.front());
     joueurs.pop_front();
     currentTuile = pioche->piocher();
+    if(r)
+        currentTuile->rotateOrientation();
     plateau->placerTuile(currentTuile,6,11);
     currentTuile = pioche->piocher();
+    rotation = 0;
 }
 
 void Jeu::nextTurn() {
