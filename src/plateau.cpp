@@ -143,7 +143,7 @@ bool Plateau::isMeeplePlacable(Tuile* t, Element* e) {
     for(auto it = elems.begin(); it != elems.end(); it++)
         if(getGroupementWithElement(*it)->getMeeples().empty())
             return true;
-        return false;
+    return false;
 }
 
 void Plateau::placerMeeple(Tuile* t, Meeple* m, Element* e) {

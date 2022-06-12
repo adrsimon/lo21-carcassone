@@ -83,7 +83,7 @@
     </element>
     <element>
       <type>riviere</type>
-      <orientation>E,S</orientation>
+      <orientation>O,S</orientation>
     </element>
   </tuile>
   <tuile id="206">

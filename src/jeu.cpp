@@ -107,7 +107,7 @@ void Jeu::checkCurrentTuileGroupements() {
     for(auto it = grps.begin(); it != grps.end(); it++) {
         plateau->checkGroupement(*it);
         if((*it)->isFinished()) {
-            std::cout << "Groupement " << TypeElement::toString((*it)->getType()) << " terminé." << std::endl;
+            std::cout << "Groupement " << TypeElement::toString((*it)->getType()) << " terminé. (" << std::to_string((*it)->getElements().size()) << "éléments)" << std::endl;
             attribuerPoints(*it);
             std::list<Meeple*> mpls = (*it)->getMeeples();
             for(auto it2 = mpls.begin(); it2 != mpls.end(); it2++) {

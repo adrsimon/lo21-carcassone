@@ -29,12 +29,14 @@ VuePoseMeeple::VuePoseMeeple(VueTuile* vt, QWidget *parent) : vt(vt), QDialog(pa
     // Générations des éléments
     std::list<Element*> elems = j.getCurrentTuileElements();
     for(auto it = elems.begin(); it != elems.end(); it ++) {
-        std::string str = TypeElement::toString((*it)->getType());
-        std::list<TypeCardinaux::points> orients = (*it)->getOrientations();
-        for(auto it2 = orients.begin(); it2 != orients.end(); it2++)
-            str += " - "  + TypeCardinaux::toString(*it2);
-        elemsButtons.push_back(std::pair<QCheckBox*, Element*>(new QCheckBox(QString::fromStdString(str)), *it));
-        elemsdisplay->addWidget(elemsButtons.back().first);
+        if((*it)->getType() != TypeElement::riviere) {
+            std::string str = TypeElement::toString((*it)->getType());
+            std::list<TypeCardinaux::points> orients = (*it)->getOrientations();
+            for(auto it2 = orients.begin(); it2 != orients.end(); it2++)
+                str += " - "  + TypeCardinaux::toString(*it2);
+            elemsButtons.push_back(std::pair<QCheckBox*, Element*>(new QCheckBox(QString::fromStdString(str)), *it));
+            elemsdisplay->addWidget(elemsButtons.back().first);
+        }
     }
 
     // Générations des meeples
