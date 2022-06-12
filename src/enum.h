@@ -11,6 +11,7 @@ public:
     static points getOrientationInverse(points t);
     static points getNextOrientations(points t);
     static std::string toString(points t);
+    static bool isStraight(points t1, points t2);
 };
 
 class TypeExtension {

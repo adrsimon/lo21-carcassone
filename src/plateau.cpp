@@ -67,11 +67,11 @@ bool Plateau::isTuileCompatible(int x, int y, Tuile* t) {
             if(inverseElem != nullptr && elemVoisin != nullptr) {
                 if(inverseElem->getType() != elemVoisin->getType())
                     return false;
-                // Check pour Rivière si demi-tour immédiat ou non
-                /*
                 if(elemVoisin->getType() == TypeElement::riviere) {
                     std::list<TypeCardinaux::points> cards = elemVoisin->getOrientations();
                     std::list<TypeCardinaux::points> cards2 = inverseElem->getOrientations();
+                    if(TypeCardinaux::isStraight(*cards.begin(), *(++cards.begin())))
+                        return true;
                     for(auto it2 = cards.begin(); it2 != cards.end(); it2++) {
                         for(auto it3 = cards2.begin(); it3 != cards2.end(); it3++) {
                             if(*it2 != *it && *it2 == *it3)
@@ -79,7 +79,6 @@ bool Plateau::isTuileCompatible(int x, int y, Tuile* t) {
                         }
                     }
                 }
-                */
                 // Check si un des deux éléments à comparer est un pré
             } else if((inverseElem == nullptr && elemVoisin != nullptr) || (inverseElem != nullptr && elemVoisin == nullptr)){
                     return false;
