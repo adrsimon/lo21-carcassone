@@ -24,8 +24,11 @@ private:
 private slots:
     void tuileClick(VueTuile* vt);
     void endTour() { emit updatePlayers(); }
+    void gameOver();
 signals:
     void updatePlayers();
 };
+
+
 
 #endif //TESTING_THINGS_VUEPLATEAU_H

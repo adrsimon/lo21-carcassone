@@ -101,12 +101,18 @@ void VueTuile::paintEvent(QPaintEvent* e)
 }
 
 void VueTuile::retirerAbbe(TypeCouleur::points c) {
-    for(auto it = meeples.begin(); it != meeples.end(); it++)
+    bool finded = false;
+    auto it = meeples.begin();
+    while(it != meeples.end() && !finded) {
         if(std::get<1>(*it) == c) {
-            remove(meeples.begin(),meeples.end(), *it);
+            std::cout << "ici" << std::endl;
+            meeples.erase(it);
             removingAbbe = true;
-        }
-    updateTuilePicture();
+            finded = true;
+            updateTuilePicture();
+        } else
+            it++;
+    }
 }
 
 QColor VueTuile::toQColor(TypeCouleur::points c) {

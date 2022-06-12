@@ -57,9 +57,8 @@ void VuePlateau::tuileClick(VueTuile* vt) {
         endTour();
 
         // FIN DU JEU
-        if(j.isGameFinished()) {
-
-        }
+        if(j.isGameFinished())
+            gameOver();
     } else {
         qmsgbox.setText("Tuile Non Compatible");
         qmsgbox.exec();
@@ -79,4 +78,16 @@ void VuePlateau::poserMeeple(VueTuile* vt) {
 void VuePlateau::groupementFini() {
     VueGroupement* grp = new VueGroupement();
     grp->exec();
+}
+
+void VuePlateau::gameOver() {
+    QMessageBox qmsg;
+    qmsg.setText("FIN DE PARTIE");
+    std::list<Joueur*> joueurs = j.getJoueurs();
+    std::string str;
+    for(auto it = joueurs.begin(); it != joueurs.end(); it++) {
+        str+= (*it)->getNom() + " (" + TypeCouleur::toString((*it)->getCouleur()) + ") - " + to_string((*it)->getScore()) + " points \n";
+    }
+    qmsg.setInformativeText(QString::fromStdString(str));
+    qmsg.exec();
 }

@@ -59,19 +59,37 @@ bool Plateau::isTuileCompatible(int x, int y, Tuile* t) {
         Tuile* voisin = getVoisinByOrientation(x,y, *it);
         Element* inverseElem = nullptr;
         Element* elemVoisin = t->getElementByOrientation(*it);
+        // Check si un voisin est présent
         if(voisin != nullptr) {
             inverseElem = voisin->getElementByOrientation(TypeCardinaux::getOrientationInverse(*it));
+            // Check si du même type
             if(inverseElem != nullptr && elemVoisin != nullptr) {
                 if(inverseElem->getType() != elemVoisin->getType())
                     return false;
+                // Check pour Rivière si demi-tour immédiat ou non
+                /*
+                if(elemVoisin->getType() == TypeElement::riviere) {
+                    std::list<TypeCardinaux::points> cards = elemVoisin->getOrientations();
+                    std::list<TypeCardinaux::points> cards2 = inverseElem->getOrientations();
+                    for(auto it2 = cards.begin(); it2 != cards.end(); it2++) {
+                        for(auto it3 = cards2.begin(); it3 != cards2.end(); it3++) {
+                            if(*it2 != *it && *it2 == *it3)
+                                return false;
+                        }
+                    }
+                }
+                */
+                // Check si un des deux éléments à comparer est un pré
             } else if((inverseElem == nullptr && elemVoisin != nullptr) || (inverseElem != nullptr && elemVoisin == nullptr)){
                     return false;
             }
         }
     }
+    // Si on a pas return false, alors la tuile est compatible
     return true;
 }
 
+// Getting a groupement with an Element
 Groupement* Plateau::getGroupementWithElement(Element* e) {
     for(auto it = groupements.begin(); it != groupements.end(); it++) {
         std::list<Element*> elements = (*it)->getElements();
@@ -81,6 +99,7 @@ Groupement* Plateau::getGroupementWithElement(Element* e) {
     return nullptr;
 }
 
+// Getting a groupement with a Meeple
 Groupement* Plateau::getGroupementWithMeeple(Meeple* m) {
     for(auto it = groupements.begin(); it != groupements.end(); it++) {
         std::list<Meeple*> meeples = (*it)->getMeeples();
@@ -90,6 +109,7 @@ Groupement* Plateau::getGroupementWithMeeple(Meeple* m) {
     return nullptr;
 }
 
+// Place Tuile and add to groupements list
 void Plateau::placerTuile(Tuile* t, int x, int y) {
     plateau.insert(pair<pair<int,int>, Tuile*>(pair<int,int>(x,y),t));
     std::vector<Tuile*> voisins = getVoisins(x, y);
@@ -302,13 +322,26 @@ void Plateau::checkVille(Groupement *g) {
 }
 
 void Plateau::checkPre(Groupement* g) {
-
+    std::list<Element*> elems = g->getElements();
+    for(auto it = elems.begin(); it != elems.end(); it++) {
+        Tuile* t = getTuileWithElement(*it);
+        pair<int,int> cords = getTuileCoordinates(t);
+        std::list<TypeCardinaux::points> cards = (*it)->getOrientations();
+        for(auto it2 = cards.begin(); it2 != cards.end(); it2 ++) {
+            if(getVoisinByOrientation(cords.first, cords.second, *it2) == nullptr)
+                return;
+        }
+    }
+    g->setComplete(true);
 }
+
 void Plateau::checkAbbaye(Groupement* g) {
     Tuile* t = getTuileWithElement(g->getElements().front());
     pair<int,int> cords = getTuileCoordinates(t);
     g->setComplete(getSquaredNullVoisins(cords.first, cords.second).size() == 8);
 }
 void Plateau::checkJardin(Groupement* g) {
-
+    Tuile* t = getTuileWithElement(g->getElements().front());
+    pair<int,int> cords = getTuileCoordinates(t);
+    g->setComplete(getSquaredNullVoisins(cords.first, cords.second).size() == 8);
 }

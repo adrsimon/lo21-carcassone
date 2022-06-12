@@ -43,7 +43,7 @@ public:
 class ElementPre : public Element {
 public:
     ElementPre(std::list<TypeCardinaux::points> orients) : Element(orients) {}
-    const int getElementPoints() override { return 4; }
+    const int getElementPoints() override { return 0; }
     TypeElement::points getType() override { return TypeElement::pre; }
 };
 
