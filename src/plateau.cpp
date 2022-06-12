@@ -70,12 +70,12 @@ bool Plateau::isTuileCompatible(int x, int y, Tuile* t) {
                 if(elemVoisin->getType() == TypeElement::riviere) {
                     std::list<TypeCardinaux::points> cards = elemVoisin->getOrientations();
                     std::list<TypeCardinaux::points> cards2 = inverseElem->getOrientations();
-                    if(TypeCardinaux::isStraight(*cards.begin(), *(++cards.begin())))
-                        return true;
-                    for(auto it2 = cards.begin(); it2 != cards.end(); it2++) {
-                        for(auto it3 = cards2.begin(); it3 != cards2.end(); it3++) {
-                            if(*it2 != *it && *it2 == *it3)
-                                return false;
+                    if(!TypeCardinaux::isStraight(*cards.begin(), *(++cards.begin()))) {
+                        for(auto it2 = cards.begin(); it2 != cards.end(); it2++) {
+                            for(auto it3 = cards2.begin(); it3 != cards2.end(); it3++) {
+                                if(*it2 != *it && *it2 == *it3)
+                                    return false;
+                            }
                         }
                     }
                 }
