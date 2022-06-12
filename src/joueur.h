@@ -11,8 +11,6 @@
 #include <iterator>
 #include "meeple.h"
 
-using namespace std;
-
 class Joueur {
 private:
     int score;

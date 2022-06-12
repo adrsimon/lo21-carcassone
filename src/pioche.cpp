@@ -183,13 +183,13 @@ void Pioche::genererTuiles(std::list<TypeExtension::points> extensions) {
         std::vector<Tuile*> destination;
         switch (*it) {
             case TypeExtension::main:
-                tiles.LoadFile("../utils/tuiles-main.xml");
+                tiles.LoadFile("C:/Users/peron/Desktop/runwindows/lo21-carcassone/utils/tuiles-main.xml");
                 break;
             case TypeExtension::riviere:
-                tiles.LoadFile("../utils/tuiles-riviere.xml");
+                tiles.LoadFile("C:/Users/peron/Desktop/runwindows/lo21-carcassone/utils/tuiles-rivieres.xml");
                 break;
             case TypeExtension::auberge:
-                tiles.LoadFile("../utils/tuiles-auberges.xml");
+                tiles.LoadFile("C:/Users/peron/Desktop/runwindows/lo21-carcassone/utils/tuiles-auberges.xml");
                 break;
         }
 

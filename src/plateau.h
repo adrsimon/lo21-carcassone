@@ -2,6 +2,7 @@
 #define LO21_CARCASSONE_PLATEAU_H
 
 #include <map>
+#include <utility>
 
 #include "tuile.h"
 #include "groupement.h"
@@ -21,7 +22,7 @@ private:
     // Board and Groupements properties
     int orientationTuile=0;
     int idCurrentTuile;
-    std::map<pair<int,int>, Tuile*> plateau;
+    std::map<std::pair<int,int>, Tuile*> plateau;
     std::list<Groupement*> groupements = {};
 
     void checkRoute(Groupement* g);
@@ -36,7 +37,7 @@ public:
     static void libereInstance();
 
     // Getters & Setters
-    std::map<pair<int,int>, Tuile*> getMap() {return plateau;};
+    std::map<std::pair<int,int>, Tuile*> getMap() {return plateau;};
     Tuile* getTuile(int x, int y);
     std::vector<Tuile*> getVoisins(int x, int y);
     std::vector<std::pair<int,int>> getNullVoisins(int x, int y);
@@ -44,7 +45,7 @@ public:
     Tuile* getVoisinByOrientation(int x, int y, TypeCardinaux::points t);
 
     // Finders
-    pair<int, int> getTuileCoordinates(Tuile* t);
+    std::pair<int, int> getTuileCoordinates(Tuile* t);
     Tuile* getTuileWithElement(Element* e);
     std::list<Groupement*> getGroupementsWithTuile(Tuile* t);
     Groupement* getGroupementWithElement(Element* e);

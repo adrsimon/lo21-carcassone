@@ -24,7 +24,6 @@ VuePartie::VuePartie(QWidget *parent): QWidget(parent) {
 
     // Title and Picture
     setWindowTitle("Projet LO21 - Carcassonne");
-
     // Pioche
     nbCartesPioche = new QProgressBar;
     nbCartesPioche->setRange(0, 100);
@@ -47,7 +46,7 @@ VuePartie::VuePartie(QWidget *parent): QWidget(parent) {
 
     // Player information
     QImage* tuileImage = new QImage();
-    tuileImage->load("/Users/leo/Documents/UTC/LO21/lo21-carcassone/utils/tiles_illustrations/1.jpeg");
+    tuileImage->load("C:/Users/peron/Desktop/runwindows/lo21-carcassone/utils/tiles_illustrations/1.jpeg");
     tuile->setPixmap(QPixmap::fromImage(*tuileImage));
 
     // LAYOUT BUTTONS
@@ -94,29 +93,29 @@ void VuePartie::cliqueSettings() {
 void VuePartie::updateInfo() {
     std::string str = "Joueur: " + jeu.getCurrentJoueur()->getNom();
     nomJoueur->setText(QString::fromStdString(str));
-    str = "Score: " + to_string(jeu.getCurrentJoueur()->getScore());
+    str = "Score: " + std::to_string(jeu.getCurrentJoueur()->getScore());
     scoreJoueur->setText(QString::fromStdString(str));
-    str =  to_string(jeu.getTuilesAmount()) + " Tuiles dans la pioche";
+    str =  std::to_string(jeu.getTuilesAmount()) + " Tuiles dans la pioche";
     piocheText->setText(QString::fromStdString(str));
     auto meeples = jeu.getPlayerMeeplesAmount();
     for(auto it = meeples.begin(); it != meeples.end(); it++) {
         switch(it->first) {
             case TypeMeeple::normal:
-                str = "Meeples Normaux restants: " + to_string(it->second);
+                str = "Meeples Normaux restants: " + std::to_string(it->second);
                 meepleNRestant->setText(QString::fromStdString(str));
                 break;
             case TypeMeeple::big:
-                str = "Meeples Big restants: " + to_string(it->second);
+                str = "Meeples Big restants: " + std::to_string(it->second);
                 meepleBRestant->setText(QString::fromStdString(str));
                 break;
             case TypeMeeple::abbe:
-                str = "Meeples Abbe restants: " + to_string(it->second);
+                str = "Meeples Abbe restants: " + std::to_string(it->second);
                 meepleARestant->setText(QString::fromStdString(str));
                 break;
         }
     }
     QImage* tuileImage = new QImage();
-    str = "/Users/leo/Documents/UTC/LO21/lo21-carcassone/utils/tiles_illustrations/" + to_string(jeu.getCurrentTuileId()) + ".jpeg";
+    str = "C:/Users/peron/Desktop/runwindows/lo21-carcassone/utils/tiles_illustrations/" + std::to_string(jeu.getCurrentTuileId()) + ".jpeg";
     tuileImage->load(QString::fromStdString(str));
     tuile->setPixmap(QPixmap::fromImage(*tuileImage));
     nbCartesPioche->setValue(jeu.getTuilesAmount());
@@ -155,7 +154,7 @@ void VuePartie::cliqueScore() {
     std::list<Joueur*> joueurs = jeu.getJoueurs();
     std::string str;
     for(auto it = joueurs.begin(); it != joueurs.end(); it++) {
-        str+= (*it)->getNom() + " (" + TypeCouleur::toString((*it)->getCouleur()) + ") - " + to_string((*it)->getScore()) + " points \n";
+        str+= (*it)->getNom() + " (" + TypeCouleur::toString((*it)->getCouleur()) + ") - " + std::to_string((*it)->getScore()) + " points \n";
     }
     qmsg.setInformativeText(QString::fromStdString(str));
     qmsg.exec();

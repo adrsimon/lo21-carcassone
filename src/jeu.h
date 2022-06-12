@@ -35,12 +35,12 @@ public:
     void initialiser(std::vector<std::string> noms, std::vector<TypeCouleur::points> cs, bool m=true, bool r=false, bool ac=false, bool p = true, bool a = true);
 
     // Getters
-    Pioche *const getPioche() const {return pioche;}
+    Pioche* getPioche() const {return pioche;}
     Tuile* getCurrentTuile() const {return currentTuile;}
     int getCurrentTuileId() const { return currentTuile->getID(); }
-    Joueur *const getCurrentJoueur() const {return currentJoueur;}
-    TypeCouleur::points const getCurrentJoueurColor() const { return currentJoueur->getCouleur(); }
-    Plateau *const getPlateau() const {return plateau;}
+    Joueur* getCurrentJoueur() const {return currentJoueur;}
+    TypeCouleur::points  getCurrentJoueurColor() const { return currentJoueur->getCouleur(); }
+    Plateau* getPlateau() const {return plateau;}
     std::list<Joueur*> getJoueurs() const {return joueurs;}
 
     // Jeu functions
@@ -54,7 +54,7 @@ public:
     std::vector<std::pair<int, int>> getAvailableTuilesChoices() { return plateau->getCasesLibres(); }
     bool isPlayerAbbePlaced() { return currentJoueur->isAbbePlaced(); }
     std::list<Element*> getCurrentTuileElements() { return currentTuile->getElements(); }
-    int getFirstTuileId() { return plateau->getMap().at(pair<int,int>(6,11))->getID(); }
+    int getFirstTuileId() { return plateau->getMap().at(std::pair<int,int>(6,11))->getID(); }
     int getRotation() const { return rotation; }
     void rotateTuile() { currentTuile->rotateOrientation(); rotation = (++rotation)%4; }
     bool tuileAction(int x, int y);

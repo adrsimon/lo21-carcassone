@@ -1,6 +1,7 @@
 #include "tuile.h"
 #include "element.h"
 #include <list>
+#include <algorithm>
 
 void Tuile::rotateOrientation() {
     for (Element* i : elements){

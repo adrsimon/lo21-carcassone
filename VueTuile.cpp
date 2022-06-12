@@ -21,7 +21,7 @@ void VueTuile::setTuile(const size_t newId, const int rot) {
 }
 
 void VueTuile::updateTuilePicture() {
-    std::string str  = "/Users/leo/Documents/UTC/LO21/lo21-carcassone/utils/tiles_illustrations/" + std::to_string(id) + ".jpeg";
+    std::string str  = "C:/Users/peron/Desktop/runwindows/lo21-carcassone/utils/tiles_illustrations/" + std::to_string(id) + ".jpeg";
     QImage* img = new QImage();
     img->load(QString::fromStdString(str));
     QPixmap pix = QPixmap::fromImage(*img);

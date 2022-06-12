@@ -121,10 +121,10 @@ void Jeu::checkCurrentTuileGroupements() {
 void Jeu::attribuerPoints(Groupement* g) {
     int score = plateau->evaluerGroupement(g);
     std::list<Meeple*> meeples = (g)->getMeeples();
-    map<Joueur*, int> numbers;
+    std::map<Joueur*, int> numbers;
     // INSERT RAWS
     for(auto it = joueurs.begin(); it != joueurs.end(); it++) {
-        numbers.insert(pair<Joueur*, int>(*it, 0));
+        numbers.insert(std::pair<Joueur*, int>(*it, 0));
     }
     // ADD COUNT
     for(auto it = meeples.begin(); it != meeples.end(); it++) {
@@ -146,14 +146,14 @@ void Jeu::attribuerPoints(Groupement* g) {
             jWinners.push_back((*it).first);
     }
     for(auto it = jWinners.begin(); it != jWinners.end(); it++) {
-        std::cout << "Le joueur " << (*it)->getNom() << " a gagné " << to_string(score) << " points." << std::endl;
+        std::cout << "Le joueur " << (*it)->getNom() << " a gagné " << std::to_string(score) << " points." << std::endl;
         (*it)->setScore((*it)->getScore() + score);
     }
 
 }
 
 std::vector<std::pair<int,int>> Jeu::getCordsOfDeletedMeeples() {
-    std::vector<pair<int,int>> raws;
+    std::vector<std::pair<int,int>> raws;
     std::list<Groupement*> grps = getCurrentTuileGroupements();
     for(auto it = grps.begin(); it != grps.end(); it++) {
         if((*it)->isFinished()) {

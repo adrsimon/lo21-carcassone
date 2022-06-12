@@ -46,7 +46,7 @@ void VuePlateau::tuileClick(VueTuile* vt) {
         j.checkCurrentTuileGroupements();
 
         // REMOOVE MEEPLES
-        std::vector<pair<int,int>> deletedMeeples = j.getCordsOfDeletedMeeples();
+        std::vector<std::pair<int,int>> deletedMeeples = j.getCordsOfDeletedMeeples();
         for(auto it = deletedMeeples.begin(); it != deletedMeeples.end(); it++) {
             tuiles[it->second][it->first]->clearMeeples();
             poserTuile(tuiles[it->second][it->first]->getTuileId(), it->second, it->first);
@@ -80,7 +80,7 @@ void VuePlateau::gameOver() {
     std::list<Joueur*> joueurs = j.getJoueurs();
     std::string str;
     for(auto it = joueurs.begin(); it != joueurs.end(); it++) {
-        str+= (*it)->getNom() + " (" + TypeCouleur::toString((*it)->getCouleur()) + ") - " + to_string((*it)->getScore()) + " points \n";
+        str+= (*it)->getNom() + " (" + TypeCouleur::toString((*it)->getCouleur()) + ") - " + std::to_string((*it)->getScore()) + " points \n";
     }
     qmsg.setInformativeText(QString::fromStdString(str));
     qmsg.exec();

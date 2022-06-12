@@ -1,4 +1,5 @@
 #include "plateau.h"
+#include <algorithm>
 
 // SINGLETON
 
@@ -20,7 +21,7 @@ void Plateau::libereInstance() {
     }
 }
 Tuile* Plateau::getTuile(int x, int y) {
-    auto tuile = plateau.find(pair<int,int>(x,y));
+    auto tuile = plateau.find(std::pair<int,int>(x,y));
     if(tuile == plateau.end())
         return nullptr;
     else return tuile->second;
@@ -111,7 +112,7 @@ Groupement* Plateau::getGroupementWithMeeple(Meeple* m) {
 
 // Place Tuile and add to groupements list
 void Plateau::placerTuile(Tuile* t, int x, int y) {
-    plateau.insert(pair<pair<int,int>, Tuile*>(pair<int,int>(x,y),t));
+    plateau.insert(std::pair<std::pair<int,int>, Tuile*>(std::pair<int,int>(x,y),t));
     std::vector<Tuile*> voisins = getVoisins(x, y);
     std::list<Element*> elems = t->getElements();
     Groupement* g;
@@ -202,7 +203,7 @@ std::vector<std::pair<int,int>> Plateau::getSquaredNullVoisins(int x, int y) {
 }
 
 
-pair<int, int> Plateau::getTuileCoordinates(Tuile* t) {
+std::pair<int, int> Plateau::getTuileCoordinates(Tuile* t) {
     for(auto it = plateau.begin(); it != plateau.end(); it++) {
         if((*it).second == t)
             return (*it).first;
@@ -304,7 +305,7 @@ void Plateau::checkRoute(Groupement *g) {
     std::list<Element*> elems = g->getElements();
     for(auto it = elems.begin(); it != elems.end(); it++) {
         Tuile* t = getTuileWithElement(*it);
-        pair<int,int> cords = getTuileCoordinates(t);
+        std::pair<int,int> cords = getTuileCoordinates(t);
         std::list<TypeCardinaux::points> cards = (*it)->getOrientations();
         for(auto it2 = cards.begin(); it2 != cards.end(); it2 ++) {
             if(getVoisinByOrientation(cords.first, cords.second, *it2) == nullptr)
@@ -318,7 +319,7 @@ void Plateau::checkVille(Groupement *g) {
     std::list<Element*> elems = g->getElements();
     for(auto it = elems.begin(); it != elems.end(); it++) {
         Tuile* t = getTuileWithElement(*it);
-        pair<int,int> cords = getTuileCoordinates(t);
+        std::pair<int,int> cords = getTuileCoordinates(t);
         std::list<TypeCardinaux::points> cards = (*it)->getOrientations();
         for(auto it2 = cards.begin(); it2 != cards.end(); it2 ++) {
             if(getVoisinByOrientation(cords.first, cords.second, *it2) == nullptr)
@@ -332,7 +333,7 @@ void Plateau::checkPre(Groupement* g) {
     std::list<Element*> elems = g->getElements();
     for(auto it = elems.begin(); it != elems.end(); it++) {
         Tuile* t = getTuileWithElement(*it);
-        pair<int,int> cords = getTuileCoordinates(t);
+        std::pair<int,int> cords = getTuileCoordinates(t);
         std::list<TypeCardinaux::points> cards = (*it)->getOrientations();
         for(auto it2 = cards.begin(); it2 != cards.end(); it2 ++) {
             if(getVoisinByOrientation(cords.first, cords.second, *it2) == nullptr)
@@ -344,11 +345,11 @@ void Plateau::checkPre(Groupement* g) {
 
 void Plateau::checkAbbaye(Groupement* g) {
     Tuile* t = getTuileWithElement(g->getElements().front());
-    pair<int,int> cords = getTuileCoordinates(t);
+    std::pair<int,int> cords = getTuileCoordinates(t);
     g->setComplete(getSquaredNullVoisins(cords.first, cords.second).size() == 8);
 }
 void Plateau::checkJardin(Groupement* g) {
     Tuile* t = getTuileWithElement(g->getElements().front());
-    pair<int,int> cords = getTuileCoordinates(t);
+    std::pair<int,int> cords = getTuileCoordinates(t);
     g->setComplete(getSquaredNullVoisins(cords.first, cords.second).size() == 8);
 }

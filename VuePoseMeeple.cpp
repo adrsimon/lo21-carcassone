@@ -33,7 +33,7 @@ VuePoseMeeple::VuePoseMeeple(VueTuile* vt, QWidget *parent) : vt(vt), QDialog(pa
         std::list<TypeCardinaux::points> orients = (*it)->getOrientations();
         for(auto it2 = orients.begin(); it2 != orients.end(); it2++)
             str += " - "  + TypeCardinaux::toString(*it2);
-        elemsButtons.push_back(pair<QCheckBox*, Element*>(new QCheckBox(QString::fromStdString(str)), *it));
+        elemsButtons.push_back(std::pair<QCheckBox*, Element*>(new QCheckBox(QString::fromStdString(str)), *it));
         elemsdisplay->addWidget(elemsButtons.back().first);
     }
 
@@ -41,8 +41,8 @@ VuePoseMeeple::VuePoseMeeple(VueTuile* vt, QWidget *parent) : vt(vt), QDialog(pa
     auto meeples = j.getPlayerMeeplesAmount();
     for(auto it = meeples.begin(); it != meeples.end(); it++) {
         std::cout << TypeMeeple::toString((it->first)) << std::endl;
-        std::string str = TypeMeeple::toString((it->first)) + " - " + to_string(it->second) + " restants";
-        meeplesButtons.push_back(pair<QCheckBox*, TypeMeeple::points>(new QCheckBox(QString::fromStdString(str)), it->first));
+        std::string str = TypeMeeple::toString((it->first)) + " - " + std::to_string(it->second) + " restants";
+        meeplesButtons.push_back(std::pair<QCheckBox*, TypeMeeple::points>(new QCheckBox(QString::fromStdString(str)), it->first));
         meeplesdisplay->addWidget(meeplesButtons.back().first);
     }
 

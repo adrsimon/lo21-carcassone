@@ -24,8 +24,8 @@ private:
     // Settings to export
     Jeu& j = Jeu::getJeu();
 
-    std::vector<pair<QCheckBox*, Element*>> elemsButtons;
-    std::vector<pair<QCheckBox*, TypeMeeple::points>> meeplesButtons;
+    std::vector<std::pair<QCheckBox*, Element*>> elemsButtons;
+    std::vector<std::pair<QCheckBox*, TypeMeeple::points>> meeplesButtons;
     VueTuile* vt;
     // UX
     QPushButton* validerBoutton;

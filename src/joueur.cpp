@@ -2,6 +2,7 @@
 // Created by peron on 01/05/2022.
 //
 
+#include <algorithm>
 #include "joueur.h"
 
 Meeple* Joueur::getAvailableMeepleByType(TypeMeeple::points t) {
