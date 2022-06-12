@@ -14,6 +14,7 @@ public:
     Meeple& operator=(const Meeple& m)=delete;
     ~Meeple()=default;
     virtual TypeMeeple::points const getType() { return TypeMeeple::normal; }
+    virtual int const getPoids() { return 1; }
     void setAvailable(const bool b){ isAvailable = b; }
 };
 
@@ -21,12 +22,14 @@ class BigMeeple: public Meeple {
 public:
     BigMeeple() : Meeple() {}
     TypeMeeple::points const getType() override { return TypeMeeple::big; }
+    int const getPoids() { return 2; }
 };
 
 class AbbeMeeple: public Meeple {
 public:
     AbbeMeeple() : Meeple() {}
     TypeMeeple::points const getType() override { return TypeMeeple::abbe; }
+    int const getPoids() { return 1; }
 };
 
 #endif

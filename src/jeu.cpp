@@ -130,7 +130,7 @@ void Jeu::attribuerPoints(Groupement* g) {
     for(auto it = meeples.begin(); it != meeples.end(); it++) {
         for(auto it2 = joueurs.begin(); it2 != joueurs.end(); it2++) {
             if((*it2)->isMeepleOfPlayer(*it))
-                numbers.find(*it2)->second++;
+                numbers.find(*it2)->second+= (*it)->getPoids();
         }
     }
     bool alone=true;
