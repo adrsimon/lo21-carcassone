@@ -24,6 +24,8 @@ public:
     std::list<Meeple*> getMeeples() const { return meeples; }
     std::vector<std::pair<TypeMeeple::points, int>> getAvailableMeeplesAmount();
     Meeple* getAvailableMeepleByType(TypeMeeple::points t);
+    Meeple* getAbbe();
+    bool isAbbePlaced();
     int getScore() const { return score; }
     std::string getNom() const { return nom; }
     TypeCouleur::points getCouleur() const { return couleur; }
@@ -32,12 +34,14 @@ public:
     void setScore(int s) { score = s; }
 
     // Constructors and Destructors
-    Joueur(std::string nom, TypeCouleur::points couleur) : nom(nom), couleur(couleur), score(0) {
+    Joueur(std::string nom, TypeCouleur::points couleur, bool abbe=true, bool ac=true) : nom(nom), couleur(couleur), score(0) {
         for(int i=0; i<5; i++) {
             meeples.push_back(new Meeple());
         }
-        meeples.push_back(new BigMeeple());
-        meeples.push_back(new AbbeMeeple());
+        if(ac)
+            meeples.push_back(new BigMeeple());
+        if(abbe)
+            meeples.push_back(new AbbeMeeple());
     }
 };
 

@@ -20,7 +20,7 @@ private:
 
     // Settings to export
     std::vector<std::string> nomJoueurs;
-    std::list<bool> extensions;
+    QCheckBox* extensions[4];
 
     // UX
     QPushButton* validerBoutton;

@@ -21,25 +21,25 @@ void Jeu::libererJeu(){
 Jeu::Jeu() = default;
 Jeu::~Jeu() = default;
 
-void Jeu::initialiser(std::vector<std::string> noms, std::vector<TypeCouleur::points> cs, bool m, bool r, bool ac) {
+void Jeu::initialiser(std::vector<std::string> noms, std::vector<TypeCouleur::points> cs, bool m, bool r, bool ac, bool p, bool a) {
     // Création du plateau et de la pioche
     plateau = &Plateau::getInstance();
     pioche = &Pioche::getInstance();
 
     // Génération des tuiles en fonction des extensions
-    setExtensions(m, r, ac);
+    setExtensions(m, r, ac, p , a);
     pioche->genererTuiles(extensions);
 
     // Initialisation des joueurs
     for(int i = 0; i < noms.size(); i++) {
-        addJoueur(noms[i], cs[i]);
+        addJoueur(noms[i], cs[i], a, ac);
     }
 
     currentJoueur = joueurs.front();
     joueurs.push_back(joueurs.front());
     joueurs.pop_front();
     currentTuile = pioche->piocher();
-    plateau->placerTuile(currentTuile,0,0);
+    plateau->placerTuile(currentTuile,6,11);
     currentTuile = pioche->piocher();
 }
 
@@ -67,7 +67,7 @@ bool Jeu::tuileAction(int x, int y) {
 bool Jeu::meepleAction(Element* e, TypeMeeple::points t) {
     Meeple* m = currentJoueur->getAvailableMeepleByType(t);
     Groupement* g = plateau->getGroupementWithElement(e);
-    if(m == nullptr || g == nullptr || m->isPlaced() || !g->isMeepleAddable()) return false;
+    if(m == nullptr || g == nullptr || m->isPlaced() || !g->isMeepleAddable() || (e->getType() == TypeElement::jardin && t != TypeMeeple::abbe)) return false;
     std::cout << currentJoueur->getNom() << " a posé un Meeple " << TypeMeeple::toString(t) << " sur " << TypeElement::toString(e->getType()) << std::endl;
     g->addMeeple(m);
     e->setMeeple(true);
@@ -76,10 +76,12 @@ bool Jeu::meepleAction(Element* e, TypeMeeple::points t) {
 }
 // FONCTIONS DE JEU
 
-void Jeu::setExtensions(const bool m, const bool r, const bool ac) {
+void Jeu::setExtensions(const bool m, const bool r, const bool ac, bool p, bool a) {
     if (m) extensions.push_back(TypeExtension::main);
     if (r) extensions.push_back(TypeExtension::riviere);
     if (ac) extensions.push_back(TypeExtension::auberge);
+    if (p) extensions.push_back(TypeExtension::paysan);
+    if (a) extensions.push_back(TypeExtension::abbe);
 }
 
 bool Jeu::recupererMeeple(Meeple* m){
@@ -107,6 +109,11 @@ void Jeu::checkCurrentTuileGroupements() {
         if((*it)->isFinished()) {
             std::cout << "Groupement " << TypeElement::toString((*it)->getType()) << " terminé." << std::endl;
             attribuerPoints(*it);
+            std::list<Meeple*> mpls = (*it)->getMeeples();
+            for(auto it2 = mpls.begin(); it2 != mpls.end(); it2++) {
+                (*it2)->setAvailable(true);
+            }
+            (*it)->clearMeeples();
         }
     }
 }
@@ -143,4 +150,28 @@ void Jeu::attribuerPoints(Groupement* g) {
         (*it)->setScore((*it)->getScore() + score);
     }
 
+}
+
+std::vector<std::pair<int,int>> Jeu::getCordsOfDeletedMeeples() {
+    std::vector<pair<int,int>> raws;
+    std::list<Groupement*> grps = getCurrentTuileGroupements();
+    for(auto it = grps.begin(); it != grps.end(); it++) {
+        if((*it)->isFinished()) {
+            std::list<Element*> elems = (*it)->getElements();
+            for(auto it2 = elems.begin(); it2 != elems.end(); it2++) {
+                Tuile* t = plateau->getTuileWithElement(*it2);
+                std::pair<int,int> cords = plateau->getTuileCoordinates(t);
+                raws.push_back(cords);
+            }
+        }
+    }
+    return raws;
+}
+
+void Jeu::retirerPlayerAbbe() {
+    Meeple* m = currentJoueur->getAbbe();
+    m->setAvailable(true);
+    Groupement* g = plateau->getGroupementWithMeeple(m);
+    g->removeMeeple(m);
+    currentJoueur->setScore(currentJoueur->getScore() + plateau->evaluerGroupement(g));
 }

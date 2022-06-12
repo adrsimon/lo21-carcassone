@@ -37,18 +37,18 @@ std::vector<Tuile*> Plateau::getVoisins(int x, int y) {
 
 Tuile* Plateau::getVoisinByOrientation(int x, int y, TypeCardinaux::points t) {
     switch(t) {
-        case TypeCardinaux::sud: return getTuile(x, y-1);
-        case TypeCardinaux::est: return getTuile(x+1, y);
-        case TypeCardinaux::ouest: return getTuile(x-1, y);
-        case TypeCardinaux::nord: return getTuile(x, y+1);
-        case TypeCardinaux::sud_est: return getTuile(x, y-1);
-        case TypeCardinaux::sud_ouest: return getTuile(x, y-1);
-        case TypeCardinaux::est_nord: return getTuile(x+1, y);
-        case TypeCardinaux::est_sud: return getTuile(x+1, y);
-        case TypeCardinaux::ouest_nord: return getTuile(x-1, y);
-        case TypeCardinaux::ouest_sud: return getTuile(x-1, y);
-        case TypeCardinaux::nord_ouest: return getTuile(x, y+1);
-        case TypeCardinaux::nord_est: return getTuile(x, y+1);
+        case TypeCardinaux::ouest: return getTuile(x, y-1);
+        case TypeCardinaux::nord: return getTuile(x-1, y);
+        case TypeCardinaux::sud: return getTuile(x+1, y);
+        case TypeCardinaux::est: return getTuile(x, y+1);
+        case TypeCardinaux::ouest_nord: return getTuile(x, y-1);
+        case TypeCardinaux::ouest_sud: return getTuile(x, y-1);
+        case TypeCardinaux::nord_est: return getTuile(x-1, y);
+        case TypeCardinaux::nord_ouest: return getTuile(x-1, y);
+        case TypeCardinaux::sud_est: return getTuile(x+1, y);
+        case TypeCardinaux::sud_ouest: return getTuile(x+1, y);
+        case TypeCardinaux::est_nord: return getTuile(x, y+1);
+        case TypeCardinaux::est_sud: return getTuile(x, y+1);
     }
 }
 
@@ -95,7 +95,7 @@ void Plateau::placerTuile(Tuile* t, int x, int y) {
     std::vector<Tuile*> voisins = getVoisins(x, y);
     std::list<Element*> elems = t->getElements();
     Groupement* g;
-    std::cout << "- Placage de la tuile sur le plateau" << std::endl;
+    std::cout << "- Placage de la tuile sur le plateau (" << x << "," << y << ") -" << std::endl;
     for(auto it = elems.begin(); it != elems.end(); it++) {
         std::cout << "Ajout de l'élément " << TypeElement::toString((*it)->getType()) << " aux groupements" << std::endl;
         std::list<TypeCardinaux::points> dirs = (*it)->getOrientations();
@@ -160,6 +160,20 @@ std::vector<std::pair<int,int>> Plateau::getNullVoisins(int x, int y) {
     if (getTuile(x, y-1) == nullptr) res.push_back(std::pair<int,int>(x,y-1));
     return res;
 }
+
+std::vector<std::pair<int,int>> Plateau::getSquaredNullVoisins(int x, int y) {
+    std::vector<std::pair<int,int>> res;
+    if (getTuile(x+1, y) == nullptr) res.push_back(std::pair<int,int>(x+1,y));
+    if (getTuile(x-1, y) == nullptr) res.push_back(std::pair<int,int>(x-1,y));
+    if (getTuile(x, y+1) == nullptr) res.push_back(std::pair<int,int>(x,y+1));
+    if (getTuile(x, y-1) == nullptr) res.push_back(std::pair<int,int>(x,y-1));
+    if (getTuile(x+1, y+1) == nullptr) res.push_back(std::pair<int,int>(x+1,y+1));
+    if (getTuile(x-1, y+1) == nullptr) res.push_back(std::pair<int,int>(x-1,y+1));
+    if (getTuile(x-1, y+1) == nullptr) res.push_back(std::pair<int,int>(x-1,y+1));
+    if (getTuile(x-1, y-1) == nullptr) res.push_back(std::pair<int,int>(x-1,y-1));
+    return res;
+}
+
 
 pair<int, int> Plateau::getTuileCoordinates(Tuile* t) {
     for(auto it = plateau.begin(); it != plateau.end(); it++) {
@@ -245,7 +259,8 @@ void Plateau::checkGroupement(Groupement* g) {
             break;
     }
 }
-
+// OLD VERSIONS CHECKING NEW ONE
+/*
 void Plateau::checkRoute(Groupement *g) {
     int count=0;
     std::list<Element*> elems = g->getElements();
@@ -254,6 +269,22 @@ void Plateau::checkRoute(Groupement *g) {
             count ++;
 
         g->setComplete(count == 2);
+}
+*/
+
+// MORE FLEXIBLE
+void Plateau::checkRoute(Groupement *g) {
+    std::list<Element*> elems = g->getElements();
+    for(auto it = elems.begin(); it != elems.end(); it++) {
+        Tuile* t = getTuileWithElement(*it);
+        pair<int,int> cords = getTuileCoordinates(t);
+        std::list<TypeCardinaux::points> cards = (*it)->getOrientations();
+        for(auto it2 = cards.begin(); it2 != cards.end(); it2 ++) {
+            if(getVoisinByOrientation(cords.first, cords.second, *it2) == nullptr)
+                return;
+        }
+    }
+    g->setComplete(true);
 }
 
 void Plateau::checkVille(Groupement *g) {
@@ -274,7 +305,9 @@ void Plateau::checkPre(Groupement* g) {
 
 }
 void Plateau::checkAbbaye(Groupement* g) {
-
+    Tuile* t = getTuileWithElement(g->getElements().front());
+    pair<int,int> cords = getTuileCoordinates(t);
+    g->setComplete(getSquaredNullVoisins(cords.first, cords.second).size() == 8);
 }
 void Plateau::checkJardin(Groupement* g) {
 

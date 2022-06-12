@@ -30,13 +30,14 @@ VueSettings::VueSettings(QWidget *parent) : QDialog(parent) {
 
     // Displaying Extensions
     QLabel* titreExtensions = new QLabel("Liste des Extensions");
-    QCheckBox* extensions[2];
     layoutExtensions = new QVBoxLayout();
     layoutExtensions->addWidget(titreExtensions);
     extensions[0] = new QCheckBox("Rivière");
     extensions[1] = new QCheckBox("Auberge");
+    extensions[2] = new QCheckBox("Paysan");
+    extensions[3] = new QCheckBox("Abbé");
 
-    for(int i=0; i<2; i++) {
+    for(int i=0; i<4; i++) {
         layoutExtensions->addWidget(extensions[i]);
     }
 
@@ -59,16 +60,17 @@ void VueSettings::cliquerValider() {
         if(joueurs[i]->text().toStdString() != "")
             nomJoueurs.push_back(joueurs[i]->text().toStdString());
     }
-    bool r = *extensions.begin();
-    extensions.begin()++;
-    bool ac = *extensions.begin();
+    bool r = extensions[0]->isChecked();
+    bool ac = extensions[1]->isChecked();
+    bool p = extensions[2]->isChecked();
+    bool a = extensions[3]->isChecked();
 
     std::vector<TypeCouleur::points> couleurs = {
             TypeCouleur::rouge, TypeCouleur::bleu, TypeCouleur::vert, TypeCouleur::jaune, TypeCouleur::rose, TypeCouleur::orange
     };
 
     Jeu& j=Jeu::getJeu();
-    j.initialiser(nomJoueurs,couleurs,true,r,ac);
+    j.initialiser(nomJoueurs,couleurs,true,r,ac,p,a);
 
     close();
 

@@ -15,7 +15,7 @@ public:
 
 class TypeExtension {
 public:
-    enum points {main, riviere, auberge};
+    enum points {main, riviere, auberge, paysan, abbe};
     static std::string toString(points t);
 };
 

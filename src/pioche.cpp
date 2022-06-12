@@ -168,6 +168,15 @@ Element* parseElem(XMLNode* element) {
 
 void Pioche::genererTuiles(std::list<TypeExtension::points> extensions) {
     // loading XML file
+    bool paysan=false;
+    bool abbe=false;
+    for (auto it = extensions.begin(); it != extensions.end(); it++) {
+        if(*it == TypeExtension::abbe)
+            abbe=true;
+        if(*it == TypeExtension::paysan)
+            paysan=true;
+    }
+
     std::string path;
     for (auto it = extensions.begin(); it != extensions.end(); it++) {
         XMLDocument tiles;
@@ -184,30 +193,35 @@ void Pioche::genererTuiles(std::list<TypeExtension::points> extensions) {
                 break;
         }
 
-        XMLElement *root = tiles.FirstChildElement("tuiles");
-        XMLElement *tuile = root->FirstChildElement("tuile");
+        if(*it != TypeExtension::abbe && *it != TypeExtension::paysan) {
+            XMLElement *root = tiles.FirstChildElement("tuiles");
+            XMLElement *tuile = root->FirstChildElement("tuile");
 
-        while (tuile != nullptr) {
-            int tuile_id = atoi(tuile->Attribute("id"));
+            while (tuile != nullptr) {
+                int tuile_id = atoi(tuile->Attribute("id"));
 
-            std::list<Element *> elements;
-            XMLElement *element = tuile->FirstChildElement("element");
-            while (element != nullptr) {
-                Element *e = parseElem(element);
-                // creating the element
-                elements.push_back(e);
-                element = element->NextSiblingElement("element");
+                std::list<Element *> elements;
+                XMLElement *element = tuile->FirstChildElement("element");
+                while (element != nullptr) {
+                    Element *e = parseElem(element);
+                    // creating the element
+                    if((e->getType() == TypeElement::pre && !paysan) || (e->getType() == TypeElement::jardin && !abbe))
+                        delete e;
+                    else
+                        elements.push_back(e);
+                    element = element->NextSiblingElement("element");
+                }
+                // creating the tuile
+                Tuile *t = new Tuile(tuile_id, elements);
+                if ((*it) == TypeExtension::riviere) {
+                    tuiles_riviere.push_back(t);
+                    nbTuilesRiviereMax++;
+                } else {
+                    tuiles.push_back(t);
+                    nbTuilesMax++;
+                }
+                tuile = tuile->NextSiblingElement("tuile");
             }
-            // creating the tuile
-            Tuile *t = new Tuile(tuile_id, elements);
-            if ((*it) == TypeExtension::riviere) {
-                tuiles_riviere.push_back(t);
-                nbTuilesRiviereMax++;
-            } else {
-                tuiles.push_back(t);
-                nbTuilesMax++;
-            }
-            tuile = tuile->NextSiblingElement("tuile");
         }
     }
 }

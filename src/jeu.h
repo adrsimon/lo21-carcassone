@@ -21,8 +21,8 @@ private:
     std::list<TypeExtension::points> extensions;
     int rotation=0;
 
-    void addJoueur(std::string nom, TypeCouleur::points couleur) {joueurs.push_back(new Joueur(nom, couleur));}
-    void setExtensions(bool m, bool r, bool ac);
+    void addJoueur(std::string nom, TypeCouleur::points couleur, bool a, bool ac) {joueurs.push_back(new Joueur(nom, couleur, a, ac));}
+    void setExtensions(bool m, bool r, bool ac, bool p, bool a);
 
 public:
     // Singleton properties
@@ -32,7 +32,7 @@ public:
     Jeu& operator=(const Jeu& j)=delete;
 
     // Init
-    void initialiser(std::vector<std::string> noms, std::vector<TypeCouleur::points> cs, bool m=false, bool r=false, bool ac=false);
+    void initialiser(std::vector<std::string> noms, std::vector<TypeCouleur::points> cs, bool m=true, bool r=false, bool ac=false, bool p = true, bool a = true);
 
     // Getters
     Pioche *const getPioche() const {return pioche;}
@@ -49,10 +49,12 @@ public:
     int getTuilesAmount() const { return pioche->getTuiles().size() + pioche->getTuilesRiviere().size(); }
     std::vector<std::pair<TypeMeeple::points, int>> getPlayerMeeplesAmount() { return currentJoueur->getAvailableMeeplesAmount(); }
     std::vector<std::pair<TypeElement::points, int>> getSizeOfGroupements() { return plateau->getSizeOfGroupements(); }
+    std::vector<std::pair<int,int>> getCordsOfDeletedMeeples();
     std::list<Groupement*> getCurrentTuileGroupements();
     std::vector<std::pair<int, int>> getAvailableTuilesChoices() { return plateau->getCasesLibres(); }
+    bool isPlayerAbbePlaced() { return currentJoueur->isAbbePlaced(); }
     std::list<Element*> getCurrentTuileElements() { return currentTuile->getElements(); }
-    int getFirstTuileId() { return plateau->getMap().at(pair<int,int>(0,0))->getID(); }
+    int getFirstTuileId() { return plateau->getMap().at(pair<int,int>(6,11))->getID(); }
     int getRotation() const { return rotation; }
     void rotateTuile() { currentTuile->rotateOrientation(); rotation = (++rotation)%4; }
     bool tuileAction(int x, int y);
@@ -60,6 +62,7 @@ public:
     void checkCurrentTuileGroupements();
     void attribuerPoints(Groupement* g);
     bool recupererMeeple(Meeple* m);
+    void retirerPlayerAbbe();
 };
 
 #endif

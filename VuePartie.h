@@ -33,6 +33,7 @@ private:
 
     QPushButton* settingsBoutton;
     QPushButton* tournerBoutton;
+    QPushButton* scoreButton;
     QPushButton* jouerBoutton;
     QPushButton* quitterBoutton;
 
@@ -57,7 +58,7 @@ private slots:
     void cliqueSettings();
     void cliqueJouer();
     void cliqueQuitter() { close(); };
-
+    void cliqueScore();
     void cliqueTourner();
 };
 

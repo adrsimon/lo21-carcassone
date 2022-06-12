@@ -40,3 +40,15 @@ std::vector<std::pair<TypeMeeple::points, int>> Joueur::getAvailableMeeplesAmoun
 bool Joueur::isMeepleOfPlayer(Meeple* m) {
     return std::find(meeples.begin(), meeples.end(),m) != meeples.end();
 }
+
+bool Joueur::isAbbePlaced() {
+    for(auto it = meeples.begin(); it != meeples.end(); it++) {
+        if((*it)->getType() == TypeMeeple::abbe) return (*it)->isPlaced();
+    }
+}
+
+Meeple* Joueur::getAbbe() {
+    for(auto it = meeples.begin(); it != meeples.end(); it++) {
+        if((*it)->getType() == TypeMeeple::abbe) return *it;
+    }
+}

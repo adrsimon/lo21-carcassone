@@ -40,6 +40,7 @@ public:
     Tuile* getTuile(int x, int y);
     std::vector<Tuile*> getVoisins(int x, int y);
     std::vector<std::pair<int,int>> getNullVoisins(int x, int y);
+    std::vector<std::pair<int,int>> getSquaredNullVoisins(int x, int y);
     Tuile* getVoisinByOrientation(int x, int y, TypeCardinaux::points t);
 
     // Finders

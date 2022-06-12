@@ -41,7 +41,7 @@ VuePoseMeeple::VuePoseMeeple(VueTuile* vt, QWidget *parent) : vt(vt), QDialog(pa
     auto meeples = j.getPlayerMeeplesAmount();
     for(auto it = meeples.begin(); it != meeples.end(); it++) {
         std::cout << TypeMeeple::toString((it->first)) << std::endl;
-        std::string str = TypeMeeple::toString((it->first)) + " - " + to_string(it->second);
+        std::string str = TypeMeeple::toString((it->first)) + " - " + to_string(it->second) + " restants";
         meeplesButtons.push_back(pair<QCheckBox*, TypeMeeple::points>(new QCheckBox(QString::fromStdString(str)), it->first));
         meeplesdisplay->addWidget(meeplesButtons.back().first);
     }
@@ -73,7 +73,7 @@ void VuePoseMeeple::cliquerValider() {
             QMessageBox qmsgbox;
             qmsgbox.setText("Meeple Posé !");
             qmsgbox.exec();
-            vt->addMeeple(e->getOrientations().front(), j.getCurrentJoueurColor());
+            vt->addMeeple(e->getOrientations().front(), j.getCurrentJoueurColor(), t);
             vt->update();
             close();
         } else {

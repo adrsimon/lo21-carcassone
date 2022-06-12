@@ -35,6 +35,7 @@ VuePartie::VuePartie(QWidget *parent): QWidget(parent) {
     settingsBoutton = new QPushButton("Paramètres");
     tournerBoutton = new QPushButton("Tourner Tuile");
     jouerBoutton = new QPushButton("Jouer");
+    scoreButton = new QPushButton("Score");
     quitterBoutton = new QPushButton("Quitter");
 
     // Buttons connection
@@ -42,6 +43,7 @@ VuePartie::VuePartie(QWidget *parent): QWidget(parent) {
     connect(jouerBoutton, &QPushButton::released, this, &VuePartie::cliqueJouer);
     connect(tournerBoutton, &QPushButton::released, this, &VuePartie::cliqueTourner);
     connect(quitterBoutton, &QPushButton::released, this, &VuePartie::cliqueQuitter);
+    connect(scoreButton, &QPushButton::released, this, &VuePartie::cliqueScore);
 
     // Player information
     QImage* tuileImage = new QImage();
@@ -51,6 +53,7 @@ VuePartie::VuePartie(QWidget *parent): QWidget(parent) {
     // LAYOUT BUTTONS
     layoutRight = new QVBoxLayout();
     layoutRight->addWidget(jouerBoutton, 0,Qt::AlignHCenter);
+    layoutRight->addWidget(scoreButton, 0, Qt::AlignHCenter);
     layoutRight->addWidget(settingsBoutton, 0,Qt::AlignHCenter);
     layoutRight->addWidget(quitterBoutton, 0,Qt::AlignHCenter);
     layoutRight->addWidget(piocheText, 0, Qt::AlignHCenter);
@@ -124,7 +127,8 @@ void VuePartie::cliqueJouer() {
     if(vueSettings == nullptr)
         return;
     if(!isPlaying) {
-        layoutPlateau->poserTuile(jeu.getFirstTuileId(), 0, 0);
+        std::cout << "ici" << std::endl;
+        layoutPlateau->poserTuile(jeu.getFirstTuileId(), 11, 6);
         nbCartesPioche->setRange(0, jeu.getTuilesAmount());
         nbCartesPioche->setValue(jeu.getTuilesAmount());
     }
@@ -141,4 +145,18 @@ void VuePartie::cliqueTourner() {
     pixmap = pixmap.transformed(t.rotate(90));
     tuile->setPixmap(pixmap);
     jeu.rotateTuile();
+}
+
+void VuePartie::cliqueScore() {
+    if(!isPlaying)
+        return;
+    QMessageBox qmsg;
+    qmsg.setText("Scores des joueurs");
+    std::list<Joueur*> joueurs = jeu.getJoueurs();
+    std::string str;
+    for(auto it = joueurs.begin(); it != joueurs.end(); it++) {
+        str+= (*it)->getNom() + " (" + TypeCouleur::toString((*it)->getCouleur()) + ") - " + to_string((*it)->getScore()) + " points \n";
+    }
+    qmsg.setInformativeText(QString::fromStdString(str));
+    qmsg.exec();
 }

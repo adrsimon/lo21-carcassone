@@ -19,7 +19,7 @@ public:
     void groupementFini();
 
 private:
-    VueTuile* tuiles[13][22];
+    VueTuile* tuiles[25][25];
     Jeu& j = Jeu::getJeu();
 private slots:
     void tuileClick(VueTuile* vt);

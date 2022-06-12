@@ -41,6 +41,7 @@ public:
     void addElement(Element* e) { elements.push_back(e); }
     void removeMeeple(Meeple* m) { meeples.remove(m); }
     void removeElement(Element* e) { elements.remove(e); }
+    void clearMeeples() { meeples.clear(); }
 
     // Operators overloading
     Groupement &operator=(const Groupement &g);
