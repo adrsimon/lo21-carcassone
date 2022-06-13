@@ -32,10 +32,11 @@ void VueTuile::updateTuilePicture() {
     update();
 }
 
-void VueTuile::clearMeeples() {
-    if(meeples.size() != 0) {
-        meeples.clear();
-        cleared=true;
+void VueTuile::clearMeeples(TypeCardinaux::points card) {
+    if(meeples.size() == 0) return;
+    for(auto it = meeples.begin(); it != meeples.end(); it++) {
+       if(std::get<0>(*it) == card)
+           meeples.erase(it);
     }
 }
 
@@ -57,20 +58,20 @@ void VueTuile::paintEvent(QPaintEvent* e)
         painter.setBrush(QBrush(toQColor(std::get<1>(*it)),Qt::SolidPattern));
         switch (std::get<0>(*it)) {
             case TypeCardinaux::nord:
-                if(std::get<2>(*it) == TypeMeeple::normal) painter.drawRoundedRect(17.5,0, 10, 10, 5,5);
-                else painter.drawRect(17.5,0, 10, 10);
+                if(std::get<2>(*it) == TypeMeeple::normal) painter.drawRoundedRect(17,0, 10, 10, 5,5);
+                else painter.drawRect(17,0, 10, 10);
                 break;
             case TypeCardinaux::est:
-                if(std::get<2>(*it) == TypeMeeple::normal) painter.drawRoundedRect(35,17.5, 10, 10, 5,5);
-                else painter.drawRect(35,17.5, 10, 10);
+                if(std::get<2>(*it) == TypeMeeple::normal) painter.drawRoundedRect(35,17, 10, 10, 5,5);
+                else painter.drawRect(35,17, 10, 10);
                 break;
             case TypeCardinaux::sud:
-                if(std::get<2>(*it) == TypeMeeple::normal) painter.drawRoundedRect(17.5,35, 10, 10, 5,5);
-                else painter.drawRect(17.5,35, 10, 10);
+                if(std::get<2>(*it) == TypeMeeple::normal) painter.drawRoundedRect(17,35, 10, 10, 5,5);
+                else painter.drawRect(17,35, 10, 10);
                 break;
             case TypeCardinaux::ouest:
-                if(std::get<2>(*it) == TypeMeeple::normal) painter.drawRoundedRect(0,17.5, 10, 10, 5,5);
-                else painter.drawRect(0,17.5, 10, 10);
+                if(std::get<2>(*it) == TypeMeeple::normal) painter.drawRoundedRect(0,17, 10, 10, 5,5);
+                else painter.drawRect(0,17, 10, 10);
                 break;
             case TypeCardinaux::nord_ouest:
             case TypeCardinaux::ouest_nord:
@@ -93,8 +94,8 @@ void VueTuile::paintEvent(QPaintEvent* e)
                 else painter.drawRect(35,35, 10, 10);
                 break;
             default:
-                if(std::get<2>(*it) == TypeMeeple::normal) painter.drawRoundedRect(17.5, 17.5, 10,10, 5,5);
-                else painter.drawRect(17.5, 17.5, 10,10);
+                if(std::get<2>(*it) == TypeMeeple::normal) painter.drawRoundedRect(17, 17, 10,10, 5,5);
+                else painter.drawRect(17, 17, 10,10);
                 break;
         }
     }

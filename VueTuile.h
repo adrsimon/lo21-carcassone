@@ -20,7 +20,7 @@ public:
     int getVueTuileX() const { return x; }
     int getVueTuileY() const { return y; }
     void addMeeple(TypeCardinaux::points card, TypeCouleur::points cou, TypeMeeple::points type) { meeples.push_back(std::tuple<TypeCardinaux::points, TypeCouleur::points, TypeMeeple::points>(card,cou, type)); }
-    void clearMeeples();
+    void clearMeeples(TypeCardinaux::points c);
     void retirerAbbe(TypeCouleur::points c);
     QColor toQColor(TypeCouleur::points c);
 

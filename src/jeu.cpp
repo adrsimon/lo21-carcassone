@@ -155,8 +155,8 @@ void Jeu::attribuerPoints(Groupement* g) {
 
 }
 
-std::vector<std::pair<int,int>> Jeu::getCordsOfDeletedMeeples() {
-    std::vector<std::pair<int,int>> raws;
+std::vector<std::pair<std::pair<int,int>, TypeCardinaux::points>> Jeu::getCordsOfDeletedMeeples() {
+    std::vector<std::pair<std::pair<int,int>, TypeCardinaux::points>> raws;
     std::list<Groupement*> grps = getCurrentTuileGroupements();
     for(auto it = grps.begin(); it != grps.end(); it++) {
         if((*it)->isFinished()) {
@@ -164,7 +164,7 @@ std::vector<std::pair<int,int>> Jeu::getCordsOfDeletedMeeples() {
             for(auto it2 = elems.begin(); it2 != elems.end(); it2++) {
                 Tuile* t = plateau->getTuileWithElement(*it2);
                 std::pair<int,int> cords = plateau->getTuileCoordinates(t);
-                raws.push_back(cords);
+                raws.push_back(std::pair<std::pair<int,int>, TypeCardinaux::points>(cords, (*it2)->getOrientations().front()));
             }
         }
     }

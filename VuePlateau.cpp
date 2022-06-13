@@ -46,10 +46,10 @@ void VuePlateau::tuileClick(VueTuile* vt) {
         j.checkCurrentTuileGroupements();
 
         // REMOOVE MEEPLES
-        std::vector<std::pair<int,int>> deletedMeeples = j.getCordsOfDeletedMeeples();
+        std::vector<std::pair<std::pair<int,int>, TypeCardinaux::points>> deletedMeeples = j.getCordsOfDeletedMeeples();
         for(auto it = deletedMeeples.begin(); it != deletedMeeples.end(); it++) {
-            tuiles[it->second][it->first]->clearMeeples();
-            poserTuile(tuiles[it->second][it->first]->getTuileId(), it->second, it->first);
+            tuiles[it->first.second][it->first.first]->clearMeeples(it->second);
+            poserTuile(tuiles[it->first.second][it->first.first]->getTuileId(), it->first.second, it->first.first);
         }
         // Tour FINI
         j.nextTurn();
